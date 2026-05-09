@@ -28,6 +28,39 @@ services:
       timeout: 3s
       retries: 5
 
+  # Mailhog — open source SMTP dev server (https://github.com/mailhog/MailHog, MIT)
+  # Web UI at http://localhost:8025 to inspect sent emails
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "1025"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # MinIO — open source S3-compatible object storage (https://github.com/minio/minio, AGPL)
+  # Web console at http://localhost:9001 (login: minioadmin / minioadmin)
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Web console
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 volumes:
   postgres_data:
   redis_data:
+  minio_data:
