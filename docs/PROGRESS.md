@@ -6,9 +6,9 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 3 — Peer Phish
-- **Step:** 3.12 — Phase 3 integration tests (phishSimulator + smishing, 35 tests passing)
-- **File:** `apps/api/src/services/__tests__/phishSimulator.test.ts`, `smishing.test.ts`
+- **Phase:** 4 — CISO Dashboard
+- **Step:** 4.01 — Initialize apps/dashboard (Next.js 14 App Router + Tailwind, design-token wired)
+- **File:** `apps/dashboard/` (package.json, tsconfig.json, next.config.mjs, tailwind.config.ts, src/app/{layout,page}.tsx, globals.css)
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -69,7 +69,7 @@
 - [x] 3.12 Write Phase 3 integration tests (msw mocks for Nodemailer, TextBelt)
 
 ### Phase 4 — CISO Dashboard
-- [ ] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)
+- [x] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)
 - [ ] 4.02 Configure NextAuth.js (magic link + Google OAuth + Microsoft OAuth)
 - [ ] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
 - [ ] 4.04 Build dashboard API client (fetch wrapper with auth headers)
