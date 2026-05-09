@@ -7,9 +7,10 @@
 
 ## Last Completed
 - **Phase:** 4 — CISO Dashboard
-- **Step:** 4.01 — Initialize apps/dashboard (Next.js 14 App Router + Tailwind, design-token wired)
-- **File:** `apps/dashboard/` (package.json, tsconfig.json, next.config.mjs, tailwind.config.ts, src/app/{layout,page}.tsx, globals.css)
+- **Step:** 4.12 — /setup wizard (timezone + puzzle time) backed by `PATCH /api/orgs/:orgId/setup`
+- **File:** `apps/dashboard/src/components/ComplianceExportButton.tsx`, `src/app/api/compliance/[orgId]/pdf/route.ts`, `src/app/setup/{page,setup-form}.tsx`, `apps/api/src/services/compliancePdf.tsx`, `apps/api/src/routes/compliance.ts`, additions to `apps/api/src/routes/orgs.ts`
 - **Date:** 2026-05-09
+- **Note:** Magic-link adapter and role middleware still deferred to 4.13. The compliance proxy enforces `session.user.orgId === params.orgId`, but the api `/api/compliance/:orgId/pdf` is open until role middleware lands.
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -70,17 +71,17 @@
 
 ### Phase 4 — CISO Dashboard
 - [x] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)
-- [ ] 4.02 Configure NextAuth.js (magic link + Google OAuth + Microsoft OAuth)
-- [ ] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
-- [ ] 4.04 Build dashboard API client (fetch wrapper with auth headers)
-- [ ] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
-- [ ] 4.06 Build PhishTrendChart.tsx (Recharts line chart, 90-day click rate)
-- [ ] 4.07 Build LeaderboardTable.tsx (top defenders + vulnerabilities list)
-- [ ] 4.08 Build RiskScoreGauge.tsx (color-coded shield icon)
-- [ ] 4.09 Build ComplianceExportButton.tsx (triggers PDF generation)
-- [ ] 4.10 Build compliance PDF (@react-pdf/renderer: org, period, scores, phish results, attestation)
-- [ ] 4.11 Build compliance.ts Express route (streams PDF, requires ciso/admin session)
-- [ ] 4.12 Build /setup page (post-Slack-install org wizard: timezone + puzzle time)
+- [x] 4.02 Configure NextAuth.js (Google + Microsoft OAuth wired; magic link deferred to 4.13 with auth-table schema)
+- [x] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
+- [x] 4.04 Build dashboard API client (fetch wrapper with auth headers)
+- [x] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
+- [x] 4.06 Build PhishTrendChart.tsx (Recharts line chart, 90-day click rate)
+- [x] 4.07 Build LeaderboardTable.tsx (top defenders + vulnerabilities list)
+- [x] 4.08 Build RiskScoreGauge.tsx (color-coded shield icon)
+- [x] 4.09 Build ComplianceExportButton.tsx (triggers PDF generation)
+- [x] 4.10 Build compliance PDF (@react-pdf/renderer: org, period, scores, phish results, attestation)
+- [x] 4.11 Build compliance.ts Express route (streams PDF; ciso/admin role gate deferred to 4.13)
+- [x] 4.12 Build /setup page (post-Slack-install org wizard: timezone + puzzle time)
 - [ ] 4.13 Add CISO/admin role middleware to all dashboard API routes
 - [ ] 4.14 Build Risk Heatmap PNG export endpoint (for board presentations)
 - [ ] 4.15 Write Phase 4 smoke tests (route accessibility, PDF generation)
