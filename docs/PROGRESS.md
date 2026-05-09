@@ -6,14 +6,14 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 1 — Bot MVP
-- **Step:** 1.19 — Integration tests (vitest + scoring formula)
-- **File:** `apps/api/src/services/__tests__/puzzleEngine.test.ts`
+- **Phase:** 2 — Risk Score & HIBP
+- **Step:** 2.10 — Phase 2 complete (all 10 steps)
+- **File:** `apps/api/src/services/__tests__/hibp.test.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
-- [ ] Phase 2: Risk Score & HIBP (10 steps)
+- [x] Phase 2: Risk Score & HIBP (10 steps)
 - [ ] Phase 3: Peer Phish (12 steps)
 - [ ] Phase 4: CISO Dashboard (15 steps)
 - [ ] Phase 5: SentryLife & Family Mode (12 steps)
@@ -43,16 +43,16 @@
 - [x] 1.19 Write Phase 1 integration tests (vitest + msw)
 
 ### Phase 2 — Risk Score & HIBP
-- [ ] 2.01 Build riskScorer.ts service (formula: Awareness×0.4 + Consistency×0.3 − RealWorldRisk×0.3)
-- [ ] 2.02 Build hibp.ts service (k-anonymity email lookup, Redis 24h TTL cache)
-- [ ] 2.03 Create hibpCheck.ts BullMQ weekly job (scan all users, update breach_records)
-- [ ] 2.04 Create riskScore.ts BullMQ nightly job (recalculate all scores, write risk_score_history)
-- [ ] 2.05 Implement /risk slash command (color-coded shield DM)
-- [ ] 2.06 Build weekly Monday summary message (score + streak + tip)
-- [ ] 2.07 Add puzzle difficulty escalation trigger (score < 60 → harder puzzles)
-- [ ] 2.08 Write Phase 2 unit tests (scoring formula) + msw HIBP mock
-- [ ] 2.09 Verify Redis key conventions (hibp:{email_hash} TTL, streak:{user_id})
-- [ ] 2.10 Audit log entries for job_failure on any job error
+- [x] 2.01 Build riskScorer.ts service (formula: Awareness×0.4 + Consistency×0.3 − RealWorldRisk×0.3)
+- [x] 2.02 Build hibp.ts service (k-anonymity email lookup, Redis 24h TTL cache)
+- [x] 2.03 Create hibpCheck.ts BullMQ weekly job (scan all users, update breach_records)
+- [x] 2.04 Create riskScore.ts BullMQ nightly job (recalculate all scores, write risk_score_history)
+- [x] 2.05 Implement /risk slash command (color-coded shield DM)
+- [x] 2.06 Build weekly Monday summary message (score + streak + tip)
+- [x] 2.07 Add puzzle difficulty escalation trigger (score < 60 → harder puzzles)
+- [x] 2.08 Write Phase 2 unit tests (scoring formula) + msw HIBP mock
+- [x] 2.09 Verify Redis key conventions (hibp:{email_hash} TTL, streak:{user_id})
+- [x] 2.10 Audit log entries for job_failure on any job error
 
 ### Phase 3 — Peer Phish
 - [ ] 3.01 Document sending domain setup (SPF/DKIM/DMARC for mail.defenddaily.com)

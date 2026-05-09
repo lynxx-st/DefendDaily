@@ -8,7 +8,12 @@ dotenv.config({ path: resolve(__dirname, '../../../../.env') })
 
 const pool = new Pool({ connectionString: process.env['DATABASE_URL'] })
 
-const migrations = ['001_init.sql', '002_slack_installation.sql']
+const migrations = [
+  '001_init.sql',
+  '002_slack_installation.sql',
+  '003_breach_records_unique.sql',
+  '004_risk_history_unique.sql',
+]
 
 async function migrate() {
   const client = await pool.connect()

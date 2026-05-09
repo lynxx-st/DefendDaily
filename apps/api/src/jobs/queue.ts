@@ -18,3 +18,4 @@ export const dailyPuzzleQueue = new Queue('daily-puzzle', { connection, defaultJ
 export const riskScoreQueue = new Queue('risk-score', { connection, defaultJobOptions })
 export const hibpQueue = new Queue('hibp-check', { connection, defaultJobOptions })
 export const guardianAlertQueue = new Queue('guardian-alert', { connection, defaultJobOptions })
+export const weeklySummaryQueue = new Queue('weekly-summary', { connection, defaultJobOptions })

@@ -1,8 +1,12 @@
 import { receiver, slackApp } from './bots/slack/app'
 import './bots/slack/commands/defend'
 import './bots/slack/commands/leaderboard'
+import './bots/slack/commands/risk'
 import './bots/slack/actions/answerHandler'
 import { scheduleDailyPuzzleJob } from './jobs/dailyPuzzle'
+import { scheduleHibpJob } from './jobs/hibpCheck'
+import { scheduleRiskScoreJob } from './jobs/riskScore'
+import { scheduleWeeklySummaryJob } from './jobs/weeklySummary'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
@@ -23,6 +27,9 @@ app.get('/health', async (_req, res) => {
 ;(async () => {
   await slackApp.start(env.PORT)
   await scheduleDailyPuzzleJob()
+  await scheduleHibpJob()
+  await scheduleRiskScoreJob()
+  await scheduleWeeklySummaryJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
