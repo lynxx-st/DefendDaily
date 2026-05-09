@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 3 — Peer Phish
-- **Step:** 3.06 — /phish-a-friend Slack modal
-- **File:** `apps/api/src/bots/slack/commands/phishAFriend.ts`
+- **Step:** 3.08 — phish send handler (assertions + TOS + audit)
+- **File:** `apps/api/src/bots/slack/actions/phishSendHandler.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -61,8 +61,8 @@
 - [x] 3.04 Build GET /track/click/:token (record click, redirect, always 200)
 - [x] 3.05 Seed 10 phish templates (fake_invoice, mfa_request, hr_update, package_delivery, etc.)
 - [x] 3.06 Build /phish-a-friend Slack modal (template browser + opt-in target dropdown)
-- [ ] 3.07 Implement pre-send assertions (is_peer_phish_target, peer_phish_enabled, audit_log entry)
-- [ ] 3.08 Build TOS acknowledgment modal (log with timestamp + user_id)
+- [x] 3.07 Implement pre-send assertions (is_peer_phish_target, peer_phish_enabled, audit_log entry)
+- [x] 3.08 Build TOS acknowledgment modal (log with timestamp + user_id)
 - [ ] 3.09 Implement /report-phish command (Defense Points, check campaign token match)
 - [ ] 3.10 Build twilio.ts smishing service (explicit consent check before send)
 - [x] 3.11 Add rate limiting to all webhook endpoints (express-rate-limit)
