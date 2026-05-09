@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { api, DashboardApiError } from '@/lib/api';
+import { ComplianceExportButton } from '@/components/ComplianceExportButton';
 import { LeaderboardTable } from '@/components/LeaderboardTable';
 import { PhishTrendChart } from '@/components/PhishTrendChart';
 import { RiskHeatmap } from '@/components/RiskHeatmap';
@@ -58,7 +59,10 @@ export default async function DashboardPage() {
             {summary.total_users} active {summary.total_users === 1 ? 'user' : 'users'} · org {orgId.slice(0, 8)}
           </p>
         </div>
-        <RiskScoreGauge score={summary.avg_score} label="Avg Risk Score" size="lg" />
+        <div className="flex items-end gap-8">
+          <RiskScoreGauge score={summary.avg_score} label="Avg Risk Score" size="lg" />
+          <ComplianceExportButton orgId={orgId} orgName={`Org ${orgId.slice(0, 8)}`} />
+        </div>
       </header>
 
       <RiskHeatmap users={users} />
