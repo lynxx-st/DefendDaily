@@ -6,20 +6,25 @@ vi.mock('../../db/redis', () => ({
   redis: { get: vi.fn().mockResolvedValue(null), set: vi.fn().mockResolvedValue('OK') },
 }))
 
-vi.mock('../../config/env', () => ({
-  env: { HIBP_API_KEY: 'test-key' },
-}))
-
 import { checkEmailBreaches } from '../hibp'
 
 const server = setupServer(
-  http.get('https://haveibeenpwned.com/api/v3/breachedaccount/:email', ({ params }) => {
-    if (params['email'] === 'breached%40example.com' || params['email'] === 'breached@example.com') {
-      return HttpResponse.json([
-        { Name: 'Adobe', BreachDate: '2013-10-04', DataClasses: ['Email addresses', 'Passwords'] },
-      ])
+  http.post('https://databreach.com/_telefunc', async ({ request }) => {
+    const body = await request.json() as { args: [{ piis: [{ value: string }] }] }
+    const email = body.args[0]?.piis[0]?.value
+
+    if (email === 'breached@example.com') {
+      return HttpResponse.json({
+        result: {
+          count: 1,
+          breaches: [
+            { name: 'Adobe', date: '2013-10-04', data_classes: ['Email addresses', 'Passwords'], description: 'Adobe breach' },
+          ],
+        },
+      })
     }
-    return new HttpResponse(null, { status: 404 })
+
+    return HttpResponse.json({ result: { count: 0, breaches: [] } })
   })
 )
 
@@ -28,13 +33,14 @@ afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('checkEmailBreaches', () => {
-  it('returns breaches for a known breached email', async () => {
+  it('returns normalised breaches for a known breached email', async () => {
     const result = await checkEmailBreaches('breached@example.com')
     expect(result).toHaveLength(1)
     expect(result[0]?.Name).toBe('Adobe')
+    expect(result[0]?.DataClasses).toContain('Email addresses')
   })
 
-  it('returns empty array for clean email (404)', async () => {
+  it('returns empty array for a clean email', async () => {
     const result = await checkEmailBreaches('clean@example.com')
     expect(result).toHaveLength(0)
   })
