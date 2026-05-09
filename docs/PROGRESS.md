@@ -7,9 +7,10 @@
 
 ## Last Completed
 - **Phase:** 4 — CISO Dashboard
-- **Step:** 4.01 — Initialize apps/dashboard (Next.js 14 App Router + Tailwind, design-token wired)
-- **File:** `apps/dashboard/` (package.json, tsconfig.json, next.config.mjs, tailwind.config.ts, src/app/{layout,page}.tsx, globals.css)
+- **Step:** 4.02 — NextAuth.js wired (Google + Microsoft Entra ID OAuth, JWT sessions, /login page)
+- **File:** `apps/dashboard/src/auth.ts`, `src/config/env.ts`, `src/types/next-auth.d.ts`, `src/app/api/auth/[...nextauth]/route.ts`, `src/app/login/page.tsx`
 - **Date:** 2026-05-09
+- **Note:** Magic-link (Nodemailer) provider requires NextAuth's DB adapter for verification-token storage and is deferred to a follow-up substep alongside the role middleware (4.13), where the auth-table schema is introduced.
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -70,7 +71,7 @@
 
 ### Phase 4 — CISO Dashboard
 - [x] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)
-- [ ] 4.02 Configure NextAuth.js (magic link + Google OAuth + Microsoft OAuth)
+- [x] 4.02 Configure NextAuth.js (Google + Microsoft OAuth wired; magic link deferred to 4.13 with auth-table schema)
 - [ ] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
 - [ ] 4.04 Build dashboard API client (fetch wrapper with auth headers)
 - [ ] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
