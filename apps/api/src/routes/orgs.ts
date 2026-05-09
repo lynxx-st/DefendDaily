@@ -14,6 +14,10 @@ export const orgsRouter: RouterType = Router()
 
 const orgIdSchema = z.string().uuid()
 const weeksSchema = z.coerce.number().int().min(1).max(52).default(13)
+const setupBodySchema = z.object({
+  timezone: z.string().min(1).max(64),
+  puzzle_time: z.string().regex(/^\d{2}:\d{2}$/, 'puzzle_time must be HH:MM'),
+})
 
 orgsRouter.use((_req: Request, res: Response, next: NextFunction) => {
   res.locals['requestId'] = randomUUID()
@@ -106,6 +110,33 @@ orgsRouter.get('/:orgId/phish-trend', async (req, res) => {
   } catch (err) {
     logger.error({ err, orgId, requestId: res.locals['requestId'] }, 'phish-trend failed')
     sendError(res, 500, 'internal_error', 'Failed to compute phish trend')
+  }
+})
+
+orgsRouter.patch('/:orgId/setup', async (req, res) => {
+  const orgId = parseOrgId(req, res)
+  if (!orgId) return
+
+  const body = setupBodySchema.safeParse(req.body)
+  if (!body.success) {
+    return sendError(res, 400, 'invalid_setup_body', body.error.issues[0]?.message ?? 'invalid body')
+  }
+
+  try {
+    const result = await db.query(
+      `UPDATE organizations
+       SET timezone = $1, puzzle_time = $2::time
+       WHERE id = $3
+       RETURNING id`,
+      [body.data.timezone, `${body.data.puzzle_time}:00`, orgId]
+    )
+    if (result.rowCount === 0) {
+      return sendError(res, 404, 'org_not_found', 'Organization not found')
+    }
+    res.json({ ok: true })
+  } catch (err) {
+    logger.error({ err, orgId, requestId: res.locals['requestId'] }, 'org setup failed')
+    sendError(res, 500, 'internal_error', 'Failed to update organization')
   }
 })
 
