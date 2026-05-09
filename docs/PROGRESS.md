@@ -7,10 +7,10 @@
 
 ## Last Completed
 - **Phase:** 4 — CISO Dashboard
-- **Step:** 4.02 — NextAuth.js wired (Google + Microsoft Entra ID OAuth, JWT sessions, /login page)
-- **File:** `apps/dashboard/src/auth.ts`, `src/config/env.ts`, `src/types/next-auth.d.ts`, `src/app/api/auth/[...nextauth]/route.ts`, `src/app/login/page.tsx`
+- **Step:** 4.04 — Dashboard API client + apps/api `/api/orgs/*` routes (risk summary, phish trend, leaderboard)
+- **File:** `packages/shared-types/`, `apps/dashboard/src/lib/api.ts`, `apps/api/src/routes/orgs.ts`
 - **Date:** 2026-05-09
-- **Note:** Magic-link (Nodemailer) provider requires NextAuth's DB adapter for verification-token storage and is deferred to a follow-up substep alongside the role middleware (4.13), where the auth-table schema is introduced.
+- **Note:** Magic-link (Nodemailer) provider requires NextAuth's DB adapter and is deferred to 4.13 with the auth-table schema. Role-based authorization for `/api/orgs/*` is also deferred to 4.13.
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -72,8 +72,8 @@
 ### Phase 4 — CISO Dashboard
 - [x] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)
 - [x] 4.02 Configure NextAuth.js (Google + Microsoft OAuth wired; magic link deferred to 4.13 with auth-table schema)
-- [ ] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
-- [ ] 4.04 Build dashboard API client (fetch wrapper with auth headers)
+- [x] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
+- [x] 4.04 Build dashboard API client (fetch wrapper with auth headers)
 - [ ] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
 - [ ] 4.06 Build PhishTrendChart.tsx (Recharts line chart, 90-day click rate)
 - [ ] 4.07 Build LeaderboardTable.tsx (top defenders + vulnerabilities list)
