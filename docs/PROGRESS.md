@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 1 — Bot MVP
-- **Step:** 1.10 — migrate.ts
-- **File:** `apps/api/src/db/migrate.ts`
+- **Step:** 1.11 — queue.ts
+- **File:** `apps/api/src/jobs/queue.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -32,7 +32,7 @@
 - [x] 1.08 Build apps/api/src/db/redis.ts (ioredis client)
 - [x] 1.09 Write apps/api/src/db/migrations/001_init.sql (full schema)
 - [x] 1.10 Write migration runner script (apps/api/src/db/migrate.ts)
-- [ ] 1.11 Set up BullMQ (apps/api/src/jobs/queue.ts)
+- [x] 1.11 Set up BullMQ (apps/api/src/jobs/queue.ts)
 - [ ] 1.12 Initialize Slack Bolt app + OAuth install flow
 - [ ] 1.13 Build Block Kit message builders (spot_the_phish, true_false, scenario, breach_alert)
 - [ ] 1.14 Implement /defend slash command
