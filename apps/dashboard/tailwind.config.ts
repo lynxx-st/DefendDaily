@@ -1,10 +1,18 @@
 import type { Config } from 'tailwindcss';
+import { RISK_COLORS } from './src/lib/risk-colors';
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
+  safelist: [
+    { pattern: /^(bg|text|ring)-risk-(green|amber|orange|red)$/ },
+  ],
   theme: {
     extend: {
       colors: {
+        'risk-green': RISK_COLORS.green,
+        'risk-amber': RISK_COLORS.amber,
+        'risk-orange': RISK_COLORS.orange,
+        'risk-red': RISK_COLORS.red,
         primary: '#0007cd',
         'primary-active': '#0005a3',
         'primary-glow': '#1a26ff',
