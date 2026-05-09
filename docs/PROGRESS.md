@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 3 — Peer Phish
-- **Step:** 3.05 — seed 10 phish templates
-- **File:** `apps/api/src/db/seed.ts`
+- **Step:** 3.06 — /phish-a-friend Slack modal
+- **File:** `apps/api/src/bots/slack/commands/phishAFriend.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -60,7 +60,7 @@
 - [x] 3.03 Build GET /track/open/:token (1×1 pixel, always 200, rate-limited)
 - [x] 3.04 Build GET /track/click/:token (record click, redirect, always 200)
 - [x] 3.05 Seed 10 phish templates (fake_invoice, mfa_request, hr_update, package_delivery, etc.)
-- [ ] 3.06 Build /phish-a-friend Slack modal (template browser + opt-in target dropdown)
+- [x] 3.06 Build /phish-a-friend Slack modal (template browser + opt-in target dropdown)
 - [ ] 3.07 Implement pre-send assertions (is_peer_phish_target, peer_phish_enabled, audit_log entry)
 - [ ] 3.08 Build TOS acknowledgment modal (log with timestamp + user_id)
 - [ ] 3.09 Implement /report-phish command (Defense Points, check campaign token match)
