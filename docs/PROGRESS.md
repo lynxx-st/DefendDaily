@@ -7,10 +7,10 @@
 
 ## Last Completed
 - **Phase:** 4 — CISO Dashboard
-- **Step:** 4.04 — Dashboard API client + apps/api `/api/orgs/*` routes (risk summary, phish trend, leaderboard)
-- **File:** `packages/shared-types/`, `apps/dashboard/src/lib/api.ts`, `apps/api/src/routes/orgs.ts`
+- **Step:** 4.08 — RiskScoreGauge.tsx + (ciso)/dashboard route hosting all four components
+- **File:** `apps/dashboard/src/components/{RiskHeatmap,PhishTrendChart,LeaderboardTable,RiskScoreGauge}.tsx`, `src/app/(ciso)/dashboard/{page,loading}.tsx`, `src/lib/risk-colors.ts`
 - **Date:** 2026-05-09
-- **Note:** Magic-link (Nodemailer) provider requires NextAuth's DB adapter and is deferred to 4.13 with the auth-table schema. Role-based authorization for `/api/orgs/*` is also deferred to 4.13.
+- **Note:** Components redesigned for DESIGN.md dark canvas (the legacy phase docs targeted a light-mode palette). Risk colors centralized in `src/lib/risk-colors.ts` and consumed by both Tailwind config and Recharts. Magic-link adapter and role middleware still deferred to 4.13.
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -74,10 +74,10 @@
 - [x] 4.02 Configure NextAuth.js (Google + Microsoft OAuth wired; magic link deferred to 4.13 with auth-table schema)
 - [x] 4.03 Build packages/shared-types (TypeScript interfaces for all DB models)
 - [x] 4.04 Build dashboard API client (fetch wrapper with auth headers)
-- [ ] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
-- [ ] 4.06 Build PhishTrendChart.tsx (Recharts line chart, 90-day click rate)
-- [ ] 4.07 Build LeaderboardTable.tsx (top defenders + vulnerabilities list)
-- [ ] 4.08 Build RiskScoreGauge.tsx (color-coded shield icon)
+- [x] 4.05 Build RiskHeatmap.tsx (department grid, color-coded red/amber/green)
+- [x] 4.06 Build PhishTrendChart.tsx (Recharts line chart, 90-day click rate)
+- [x] 4.07 Build LeaderboardTable.tsx (top defenders + vulnerabilities list)
+- [x] 4.08 Build RiskScoreGauge.tsx (color-coded shield icon)
 - [ ] 4.09 Build ComplianceExportButton.tsx (triggers PDF generation)
 - [ ] 4.10 Build compliance PDF (@react-pdf/renderer: org, period, scores, phish results, attestation)
 - [ ] 4.11 Build compliance.ts Express route (streams PDF, requires ciso/admin session)
