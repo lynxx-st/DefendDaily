@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 1 — Bot MVP
-- **Step:** 1.04 — .env.example
-- **File:** `.env.example`
+- **Step:** 1.10 — migrate.ts
+- **File:** `apps/api/src/db/migrate.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -26,12 +26,12 @@
 - [x] 1.02 Configure root TypeScript (tsconfig.base.json)
 - [x] 1.03 Create infra/docker-compose.yml (Postgres 16 + Redis 7)
 - [x] 1.04 Create .env.example with all variables from CLAUDE.md §9
-- [ ] 1.05 Initialize apps/api (Express + TypeScript + ts-node-dev)
-- [ ] 1.06 Build apps/api/src/config/env.ts (Zod env validation)
-- [ ] 1.07 Build apps/api/src/db/client.ts (node-postgres Pool)
-- [ ] 1.08 Build apps/api/src/db/redis.ts (ioredis client)
-- [ ] 1.09 Write apps/api/src/db/migrations/001_init.sql (full schema)
-- [ ] 1.10 Write migration runner script (apps/api/src/db/migrate.ts)
+- [x] 1.05 Initialize apps/api (Express + TypeScript + ts-node-dev)
+- [x] 1.06 Build apps/api/src/config/env.ts (Zod env validation)
+- [x] 1.07 Build apps/api/src/db/client.ts (node-postgres Pool)
+- [x] 1.08 Build apps/api/src/db/redis.ts (ioredis client)
+- [x] 1.09 Write apps/api/src/db/migrations/001_init.sql (full schema)
+- [x] 1.10 Write migration runner script (apps/api/src/db/migrate.ts)
 - [ ] 1.11 Set up BullMQ (apps/api/src/jobs/queue.ts)
 - [ ] 1.12 Initialize Slack Bolt app + OAuth install flow
 - [ ] 1.13 Build Block Kit message builders (spot_the_phish, true_false, scenario, breach_alert)
