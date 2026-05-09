@@ -1,14 +1,26 @@
 import axios from 'axios'
 import crypto from 'crypto'
 import { redis } from '../db/redis'
-import { env } from '../config/env'
 import { logger } from '../config/logger'
 
-type BreachEntry = {
+export type BreachEntry = {
   Name: string
   BreachDate: string
   DataClasses: string[]
   Description: string
+}
+
+// Telefunc response shape from databreach.com
+type DataBreachResponse = {
+  result: {
+    count: number
+    breaches: Array<{
+      name: string
+      date: string
+      data_classes: string[]
+      description?: string
+    }>
+  }
 }
 
 function emailCacheKey(email: string): string {
@@ -23,33 +35,37 @@ export async function checkEmailBreaches(email: string): Promise<BreachEntry[]> 
     return JSON.parse(cached) as BreachEntry[]
   }
 
-  if (!env.HIBP_API_KEY) {
-    logger.warn('HIBP_API_KEY not set — skipping breach check')
-    return []
-  }
-
   try {
-    const response = await axios.get<BreachEntry[]>(
-      `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(email)}`,
+    const response = await axios.post<DataBreachResponse>(
+      'https://databreach.com/_telefunc',
+      {
+        file: '/app/rpc/search.telefunc.ts',
+        name: 'public_search_count',
+        args: [{ piis: [{ value: email, type: 'email' }] }],
+      },
       {
         headers: {
-          'hibp-api-key': env.HIBP_API_KEY,
+          'Content-Type': 'application/json',
           'User-Agent': 'DefendDaily-SecurityTraining/1.0',
         },
-        params: { truncateResponse: false },
         timeout: 10_000,
       }
     )
 
-    const breaches = response.data
+    // Normalise to the same BreachEntry shape the rest of the codebase expects
+    const breaches: BreachEntry[] = (response.data.result?.breaches ?? []).map((b) => ({
+      Name: b.name,
+      BreachDate: b.date,
+      DataClasses: b.data_classes,
+      Description: b.description ?? '',
+    }))
+
     await redis.set(cacheKey, JSON.stringify(breaches), 'EX', 86400)
     return breaches
   } catch (err: unknown) {
-    if (axios.isAxiosError(err) && err.response?.status === 404) {
-      // 404 from HIBP = no breaches found — cache the empty result too
-      await redis.set(cacheKey, '[]', 'EX', 86400)
-      return []
-    }
-    throw err
+    logger.warn({ err }, 'databreach.com lookup failed — returning empty')
+    // Cache empty result briefly to avoid hammering on transient errors
+    await redis.set(cacheKey, '[]', 'EX', 3600)
+    return []
   }
 }
