@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 3 — Peer Phish
-- **Step:** 3.09 — /report-phish command with Defense Points
-- **File:** `apps/api/src/bots/slack/commands/reportPhish.ts`
+- **Step:** 3.10 — smishing.ts service (TextBelt, open source) with explicit consent gate
+- **File:** `apps/api/src/services/smishing.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -64,7 +64,7 @@
 - [x] 3.07 Implement pre-send assertions (is_peer_phish_target, peer_phish_enabled, audit_log entry)
 - [x] 3.08 Build TOS acknowledgment modal (log with timestamp + user_id)
 - [x] 3.09 Implement /report-phish command (Defense Points, check campaign token match)
-- [ ] 3.10 Build twilio.ts smishing service (explicit consent check before send)
+- [x] 3.10 Build smishing service (TextBelt — open source SMS gateway, explicit consent check before send)
 - [x] 3.11 Add rate limiting to all webhook endpoints (express-rate-limit)
 - [ ] 3.12 Write Phase 3 integration tests (msw mocks for Nodemailer, Twilio)
 
