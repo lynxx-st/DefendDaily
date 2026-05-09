@@ -7,14 +7,14 @@
 
 ## Last Completed
 - **Phase:** 3 — Peer Phish
-- **Step:** 3.10 — smishing.ts service (TextBelt, open source) with explicit consent gate
-- **File:** `apps/api/src/services/smishing.ts`
+- **Step:** 3.12 — Phase 3 integration tests (phishSimulator + smishing, 35 tests passing)
+- **File:** `apps/api/src/services/__tests__/phishSimulator.test.ts`, `smishing.test.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
 - [x] Phase 2: Risk Score & HIBP (10 steps)
-- [ ] Phase 3: Peer Phish (12 steps)
+- [x] Phase 3: Peer Phish (12 steps)
 - [ ] Phase 4: CISO Dashboard (15 steps)
 - [ ] Phase 5: SentryLife & Family Mode (12 steps)
 - [ ] Phase 6: Enterprise & IdP Automation (10 steps)
@@ -66,7 +66,7 @@
 - [x] 3.09 Implement /report-phish command (Defense Points, check campaign token match)
 - [x] 3.10 Build smishing service (TextBelt — open source SMS gateway, explicit consent check before send)
 - [x] 3.11 Add rate limiting to all webhook endpoints (express-rate-limit)
-- [ ] 3.12 Write Phase 3 integration tests (msw mocks for Nodemailer, Twilio)
+- [x] 3.12 Write Phase 3 integration tests (msw mocks for Nodemailer, TextBelt)
 
 ### Phase 4 — CISO Dashboard
 - [ ] 4.01 Initialize apps/dashboard (Next.js 14 App Router + Tailwind CSS)

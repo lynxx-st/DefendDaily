@@ -1,4 +1,9 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+
+vi.mock('../../db/client', () => ({
+  db: { query: vi.fn() },
+}))
+
 import { calcPoints } from '../puzzleEngine'
 
 describe('calcPoints', () => {
