@@ -1,6 +1,7 @@
 import { receiver, slackApp } from './bots/slack/app'
 import { webhooksRouter } from './routes/webhooks'
 import { orgsRouter } from './routes/orgs'
+import { complianceRouter } from './routes/compliance'
 import './bots/slack/commands/defend'
 import './bots/slack/commands/leaderboard'
 import './bots/slack/commands/risk'
@@ -22,6 +23,7 @@ const app = receiver.app
 app.use(require('express').json({ limit: '100kb' }))
 app.use('/', webhooksRouter)
 app.use('/api/orgs', orgsRouter)
+app.use('/api/compliance', complianceRouter)
 
 app.get('/health', async (_req, res) => {
   const [dbOk, redisOk] = await Promise.all([
