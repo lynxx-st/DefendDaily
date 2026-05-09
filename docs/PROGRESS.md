@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 3 — Peer Phish
-- **Step:** 3.11 — tracking webhooks + rate limiting (3.03, 3.04, 3.11 combined)
-- **File:** `apps/api/src/routes/webhooks.ts`
+- **Step:** 3.05 — seed 10 phish templates
+- **File:** `apps/api/src/db/seed.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -59,7 +59,7 @@
 - [x] 3.02 Build phishSimulator.ts (Nodemailer + tracking pixel + redirect URL injection)
 - [x] 3.03 Build GET /track/open/:token (1×1 pixel, always 200, rate-limited)
 - [x] 3.04 Build GET /track/click/:token (record click, redirect, always 200)
-- [ ] 3.05 Seed 10 phish templates (fake_invoice, mfa_request, hr_update, package_delivery, etc.)
+- [x] 3.05 Seed 10 phish templates (fake_invoice, mfa_request, hr_update, package_delivery, etc.)
 - [ ] 3.06 Build /phish-a-friend Slack modal (template browser + opt-in target dropdown)
 - [ ] 3.07 Implement pre-send assertions (is_peer_phish_target, peer_phish_enabled, audit_log entry)
 - [ ] 3.08 Build TOS acknowledgment modal (log with timestamp + user_id)

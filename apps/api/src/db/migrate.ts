@@ -13,6 +13,7 @@ const migrations = [
   '002_slack_installation.sql',
   '003_breach_records_unique.sql',
   '004_risk_history_unique.sql',
+  '005_phish_templates_unique.sql',
 ]
 
 async function migrate() {
