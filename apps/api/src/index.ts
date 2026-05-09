@@ -1,11 +1,14 @@
-import express from 'express'
+import { receiver, slackApp } from './bots/slack/app'
+import './bots/slack/commands/defend'
+import './bots/slack/commands/leaderboard'
+import './bots/slack/actions/answerHandler'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
 import { redis } from './db/redis'
 
-const app = express()
-app.use(express.json({ limit: '100kb' }))
+const app = receiver.app
+app.use(require('express').json({ limit: '100kb' }))
 
 app.get('/health', async (_req, res) => {
   const [dbOk, redisOk] = await Promise.all([
@@ -15,13 +18,14 @@ app.get('/health', async (_req, res) => {
   res.json({ status: 'ok', db: dbOk, redis: redisOk })
 })
 
-const server = app.listen(env.PORT, () => {
-  logger.info({ port: env.PORT }, 'API server started')
-})
+;(async () => {
+  await slackApp.start(env.PORT)
+  logger.info({ port: env.PORT }, 'DefendDaily API started')
+})()
 
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM received, shutting down')
-  server.close()
+  await slackApp.stop()
   await redis.quit()
   await db.end()
   process.exit(0)

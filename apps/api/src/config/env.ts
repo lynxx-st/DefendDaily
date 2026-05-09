@@ -12,6 +12,7 @@ const envSchema = z.object({
   SLACK_SIGNING_SECRET: z.string().min(1),
   SLACK_CLIENT_ID: z.string().min(1),
   SLACK_CLIENT_SECRET: z.string().min(1),
+  SLACK_STATE_SECRET: z.string().min(1).default('dev-state-secret-change-in-prod'),
   TRACKING_BASE_URL: z.string().url().default('http://localhost:3001'),
   HIBP_API_KEY: z.string().optional(),
   TWILIO_ACCOUNT_SID: z.string().optional(),
