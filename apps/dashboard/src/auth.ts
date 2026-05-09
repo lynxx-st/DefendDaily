@@ -1,15 +1,10 @@
 import NextAuth, { type NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
+import type { Role, User } from '@defenddaily/shared-types';
 import { env, hasGoogle, hasMicrosoft } from '@/config/env';
 
-type Role = 'employee' | 'ciso' | 'admin' | 'senior' | 'child';
-
-type DefendDailyUser = {
-  id: string;
-  org_id: string;
-  role: Role;
-};
+type DefendDailyUser = Pick<User, 'id' | 'org_id' | 'role'>;
 
 async function fetchUserByEmail(email: string): Promise<DefendDailyUser | null> {
   try {

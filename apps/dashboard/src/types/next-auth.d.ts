@@ -1,10 +1,11 @@
 import type { DefaultSession } from 'next-auth';
+import type { Role } from '@defenddaily/shared-types';
 
 declare module 'next-auth' {
   interface Session {
     user: {
       id?: string;
-      role: 'employee' | 'ciso' | 'admin' | 'senior' | 'child';
+      role: Role;
       orgId?: string;
     } & DefaultSession['user'];
   }
@@ -13,7 +14,7 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     userId?: string;
-    role?: 'employee' | 'ciso' | 'admin' | 'senior' | 'child';
+    role?: Role;
     orgId?: string;
   }
 }
