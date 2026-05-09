@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 1 — Bot MVP
-- **Step:** 1.02 — Root tsconfig.base.json
-- **File:** `tsconfig.base.json`
+- **Step:** 1.04 — .env.example
+- **File:** `.env.example`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -24,8 +24,8 @@
 ### Phase 1 — Bot MVP
 - [x] 1.01 Initialize pnpm monorepo (root package.json + pnpm-workspace.yaml)
 - [x] 1.02 Configure root TypeScript (tsconfig.base.json)
-- [ ] 1.03 Create infra/docker-compose.yml (Postgres 16 + Redis 7)
-- [ ] 1.04 Create .env.example with all variables from CLAUDE.md §9
+- [x] 1.03 Create infra/docker-compose.yml (Postgres 16 + Redis 7)
+- [x] 1.04 Create .env.example with all variables from CLAUDE.md §9
 - [ ] 1.05 Initialize apps/api (Express + TypeScript + ts-node-dev)
 - [ ] 1.06 Build apps/api/src/config/env.ts (Zod env validation)
 - [ ] 1.07 Build apps/api/src/db/client.ts (node-postgres Pool)
