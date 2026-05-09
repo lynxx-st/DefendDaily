@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You receive a LinkedIn connection request notification. What's suspicious about this email?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/005-linkedin.png",
+    "image_alt": "A fake LinkedIn connection request email",
+    "options": [
+      "The 'Accept' button points to 'linkedin.com.profile-connect.io' not 'linkedin.com'",
+      "The sender's profile photo is a stock image",
+      "The connection request came at an odd hour",
+      "The person's job title is 'CEO' at a company you don't recognize"
+    ],
+    "anomaly_hint": "Inspect where the Accept button actually navigates"
+  },
+  "correct_answer": "A",
+  "explanation": "The real LinkedIn domain is 'linkedin.com'. The URL 'linkedin.com.profile-connect.io' has '.io' as the TLD — 'linkedin.com' here is just a subdomain of 'profile-connect.io'. Stock profile photos are common in real accounts too, and connection requests from strangers are normal on LinkedIn. The URL structure is the only definitive indicator.",
+  "tags": ["phishing", "linkedin", "subdomain-spoofing", "url-inspection"]
+}

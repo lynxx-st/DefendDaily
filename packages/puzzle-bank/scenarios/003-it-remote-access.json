@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "Someone calls claiming to be from IT support. They say your computer is sending suspicious traffic and they need to install a 'security patch' remotely using AnyDesk. They give you a ticket number that sounds official. What do you do?",
+    "options": [
+      "Hang up, call your company's official IT helpdesk number to verify if the ticket is real",
+      "Allow the remote session — the ticket number proves it's legitimate",
+      "Ask them to send the patch via email instead so you can install it yourself",
+      "Allow the session but watch what they do on screen"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Ticket numbers and caller ID can both be faked. Legitimate IT departments initiate remote sessions through your company's approved tools (Jamf, Intune, SCCM) and never cold-call asking you to install remote access software. This is a vishing attack designed to install malware or ransomware. Always call back on the official IT number from your company directory.",
+  "tags": ["vishing", "remote-access", "social-engineering", "it-impersonation"]
+}

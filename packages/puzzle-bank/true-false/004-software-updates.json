@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "easy",
+  "payload": {
+    "question": "It's acceptable to delay installing security updates for several weeks if your computer is running smoothly."
+  },
+  "correct_answer": "false",
+  "explanation": "Most ransomware and malware exploits target known vulnerabilities that already have patches available. Attackers scan for unpatched systems automatically. Enable automatic updates.",
+  "tags": ["patching", "updates", "ransomware"]
+}

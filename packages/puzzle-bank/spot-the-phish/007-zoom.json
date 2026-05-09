@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You receive a Zoom meeting invitation. Which element indicates this might be a phishing attempt?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/007-zoom.png",
+    "image_alt": "A fake Zoom meeting invitation email",
+    "options": [
+      "The 'Join Meeting' link goes to 'zoom.us.meeting-join.com' not 'zoom.us'",
+      "The meeting is scheduled for 6:00 AM",
+      "The meeting ID is 13 digits long instead of the usual 9-11",
+      "The organizer's name is not in your contacts"
+    ],
+    "anomaly_hint": "Check the actual destination of the Join Meeting button"
+  },
+  "correct_answer": "A",
+  "explanation": "Real Zoom links go to 'zoom.us' or 'zoom.com'. The domain 'zoom.us.meeting-join.com' appends 'zoom.us' as a subdomain of 'meeting-join.com'. Attackers use this because email clients and users often read domains left-to-right and stop at a recognized brand name. Meeting ID length irregularities are subtle and Zoom changes their format; URL inspection is more reliable.",
+  "tags": ["phishing", "zoom", "remote-work", "subdomain-spoofing"]
+}

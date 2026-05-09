@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "medium",
+  "context_trigger": "travel",
+  "payload": {
+    "question": "You're at a hotel and see two WiFi networks: 'HiltonGuest' and 'Hilton_Guest_Free'. The front desk confirmed the official network is 'HiltonGuest'. You need to send a work email. What should you do?",
+    "options": [
+      "Connect to 'HiltonGuest' and use your VPN before sending anything",
+      "Use 'Hilton_Guest_Free' since it's free and probably the same network",
+      "Connect to 'HiltonGuest' and send the email immediately — HTTPS protects you",
+      "Use your phone's mobile hotspot instead of either network"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Even on a verified hotel network, a VPN encrypts your traffic and protects against other guests on the same network. Option D (hotspot) is also safe, but using VPN on the verified network is the standard corporate practice. 'Hilton_Guest_Free' is a classic evil twin attack setup.",
+  "tags": ["travel-security", "wifi", "vpn", "evil-twin"]
+}

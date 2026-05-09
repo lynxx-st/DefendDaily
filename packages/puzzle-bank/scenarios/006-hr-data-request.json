@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "hard",
+  "context_trigger": null,
+  "payload": {
+    "question": "An email arrives from 'hr-payroll@yourcompany-hr.com' saying there's a payroll discrepancy and you must update your direct deposit information by end of day or miss this month's payment. The email has your company logo and your manager's name. What do you do?",
+    "options": [
+      "Call HR directly using the number from your company intranet — do not use any contact info in the email",
+      "Reply to the email confirming your details so you don't miss payroll",
+      "Click the link in the email to review and update your bank details",
+      "Forward to your manager to ask if it's real"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Notice the domain: 'yourcompany-hr.com' is not your company's real domain. Adding '-hr' is a classic lookalike domain attack. Urgency (end of day) and fear (miss payroll) are emotional manipulation tactics. Company logos are easy to copy. Always verify payroll changes by calling HR on a number you find independently — never use contact info from a suspicious email.",
+  "tags": ["phishing", "lookalike-domain", "payroll-fraud", "social-engineering"]
+}

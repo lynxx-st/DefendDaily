@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "hard",
+  "context_trigger": null,
+  "payload": {
+    "question": "You receive an urgent email from your CEO: 'I'm in a board meeting and need you to wire $48,000 to a new vendor immediately. I'll explain later — don't tell anyone yet, it's time-sensitive.' The email address looks correct. What do you do?",
+    "options": [
+      "Call the CEO directly on their known phone number to verify before taking any action",
+      "Reply to the email asking for more details to confirm it's legitimate",
+      "Forward to your manager since it's above your authority",
+      "Process the wire since the CEO's email looks correct and it's urgent"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "This is a Business Email Compromise (BEC) / CEO fraud attack — one of the most costly cyber crimes ($2.9B in losses in 2023 per FBI IC3). Urgency, secrecy, and wire transfers are the three BEC warning signs. Email addresses are trivially spoofed. Always verify large financial requests via a second channel (phone call to a known number, not a number in the email).",
+  "tags": ["bec", "ceo-fraud", "social-engineering", "wire-transfer"]
+}

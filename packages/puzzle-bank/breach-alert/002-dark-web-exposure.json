@@ -1,0 +1,17 @@
+{
+  "type": "breach_alert",
+  "difficulty": "hard",
+  "context_trigger": "breach",
+  "payload": {
+    "question": "Your work email appeared in the RockYou2024 compilation (10B passwords). This was a compilation of many previous breaches. Your IT team has forced a password reset. What additional steps should YOU take?",
+    "options": [
+      "Enable MFA on all accounts linked to that email, check for active sessions, and review account recovery options",
+      "The IT-forced reset is sufficient — password rotation covers all risk",
+      "Create a new personal email address and migrate all accounts to it",
+      "Run antivirus software to check if your device was compromised"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "A password reset addresses credential theft but not account takeover that may have already occurred. Check for: (1) active sessions you don't recognize and revoke them, (2) recovery email/phone tampering — attackers often change these to maintain access after a password reset, (3) enable MFA so a stolen password alone isn't enough. Antivirus addresses a different threat vector (malware).",
+  "tags": ["breach-response", "mfa", "session-management", "account-recovery"]
+}

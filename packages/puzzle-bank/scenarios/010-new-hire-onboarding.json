@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "easy",
+  "context_trigger": "new_hire",
+  "payload": {
+    "question": "It's your first week. A friendly colleague asks for your login credentials 'just for 15 minutes' to access a shared system while their account is being set up. They seem trustworthy and it would really help them out. What do you do?",
+    "options": [
+      "Decline politely and suggest they contact IT to expedite their account setup",
+      "Share your credentials since it's just temporary and you trust them",
+      "Share your credentials but change your password immediately after",
+      "Help them log in this once and report it to IT afterward"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Credential sharing is prohibited in nearly every corporate security policy — even with trusted colleagues. If something goes wrong while they're logged in as you, you're accountable. This is also a common social engineering test run by IT security teams. Pointing to IT is always the right answer: it's not refusing to help, it's directing them to the correct process.",
+  "tags": ["credential-sharing", "social-engineering", "new-hire", "insider-threat"]
+}

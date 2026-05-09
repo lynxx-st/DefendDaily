@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You need VLC media player for a work presentation. You Google it and the top result (a paid ad) shows 'vlc-download.org' with a green padlock. The site looks identical to VideoLAN's official site. What's the safest approach?",
+    "options": [
+      "Go directly to videolan.org (the official site) by typing it in the address bar",
+      "Download from the ad result — the green padlock means it's safe",
+      "Download from a well-known site like CNET or Softpedia instead",
+      "Ask IT to install it through the company's software portal"
+    ]
+  },
+  "correct_answer": "D",
+  "explanation": "The padlock (HTTPS) only means the connection is encrypted — it says nothing about whether the site is legitimate. Malvertising campaigns routinely buy ads for popular software searches. Option D is the gold standard for work computers: use your company's approved software catalog. If that's not available, option A (direct URL) is second best. Never trust ads for software downloads.",
+  "tags": ["malvertising", "software-supply-chain", "https-misconception", "endpoint-security"]
+}

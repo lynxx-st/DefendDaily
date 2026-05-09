@@ -1,0 +1,45 @@
+import { z } from 'zod'
+import dotenv from 'dotenv'
+dotenv.config()
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  PORT: z.coerce.number().default(3001),
+  CORS_ORIGIN: z.string().default('http://localhost:3000'),
+  DATABASE_URL: z.string().url(),
+  REDIS_URL: z.string().url(),
+  SLACK_BOT_TOKEN: z.string().startsWith('xoxb-'),
+  SLACK_SIGNING_SECRET: z.string().min(1),
+  SLACK_CLIENT_ID: z.string().min(1),
+  SLACK_CLIENT_SECRET: z.string().min(1),
+  SLACK_STATE_SECRET: z.string().min(1).default('dev-state-secret-change-in-prod'),
+  TRACKING_BASE_URL: z.string().url().default('http://localhost:3001'),
+  HIBP_API_KEY: z.string().optional(),
+  TWILIO_ACCOUNT_SID: z.string().optional(),
+  TWILIO_AUTH_TOKEN: z.string().optional(),
+  TWILIO_FROM_NUMBER: z.string().optional(),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().default(587),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  PHISH_FROM_DOMAIN: z.string().default('mail.defenddaily.com'),
+  SENDGRID_API_KEY: z.string().optional(),
+  SENDGRID_FROM_EMAIL: z.string().email().default('alerts@defenddaily.com'),
+  CANARY_WEBHOOK_BASE: z.string().url().optional(),
+  OKTA_DOMAIN: z.string().optional(),
+  OKTA_API_TOKEN: z.string().optional(),
+  OKTA_RISK_POLICY_GROUP_ID: z.string().optional(),
+  S3_BUCKET: z.string().optional(),
+  S3_REGION: z.string().optional(),
+  S3_ACCESS_KEY: z.string().optional(),
+  S3_SECRET_KEY: z.string().optional(),
+})
+
+const result = envSchema.safeParse(process.env)
+if (!result.success) {
+  console.error('Invalid environment variables:', result.error.flatten().fieldErrors)
+  process.exit(1)
+}
+
+export const env = result.data
+export type Env = z.infer<typeof envSchema>

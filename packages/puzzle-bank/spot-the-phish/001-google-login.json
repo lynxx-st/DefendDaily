@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "easy",
+  "context_trigger": null,
+  "payload": {
+    "question": "Look at this login page carefully. Which element reveals this is a phishing site?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/001-google-login.png",
+    "image_alt": "A fake Google login page with subtle differences",
+    "options": [
+      "The URL bar shows 'accounts.google.com.signin-verify.net'",
+      "The Google logo colors look slightly off",
+      "The password field asks for your current password",
+      "The page has a 'Sign in with Google' button"
+    ],
+    "anomaly_hint": "Focus on the URL bar at the top of the browser"
+  },
+  "correct_answer": "A",
+  "explanation": "The domain is 'signin-verify.net', not 'google.com'. The 'accounts.google.com' part is a subdomain trick — the actual domain is everything after the last dot before the path. Attackers register lookalike domains and add legitimate-looking subdomains to fool users. Always read the URL from right to left: TLD → domain → subdomain.",
+  "tags": ["phishing", "url-inspection", "google", "lookalike-domain"]
+}
