@@ -6,9 +6,9 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 2 — Risk Score & HIBP
-- **Step:** 2.10 — Phase 2 complete (all 10 steps)
-- **File:** `apps/api/src/services/__tests__/hibp.test.ts`
+- **Phase:** 3 — Peer Phish
+- **Step:** 3.02 — phishSimulator.ts (Nodemailer + tracking injection)
+- **File:** `apps/api/src/services/phishSimulator.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
@@ -55,8 +55,8 @@
 - [x] 2.10 Audit log entries for job_failure on any job error
 
 ### Phase 3 — Peer Phish
-- [ ] 3.01 Document sending domain setup (SPF/DKIM/DMARC for mail.defenddaily.com)
-- [ ] 3.02 Build phishSimulator.ts (Nodemailer + tracking pixel + redirect URL injection)
+- [x] 3.01 Document sending domain setup (SPF/DKIM/DMARC for mail.defenddaily.com)
+- [x] 3.02 Build phishSimulator.ts (Nodemailer + tracking pixel + redirect URL injection)
 - [ ] 3.03 Build GET /track/open/:token (1×1 pixel, always 200, rate-limited)
 - [ ] 3.04 Build GET /track/click/:token (record click, redirect, always 200)
 - [ ] 3.05 Seed 10 phish templates (fake_invoice, mfa_request, hr_update, package_delivery, etc.)
