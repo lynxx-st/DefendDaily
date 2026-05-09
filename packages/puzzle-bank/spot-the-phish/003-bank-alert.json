@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You receive this urgent bank security alert. What's the primary indicator this is fraudulent?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/003-bank-alert.png",
+    "image_alt": "A fake bank security alert email with urgent language",
+    "options": [
+      "The sender address is 'security@chase-alerts-secure.com' not '@chase.com'",
+      "The email uses urgent language like 'IMMEDIATE ACTION REQUIRED'",
+      "The email shows your partial account number",
+      "The email was sent from a no-reply address"
+    ],
+    "anomaly_hint": "Check the sender's email domain carefully"
+  },
+  "correct_answer": "A",
+  "explanation": "Real Chase emails come from '@chase.com'. The domain 'chase-alerts-secure.com' is a completely different domain — registering it costs $10 and takes 5 minutes. Urgency is a social engineering tactic (not proof of fraud by itself), and partial account numbers are easy to guess or may have been obtained from a previous breach. The domain mismatch is always the hardest to fake.",
+  "tags": ["phishing", "financial-phishing", "sender-spoofing", "domain-inspection"]
+}

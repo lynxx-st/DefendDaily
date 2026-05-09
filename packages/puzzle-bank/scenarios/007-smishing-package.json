@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You get a text message: 'Your USPS package is held due to an incomplete address. Update delivery details: usps-delivery-update.net/redeliver' You are expecting a package. What do you do?",
+    "options": [
+      "Go directly to usps.com and enter your tracking number there to check the status",
+      "Click the link since you are expecting a package and it could be legitimate",
+      "Reply STOP to opt out of the messages",
+      "Google the tracking number from the text"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "This is smishing (SMS phishing). The domain 'usps-delivery-update.net' is not USPS's real domain (usps.com). Attackers send these in bulk knowing a percentage of recipients will be expecting packages. The link leads to a fake site that steals credit card info under the guise of a 'redelivery fee.' Always go to the official website directly — never click tracking links in texts.",
+  "tags": ["smishing", "package-delivery", "lookalike-domain", "phishing"]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "easy",
+  "context_trigger": "travel",
+  "payload": {
+    "question": "You're on a flight working on a confidential client proposal. The person next to you appears to be looking at your screen occasionally. What's the best action?",
+    "options": [
+      "Use a privacy screen filter and adjust your brightness down",
+      "Tilt your laptop away and keep working — it's probably fine",
+      "Close the laptop and wait until you land",
+      "Move to a different seat"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Shoulder surfing in public transit and airports is a real threat — corporate espionage and data theft happen this way. A privacy screen filter (3M makes popular ones) limits the viewing angle to ~60 degrees, making your screen unreadable from the side. This lets you keep working without risk. Closing the laptop stops productivity unnecessarily.",
+  "tags": ["physical-security", "shoulder-surfing", "travel-security", "data-protection"]
+}

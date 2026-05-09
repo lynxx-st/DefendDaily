@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "easy",
+  "context_trigger": null,
+  "payload": {
+    "question": "A colleague appears to have shared a file with you via Dropbox. Before clicking, what red flag do you notice?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/006-dropbox.png",
+    "image_alt": "A fake Dropbox file share notification email",
+    "options": [
+      "The sender's email is 'noreply@dropbox-sharing.net' not '@dropbox.com'",
+      "The shared file is named 'Q3_Financial_Report_CONFIDENTIAL.pdf'",
+      "The email says the link expires in 24 hours",
+      "Your colleague's display name is in all caps"
+    ],
+    "anomaly_hint": "Look at the 'From' field in the email header"
+  },
+  "correct_answer": "A",
+  "explanation": "Real Dropbox notifications come from '@dropbox.com'. The domain 'dropbox-sharing.net' is a lookalike designed to trick users who scan emails quickly. Attackers often add legitimate-sounding words like 'sharing' or 'notifications' to brand-name domains. File names that trigger curiosity (financial reports, confidential docs) are intentional lures.",
+  "tags": ["phishing", "dropbox", "sender-spoofing", "file-share-lure"]
+}

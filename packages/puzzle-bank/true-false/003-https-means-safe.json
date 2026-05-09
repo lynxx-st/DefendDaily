@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "easy",
+  "payload": {
+    "question": "A website with HTTPS and a padlock icon is safe to enter your password on."
+  },
+  "correct_answer": "false",
+  "explanation": "HTTPS only means the connection is encrypted — not that the site is legitimate. Phishing sites routinely use HTTPS. Always verify the domain name carefully, not just the padlock.",
+  "tags": ["phishing", "https", "misconceptions"]
+}

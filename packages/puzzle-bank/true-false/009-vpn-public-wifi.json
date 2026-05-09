@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "medium",
+  "payload": {
+    "question": "On public WiFi, using only HTTPS websites means your traffic cannot be intercepted by attackers on the same network."
+  },
+  "correct_answer": "false",
+  "explanation": "HTTPS encrypts content but not metadata. Attackers can still see which sites you visit, intercept DNS queries, and perform SSL stripping attacks on misconfigured sites. Use a VPN on public WiFi.",
+  "tags": ["wifi", "https", "vpn", "network-security"]
+}

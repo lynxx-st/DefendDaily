@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "easy",
+  "context_trigger": null,
+  "payload": {
+    "question": "You find a USB drive in your company's parking lot labeled 'Q3 Salary Data — Confidential.' You're curious and want to return it to the right person. What's the safest approach?",
+    "options": [
+      "Hand it to IT security without plugging it in anywhere",
+      "Plug it into your work computer quickly to check who it belongs to",
+      "Plug it into a personal computer to check — that way your work data is safe",
+      "Leave it at the front desk lost and found"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Found USB drives are a classic attack vector — IBM's X-Force found 98% of dropped USBs in a test were plugged in. The label 'Salary Data' is bait to trigger curiosity. Malicious USBs can execute code the instant they're plugged in (BadUSB attack) — no file needs to be opened. Hand it to IT who have tools to safely analyze it.",
+  "tags": ["physical-security", "usb-drop", "badusg", "social-engineering"]
+}

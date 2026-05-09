@@ -7,12 +7,12 @@
 
 ## Last Completed
 - **Phase:** 1 — Bot MVP
-- **Step:** 1.12 — Slack Bolt + OAuth install flow
-- **File:** `apps/api/src/bots/slack/app.ts`
+- **Step:** 1.19 — Integration tests (vitest + scoring formula)
+- **File:** `apps/api/src/services/__tests__/puzzleEngine.test.ts`
 - **Date:** 2026-05-09
 
 ## Overall Phase Status
-- [ ] Phase 1: Bot MVP (19 steps)
+- [x] Phase 1: Bot MVP (19 steps)
 - [ ] Phase 2: Risk Score & HIBP (10 steps)
 - [ ] Phase 3: Peer Phish (12 steps)
 - [ ] Phase 4: CISO Dashboard (15 steps)
@@ -34,13 +34,13 @@
 - [x] 1.10 Write migration runner script (apps/api/src/db/migrate.ts)
 - [x] 1.11 Set up BullMQ (apps/api/src/jobs/queue.ts)
 - [x] 1.12 Initialize Slack Bolt app + OAuth install flow
-- [ ] 1.13 Build Block Kit message builders (spot_the_phish, true_false, scenario, breach_alert)
-- [ ] 1.14 Implement /defend slash command
-- [ ] 1.15 Implement answer handler (scoring formula + Redis streak)
-- [ ] 1.16 Create dailyPuzzle.ts BullMQ repeatable job (9 AM per org timezone)
-- [ ] 1.17 Seed packages/puzzle-bank with 30+ puzzles across all types/difficulties
-- [ ] 1.18 Implement /leaderboard slash command (top 10 weekly)
-- [ ] 1.19 Write Phase 1 integration tests (vitest + msw)
+- [x] 1.13 Build Block Kit message builders (spot_the_phish, true_false, scenario, breach_alert)
+- [x] 1.14 Implement /defend slash command
+- [x] 1.15 Implement answer handler (scoring formula + Redis streak)
+- [x] 1.16 Create dailyPuzzle.ts BullMQ repeatable job (9 AM per org timezone)
+- [x] 1.17 Seed packages/puzzle-bank with 30+ puzzles across all types/difficulties
+- [x] 1.18 Implement /leaderboard slash command (top 10 weekly)
+- [x] 1.19 Write Phase 1 integration tests (vitest + msw)
 
 ### Phase 2 — Risk Score & HIBP
 - [ ] 2.01 Build riskScorer.ts service (formula: Awareness×0.4 + Consistency×0.3 − RealWorldRisk×0.3)

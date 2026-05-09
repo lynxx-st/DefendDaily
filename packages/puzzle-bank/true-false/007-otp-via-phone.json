@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "medium",
+  "payload": {
+    "question": "If someone calls you claiming to be IT support and asks you to read them your one-time password (OTP) to 'verify your account', this is a legitimate IT procedure."
+  },
+  "correct_answer": "false",
+  "explanation": "Legitimate IT staff never need your OTP — they have admin tools. This is a vishing (voice phishing) attack. OTPs are single-use secrets tied to your login. Sharing one gives an attacker full account access.",
+  "tags": ["vishing", "otp", "social-engineering", "impersonation"]
+}

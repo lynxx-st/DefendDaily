@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "easy",
+  "payload": {
+    "question": "Locking your screen when you step away from your desk is only necessary in public places, not in your own office."
+  },
+  "correct_answer": "false",
+  "explanation": "Insider threats and physical access attacks happen in offices too. An unlocked workstation can be accessed in seconds. Lock your screen every time you leave, even briefly.",
+  "tags": ["physical-security", "insider-threat", "screen-lock"]
+}

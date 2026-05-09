@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "medium",
+  "payload": {
+    "question": "Posting your work badge, office floor plan, or team org chart on LinkedIn is harmless networking."
+  },
+  "correct_answer": "false",
+  "explanation": "This information enables physical security bypass, targeted spear-phishing, and social engineering. Attackers use LinkedIn heavily for reconnaissance. Be mindful of what internal details you share publicly.",
+  "tags": ["osint", "social-engineering", "spear-phishing", "physical-security"]
+}

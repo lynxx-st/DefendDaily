@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "medium",
+  "context_trigger": null,
+  "payload": {
+    "question": "You received an email asking you to re-authenticate your Microsoft 365 account. Which element in this email screenshot is the biggest red flag?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/002-microsoft-365.png",
+    "image_alt": "A fake Microsoft 365 re-authentication email",
+    "options": [
+      "The 'Verify Now' button links to 'microsoftonline-auth.com' not 'microsoft.com'",
+      "The email says your session expired 2 hours ago",
+      "The Microsoft logo appears in the email header",
+      "The email was sent at 2:47 AM"
+    ],
+    "anomaly_hint": "Hover over the action button to see where it actually points"
+  },
+  "correct_answer": "A",
+  "explanation": "Microsoft's authentication domain is 'login.microsoftonline.com' — not 'microsoftonline-auth.com'. The hyphen + 'auth' is a registrant trick to look official. Session expiry notices, logos, and off-hours sends are all distractors. The destination URL of any call-to-action button is the most reliable indicator of phishing.",
+  "tags": ["phishing", "microsoft-365", "url-inspection", "corporate-phishing"]
+}

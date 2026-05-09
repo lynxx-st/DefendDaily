@@ -1,0 +1,17 @@
+{
+  "type": "scenario",
+  "difficulty": "hard",
+  "context_trigger": null,
+  "payload": {
+    "question": "You receive a call from someone claiming to be your bank's fraud department. Caller ID shows your bank's real phone number. They say suspicious transactions were flagged and ask you to verify your identity by confirming your full card number and CVV. What do you do?",
+    "options": [
+      "Hang up and call the number on the back of your card to reach fraud support",
+      "Provide the last 4 digits only — that's not enough for fraud",
+      "Verify since the caller ID matches your bank's number",
+      "Ask them to send a text confirmation first, then provide the details"
+    ]
+  },
+  "correct_answer": "A",
+  "explanation": "Caller ID spoofing is trivially easy — attackers can make calls appear to come from any number, including your bank's real fraud line. Your actual bank will NEVER ask for your full card number or CVV over the phone — they already have it. Hang up and call the number printed on the back of your physical card. This is a voice phishing (vishing) attack targeting financial credentials.",
+  "tags": ["vishing", "caller-id-spoofing", "financial-fraud", "social-engineering"]
+}

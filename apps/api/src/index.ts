@@ -2,12 +2,14 @@ import { receiver, slackApp } from './bots/slack/app'
 import './bots/slack/commands/defend'
 import './bots/slack/commands/leaderboard'
 import './bots/slack/actions/answerHandler'
+import { scheduleDailyPuzzleJob } from './jobs/dailyPuzzle'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
 import { redis } from './db/redis'
 
 const app = receiver.app
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 app.use(require('express').json({ limit: '100kb' }))
 
 app.get('/health', async (_req, res) => {
@@ -20,6 +22,7 @@ app.get('/health', async (_req, res) => {
 
 ;(async () => {
   await slackApp.start(env.PORT)
+  await scheduleDailyPuzzleJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 

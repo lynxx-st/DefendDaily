@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "medium",
+  "payload": {
+    "question": "You find a USB drive in the parking lot labeled 'Q3 Salary Data'. Plugging it into your personal laptop (not work) is safe because your work network is not exposed."
+  },
+  "correct_answer": "false",
+  "explanation": "USB drop attacks deliver malware regardless of network — the payload runs locally. Your personal device may sync to cloud services, share a home network, or be used for work VPN. Never plug in unknown drives.",
+  "tags": ["usb", "physical-security", "malware"]
+}

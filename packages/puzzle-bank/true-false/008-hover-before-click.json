@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "medium",
+  "payload": {
+    "question": "Hovering over a link to preview its URL in the status bar is a reliable way to confirm it's safe before clicking."
+  },
+  "correct_answer": "false",
+  "explanation": "Links can use URL shorteners, open redirects, or homograph attacks (lookalike Unicode characters) that appear safe on hover. Copy the URL and inspect it carefully, or go directly to the website instead of clicking.",
+  "tags": ["phishing", "url-inspection", "homograph"]
+}

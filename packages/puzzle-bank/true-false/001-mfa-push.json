@@ -1,0 +1,10 @@
+{
+  "type": "true_false",
+  "difficulty": "easy",
+  "payload": {
+    "question": "You receive an MFA push notification on your phone, but you did NOT just log in anywhere. You should approve it to see what happens."
+  },
+  "correct_answer": "false",
+  "explanation": "Never approve unsolicited MFA pushes — this is a classic MFA fatigue attack. Attackers spam push requests hoping you'll accidentally approve one. Deny immediately and report to IT.",
+  "tags": ["mfa", "social-engineering", "fatigue-attack"]
+}

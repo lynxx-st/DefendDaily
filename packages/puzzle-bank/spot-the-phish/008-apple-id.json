@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "hard",
+  "context_trigger": null,
+  "payload": {
+    "question": "This Apple ID security alert is visually perfect — it looks exactly like a real Apple email. How do you determine if it's real?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/008-apple-id.png",
+    "image_alt": "A near-perfect clone of an Apple ID security alert email",
+    "options": [
+      "The email headers show it was sent via a third-party mail server, not Apple's infrastructure",
+      "The Apple logo resolution is slightly lower than normal",
+      "The email mentions a device you don't own",
+      "The support link goes to 'apple.com/support' which is correct"
+    ],
+    "anomaly_hint": "This one requires checking behind what's visible — look at the raw email headers"
+  },
+  "correct_answer": "A",
+  "explanation": "When a phishing email perfectly clones visual design, the only reliable signal is the email's technical headers: 'Received-from', SPF/DKIM authentication results, and the actual sending mail server. In your email client, view 'Show Original' or 'View Source' — you'll see 'dkim=fail' or a non-Apple sending domain. Real Apple emails pass DKIM authentication from apple.com mail servers.",
+  "tags": ["phishing", "apple", "email-headers", "dkim", "advanced-phishing"]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "spot_the_phish",
+  "difficulty": "hard",
+  "context_trigger": null,
+  "payload": {
+    "question": "This PayPal payment confirmation looks legitimate. Can you spot what's wrong?",
+    "image_url": "https://assets.defenddaily.com/puzzles/spot-the-phish/004-paypal.png",
+    "image_alt": "A very convincing fake PayPal payment confirmation email",
+    "options": [
+      "The 'Cancel and Get Refund' button uses a homograph URL: 'pаypal.com' with a Cyrillic 'а'",
+      "The transaction ID format looks different from real PayPal",
+      "The email greeting says 'Dear Customer' instead of your name",
+      "The payment amount ends in an unusual cent value ($247.93)"
+    ],
+    "anomaly_hint": "Look extremely carefully at the domain in any links — some characters may not be what they appear"
+  },
+  "correct_answer": "A",
+  "explanation": "This is a homograph attack. The Cyrillic letter 'а' (U+0430) looks identical to the Latin 'a' (U+0061) in most fonts, but resolves to a completely different domain. Modern browsers show the punycode (xn--pypl-...) in the status bar for international domains. This is why hovering alone isn't sufficient — you need to inspect the actual URL encoding. Generic greetings are suspicious but don't prove phishing.",
+  "tags": ["phishing", "homograph-attack", "unicode", "paypal", "url-inspection"]
+}
