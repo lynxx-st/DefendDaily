@@ -144,39 +144,6 @@ Next.js 14 dashboard with App Router, Tailwind CSS, and NextAuth.js:
 
 ---
 
-## Business Model & Pricing
-
-### B2B Seat Subscription
-
-| Tier | Price | Includes |
-|------|-------|----------|
-| **Starter** | **$6/user/year** | Daily puzzles, Slack/Teams bot, basic reporting |
-| **Growth** | **$10/user/year** | + Peer Phish simulations, CISO dashboard, Risk Score |
-| **Enterprise** | **$14/user/year** | + Compliance PDF exports, Okta/Azure AD automation, SSO, SLA |
-
-Minimum viable deal: 50-seat SME at Growth tier = **$500 ARR**.
-
-### SentryLife Consumer Add-On
-
-Employees opt in to extend coverage to family: **$4.99/month per family**. At 20% conversion on a 1,000-seat company, that's **~$12K incremental ARR** per corporate account.
-
-### Unit Economics
-
-| Metric | Value |
-|--------|-------|
-| CAC target | **$300** (inbound-led, PLG via free trial) |
-| LTV (Growth, 200 seats, 3yr) | **$6,000** |
-| LTV:CAC ratio | **20:1** |
-| Payback period | **< 2 months** |
-
-### ARR Targets
-
-- **6 months:** $50K ARR (50 companies × 100 users × $10)
-- **12 months:** $200K ARR
-- **18 months:** $500K ARR (SME direct + MSP channel)
-
----
-
 ## Tech Stack
 
 | Layer | Technology | Rationale |
