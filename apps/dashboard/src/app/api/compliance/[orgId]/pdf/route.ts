@@ -1,18 +1,23 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
+import { authorizeCisoOrAdmin } from '@/lib/auth-guard';
+import { signApiJwt } from '@/lib/api-jwt';
 import { env } from '@/config/env';
 
 export async function GET(
   _req: Request,
   { params }: { params: { orgId: string } },
 ) {
-  const session = await auth();
-  if (!session?.user) return new NextResponse('Unauthorized', { status: 401 });
-  if (session.user.orgId !== params.orgId) {
-    return new NextResponse('Forbidden', { status: 403 });
+  const result = await authorizeCisoOrAdmin();
+  if (!result.ok) {
+    return new NextResponse(result.reason, { status: result.status });
+  }
+  if (result.session.user.orgId !== params.orgId) {
+    return new NextResponse('org_mismatch', { status: 403 });
   }
 
+  const token = await signApiJwt(result.session);
   const upstream = await fetch(`${env.API_URL}/api/compliance/${params.orgId}/pdf`, {
+    headers: { Authorization: `Bearer ${token}` },
     cache: 'no-store',
   });
 

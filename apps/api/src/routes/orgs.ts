@@ -9,6 +9,7 @@ import type {
 import { db } from '../db/client'
 import { redis } from '../db/redis'
 import { logger } from '../config/logger'
+import { requireAuth, requireOrgMatch, requireRole } from '../middleware/apiAuth'
 
 export const orgsRouter: RouterType = Router()
 
@@ -20,9 +21,11 @@ const setupBodySchema = z.object({
 })
 
 orgsRouter.use((_req: Request, res: Response, next: NextFunction) => {
-  res.locals['requestId'] = randomUUID()
+  res.locals.requestId = randomUUID()
   next()
 })
+
+orgsRouter.use(requireAuth, requireRole(['ciso', 'admin']), requireOrgMatch('orgId'))
 
 function sendError(res: Response, status: number, code: string, message: string): void {
   res.status(status).json({

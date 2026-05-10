@@ -5,7 +5,9 @@ import type {
   PhishTrendPoint,
   User,
 } from '@defenddaily/shared-types';
+import type { Session } from 'next-auth';
 import { env } from '@/config/env';
+import { signApiJwt } from '@/lib/api-jwt';
 
 class DashboardApiError extends Error {
   constructor(
@@ -18,10 +20,15 @@ class DashboardApiError extends Error {
   }
 }
 
-async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+async function apiFetch<T>(path: string, session: Session, init?: RequestInit): Promise<T> {
+  const token = await signApiJwt(session);
   const res = await fetch(`${env.API_URL}${path}`, {
     ...init,
-    headers: { 'Content-Type': 'application/json', ...init?.headers },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      ...init?.headers,
+    },
     next: { revalidate: 60 },
   });
   if (!res.ok) {
@@ -37,16 +44,17 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  getOrgRiskSummary: (orgId: string) =>
-    apiFetch<OrgRiskSummary>(`/api/orgs/${orgId}/risk-summary`),
+  getOrgRiskSummary: (session: Session, orgId: string) =>
+    apiFetch<OrgRiskSummary>(`/api/orgs/${orgId}/risk-summary`, session),
 
-  getOrgUsers: (orgId: string) => apiFetch<User[]>(`/api/orgs/${orgId}/users`),
+  getOrgUsers: (session: Session, orgId: string) =>
+    apiFetch<User[]>(`/api/orgs/${orgId}/users`, session),
 
-  getPhishTrend: (orgId: string, weeks = 13) =>
-    apiFetch<PhishTrendPoint[]>(`/api/orgs/${orgId}/phish-trend?weeks=${weeks}`),
+  getPhishTrend: (session: Session, orgId: string, weeks = 13) =>
+    apiFetch<PhishTrendPoint[]>(`/api/orgs/${orgId}/phish-trend?weeks=${weeks}`, session),
 
-  getLeaderboard: (orgId: string) =>
-    apiFetch<LeaderboardEntry[]>(`/api/orgs/${orgId}/leaderboard`),
+  getLeaderboard: (session: Session, orgId: string) =>
+    apiFetch<LeaderboardEntry[]>(`/api/orgs/${orgId}/leaderboard`, session),
 };
 
 export { DashboardApiError };

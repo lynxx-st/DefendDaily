@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
+import { signApiJwt } from '@/lib/api-jwt';
 import { env } from '@/config/env';
 import { SetupForm, type SetupState } from './setup-form';
 
@@ -15,16 +16,23 @@ export default async function SetupPage() {
   async function saveSetup(_prev: SetupState, formData: FormData): Promise<SetupState> {
     'use server';
 
-    if (!orgId) return { error: 'Your account is not linked to an organization yet.' };
+    const current = await auth();
+    if (!current?.user || current.user.orgId !== orgId || !current.user.id || !orgId) {
+      return { error: 'Your account is not linked to an organization yet.' };
+    }
 
     const timezone = String(formData.get('timezone') ?? '');
     const puzzleTime = String(formData.get('puzzle_time') ?? '');
     if (!TZ_RE.test(timezone)) return { error: 'Please choose a valid timezone.' };
     if (!TIME_RE.test(puzzleTime)) return { error: 'Please choose a valid delivery time.' };
 
+    const token = await signApiJwt(current);
     const res = await fetch(`${env.API_URL}/api/orgs/${orgId}/setup`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ timezone, puzzle_time: puzzleTime }),
       cache: 'no-store',
     });

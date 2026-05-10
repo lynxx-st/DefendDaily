@@ -14,6 +14,10 @@ const envSchema = z.object({
   SLACK_CLIENT_SECRET: z.string().min(1),
   SLACK_STATE_SECRET: z.string().min(1).default('dev-state-secret-change-in-prod'),
   TRACKING_BASE_URL: z.string().url().default('http://localhost:3001'),
+  // HS256 secret shared with the dashboard (NEXTAUTH_SECRET) for Bearer JWTs.
+  // Optional in dev so existing tests/scripts boot without it; required for
+  // protected endpoints — apiAuth rejects requests when absent.
+  NEXTAUTH_SECRET: z.string().optional(),
   TEXTBELT_API_URL: z.string().url().default('https://textbelt.com'),
   TEXTBELT_API_KEY: z.string().default('textbelt'),
   // SMTP — used for both phish simulations and transactional email (breach monitor, family alerts)
