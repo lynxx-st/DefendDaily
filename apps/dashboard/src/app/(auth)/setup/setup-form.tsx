@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useState, useTransition } from 'react';
 import { Globe, Clock4, CheckCircle2 } from 'lucide-react';
 
 const TIMEZONES = [
@@ -29,10 +29,18 @@ export type SetupState = { error?: string };
 export type SetupAction = (state: SetupState, formData: FormData) => Promise<SetupState>;
 
 export function SetupForm({ action }: { action: SetupAction }) {
-  const [state, formAction, pending] = useActionState<SetupState, FormData>(action, {});
+  const [state, setState] = useState<SetupState>({});
+  const [pending, startTransition] = useTransition();
+
+  async function handleSubmit(formData: FormData) {
+    startTransition(async () => {
+      const result = await action(state, formData);
+      setState(result);
+    });
+  }
 
   return (
-    <form action={formAction} className="space-y-7">
+    <form action={handleSubmit} className="space-y-7">
       <fieldset>
         <legend className="flex items-center gap-2 text-title-sm text-body-strong">
           <Globe size={14} className="text-primary-glow" />
