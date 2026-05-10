@@ -42,43 +42,19 @@ export async function GET(
           fontFamily: 'system-ui, sans-serif',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            marginBottom: 24,
-          }}
-        >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span
-              style={{
-                fontSize: 14,
-                letterSpacing: 1.6,
-                color: '#888888',
-                textTransform: 'uppercase',
-              }}
-            >
+            <span style={{ fontSize: 14, letterSpacing: 1.6, color: '#888888', textTransform: 'uppercase' }}>
               DefendDaily
             </span>
             <span style={{ fontSize: 40, fontWeight: 500, marginTop: 8 }}>
               Risk Heatmap · {users.length} {users.length === 1 ? 'user' : 'users'}
             </span>
           </div>
-          <span style={{ fontSize: 14, color: '#a8a8a8' }}>
-            {new Date().toLocaleDateString()}
-          </span>
+          <span style={{ fontSize: 14, color: '#a8a8a8' }}>{new Date().toLocaleDateString()}</span>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 8,
-            flex: 1,
-            alignContent: 'flex-start',
-          }}
-        >
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, flex: 1, alignContent: 'flex-start' }}>
           {cells.map((cell, i) => (
             <div
               key={i}
@@ -101,15 +77,7 @@ export async function GET(
           ))}
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 24,
-            marginTop: 32,
-            color: '#a8a8a8',
-            fontSize: 14,
-          }}
-        >
+        <div style={{ display: 'flex', gap: 24, marginTop: 32, color: '#a8a8a8', fontSize: 14 }}>
           {(
             [
               { label: '80–100', color: RISK_COLORS.green },
@@ -118,18 +86,8 @@ export async function GET(
               { label: '0–39', color: RISK_COLORS.red },
             ] as const
           ).map(legend => (
-            <div
-              key={legend.label}
-              style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-            >
-              <div
-                style={{
-                  width: 14,
-                  height: 14,
-                  backgroundColor: legend.color,
-                  borderRadius: 3,
-                }}
-              />
+            <div key={legend.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 14, height: 14, backgroundColor: legend.color, borderRadius: 3 }} />
               {legend.label}
             </div>
           ))}
