@@ -7,16 +7,15 @@
 
 ## Last Completed
 - **Phase:** 4 — CISO Dashboard
-- **Step:** 4.12 — /setup wizard (timezone + puzzle time) backed by `PATCH /api/orgs/:orgId/setup`
-- **File:** `apps/dashboard/src/components/ComplianceExportButton.tsx`, `src/app/api/compliance/[orgId]/pdf/route.ts`, `src/app/setup/{page,setup-form}.tsx`, `apps/api/src/services/compliancePdf.tsx`, `apps/api/src/routes/compliance.ts`, additions to `apps/api/src/routes/orgs.ts`
+- **Step:** 4.15 — Phase 4 complete (apiAuth + role middleware, PNG heatmap export, smoke tests)
+- **File:** `apps/api/src/middleware/apiAuth.ts`, `apps/api/src/routes/users.ts`, `apps/dashboard/src/lib/{auth-guard,api-jwt}.ts`, `apps/dashboard/src/app/api/heatmap/[orgId]/png/route.tsx`, `apps/api/src/services/__tests__/compliancePdf.test.ts`, `apps/api/src/middleware/__tests__/apiAuth.test.ts`
 - **Date:** 2026-05-09
-- **Note:** Magic-link adapter and role middleware still deferred to 4.13. The compliance proxy enforces `session.user.orgId === params.orgId`, but the api `/api/compliance/:orgId/pdf` is open until role middleware lands.
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
 - [x] Phase 2: Risk Score & HIBP (10 steps)
 - [x] Phase 3: Peer Phish (12 steps)
-- [ ] Phase 4: CISO Dashboard (15 steps)
+- [x] Phase 4: CISO Dashboard (15 steps)
 - [ ] Phase 5: SentryLife & Family Mode (12 steps)
 - [ ] Phase 6: Enterprise & IdP Automation (10 steps)
 
@@ -82,9 +81,9 @@
 - [x] 4.10 Build compliance PDF (@react-pdf/renderer: org, period, scores, phish results, attestation)
 - [x] 4.11 Build compliance.ts Express route (streams PDF; ciso/admin role gate deferred to 4.13)
 - [x] 4.12 Build /setup page (post-Slack-install org wizard: timezone + puzzle time)
-- [ ] 4.13 Add CISO/admin role middleware to all dashboard API routes
-- [ ] 4.14 Build Risk Heatmap PNG export endpoint (for board presentations)
-- [ ] 4.15 Write Phase 4 smoke tests (route accessibility, PDF generation)
+- [x] 4.13 Add CISO/admin role middleware to all dashboard API routes (HS256 Bearer JWT minted by dashboard, verified by api; requireAuth/requireRole/requireOrgMatch on /api/orgs/* and /api/compliance/*; new GET /api/users/by-email for the NextAuth session callback)
+- [x] 4.14 Build Risk Heatmap PNG export endpoint (next/og ImageResponse at /api/heatmap/[orgId]/png; auth-gated; "Download Heatmap PNG" link on the dashboard)
+- [x] 4.15 Write Phase 4 smoke tests (compliancePdf.test.ts + apiAuth.test.ts; vitest.config.ts now excludes dist/)
 
 ### Phase 5 — SentryLife & Family Mode
 - [ ] 5.01 Add family invite token generation + accept flow (family_group_id linking)

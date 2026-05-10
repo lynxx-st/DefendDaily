@@ -5,15 +5,18 @@ import { z } from 'zod'
 import { db } from '../db/client'
 import { logger } from '../config/logger'
 import { buildCompliancePdf } from '../services/compliancePdf'
+import { requireAuth, requireOrgMatch, requireRole } from '../middleware/apiAuth'
 
 export const complianceRouter: RouterType = Router()
 
 const orgIdSchema = z.string().uuid()
 
 complianceRouter.use((_req: Request, res: Response, next: NextFunction) => {
-  res.locals['requestId'] = randomUUID()
+  res.locals.requestId = randomUUID()
   next()
 })
+
+complianceRouter.use(requireAuth, requireRole(['ciso', 'admin']), requireOrgMatch('orgId'))
 
 function sendError(res: Response, status: number, code: string, message: string): void {
   res.status(status).json({
