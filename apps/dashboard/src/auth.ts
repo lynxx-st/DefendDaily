@@ -40,14 +40,20 @@ if (hasMicrosoft) {
   );
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   secret: env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt' },
   trustHost: true,
   providers,
   pages: { signIn: '/login', error: '/login' },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update' && session?.user) {
+        token.userId = session.user.id;
+        token.orgId = session.user.orgId;
+        token.role = session.user.role;
+        return token;
+      }
       const email = (user?.email ?? token.email) as string | undefined;
       if (email && !token.userId) {
         const ddUser = await fetchUserByEmail(email);

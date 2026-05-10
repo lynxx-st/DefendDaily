@@ -25,6 +25,46 @@ orgsRouter.use((_req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
+const createOrgSchema = z.object({
+  email: z.string().email(),
+  display_name: z.string().min(1).max(255),
+  timezone: z.string().min(1).max(64),
+  puzzle_time: z.string().regex(/^\d{2}:\d{2}$/, 'puzzle_time must be HH:MM'),
+})
+
+orgsRouter.post('/', async (req, res) => {
+  const body = createOrgSchema.safeParse(req.body)
+  if (!body.success) {
+    return sendError(res, 400, 'invalid_body', body.error.issues[0]?.message ?? 'Invalid request body')
+  }
+
+  const client = await db.connect()
+  try {
+    await client.query('BEGIN')
+    const { rows: orgRows } = await client.query<{ id: string }>(
+      `INSERT INTO organizations (name, timezone, puzzle_time) VALUES ($1, $2, $3::time) RETURNING id`,
+      [body.data.display_name, body.data.timezone, `${body.data.puzzle_time}:00`]
+    )
+    const org = orgRows[0]
+    if (!org) throw new Error('Organization insert returned no row')
+    const { rows: userRows } = await client.query<{ id: string; org_id: string; role: string }>(
+      `INSERT INTO users (org_id, email, display_name, role, provider_type)
+       VALUES ($1, $2, $3, 'ciso', 'google') RETURNING id, org_id, role`,
+      [org.id, body.data.email, body.data.display_name]
+    )
+    const user = userRows[0]
+    if (!user) throw new Error('User insert returned no row')
+    await client.query('COMMIT')
+    res.status(201).json({ userId: user.id, orgId: user.org_id, role: user.role })
+  } catch (err) {
+    await client.query('ROLLBACK')
+    logger.error({ err, requestId: res.locals.requestId }, 'org creation failed')
+    sendError(res, 500, 'internal_error', 'Failed to create organization')
+  } finally {
+    client.release()
+  }
+})
+
 orgsRouter.use(requireAuth, requireRole(['ciso', 'admin']), requireOrgMatch('orgId'))
 
 function sendError(res: Response, status: number, code: string, message: string): void {
