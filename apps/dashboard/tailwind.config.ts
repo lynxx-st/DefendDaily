@@ -33,6 +33,8 @@ const config: Config = {
         'on-dark': '#ffffff',
         'accent-cyan': '#00d4ff',
         'accent-violet': '#7b3aed',
+        sentrylife: '#7b3aed',
+        'sentrylife-active': '#6429c4',
         'semantic-error': '#ff4d4d',
         'semantic-success': '#33d17a',
       },

@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.10 — family invite token generation + accept flow + DB linking (family_group_id)
-- **File:** `apps/api/src/db/migrations/007_family_invites.sql`, `apps/api/src/routes/family.ts`
+- **Step:** 5.04 — SentryLife route group + Family Hub + Home Defense pages (dark canvas + sentrylife violet accent)
+- **File:** `apps/dashboard/tailwind.config.ts`, `apps/dashboard/src/app/(sentrylife)/{layout,family/page,home-defense/page}.tsx`
 - **Date:** 2026-05-11
 
 ## Overall Phase Status
@@ -87,9 +87,9 @@
 
 ### Phase 5 — SentryLife & Family Mode
 - [x] 5.01 Add family invite token generation + accept flow (family_group_id linking)
-- [ ] 5.02 Build SentryLife Tailwind theme (separate color palette, /sentrylife route group)
-- [ ] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
-- [ ] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
+- [x] 5.02 Build SentryLife Tailwind theme (separate color palette, /sentrylife route group)
+- [x] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
+- [x] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
 - [ ] 5.05 Build Guardian Alert nightly BullMQ job (check family scores, send Slack DM)
 - [ ] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
 - [ ] 5.07 Build canary token zip generation (archiver, deliver download link)
