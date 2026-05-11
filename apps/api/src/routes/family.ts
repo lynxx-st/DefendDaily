@@ -1,9 +1,12 @@
 import { Router, type Request, type Response, type NextFunction } from 'express'
 import { randomBytes, randomUUID } from 'node:crypto'
 import { z } from 'zod'
+import archiver from 'archiver'
 import { db } from '../db/client'
 import { env } from '../config/env'
 import { requireAuth } from '../middleware/apiAuth'
+import { createHomeDefenseKit } from '../services/canary'
+import { logger } from '../config/logger'
 
 export const familyRouter = Router()
 
@@ -94,4 +97,77 @@ familyRouter.post('/accept', requireAuth, async (req: Request, res: Response) =>
   )
 
   res.json({ ok: true, family_group_id: familyGroupId })
+})
+
+const KIT_FILENAMES = [
+  'documents_backup.docx',
+  'important_info.pdf',
+  'passwords_backup.xlsx',
+  'family_photo.jpg',
+  'bank_portal.url',
+] as const
+
+const README = `# DefendDaily Home Defense Kit
+
+These 5 files are "canary tokens" — digital traps that fire an alert the moment anyone opens them.
+
+SETUP INSTRUCTIONS:
+1. Place each file in a folder attackers would target: Documents, Desktop, Tax, Banking
+2. Do NOT open them yourself — any open triggers an alert
+3. If DefendDaily alerts you that one was triggered, your device may be compromised
+
+Files included:
+  documents_backup.docx  — Word document token
+  important_info.pdf     — PDF token
+  passwords_backup.xlsx  — Excel token (do not use as real password storage)
+  family_photo.jpg       — Image token
+  bank_portal.url        — Web shortcut token
+
+If a token fires, immediately:
+  1. Disconnect from the internet
+  2. Run a full antivirus scan
+  3. Rotate your email and banking passwords
+  4. Contact IT support if this is a work device
+`
+
+// GET /api/family/home-defense-kit
+familyRouter.get('/home-defense-kit', requireAuth, async (req: Request, res: Response) => {
+  const userId = res.locals.principal!.userId
+
+  try {
+    const tokens = await createHomeDefenseKit(userId)
+
+    res.setHeader('Content-Type', 'application/zip')
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="DefendDaily_HomeDefenseKit.zip"',
+    )
+
+    const archive = archiver('zip', { zlib: { level: 9 } })
+    archive.on('error', (err) => {
+      logger.error({ err, userId }, 'Zip archive error during home defense kit generation')
+    })
+    archive.pipe(res)
+
+    const readmeWithDate = `${README}\nGenerated: ${new Date().toISOString()}\n`
+    archive.append(readmeWithDate, { name: 'README.txt' })
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i]
+      const filename = KIT_FILENAMES[i] ?? `canary_${i}.txt`
+      const content = [
+        'This file is a DefendDaily canary token.',
+        `Token URL: ${token!.token_url}`,
+        'Do not open this file — it is a security tripwire.',
+      ].join('\n')
+      archive.append(content, { name: filename })
+    }
+
+    await archive.finalize()
+  } catch (err) {
+    logger.error({ err, userId }, 'Home defense kit generation failed')
+    if (!res.headersSent) {
+      sendError(res, 500, 'kit_error', 'Failed to generate defense kit')
+    }
+  }
 })

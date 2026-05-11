@@ -22,8 +22,8 @@ export default function HomeDefensePage() {
             title="Canary Token Kit"
             description="Five honey-trap files generated fresh per download. Each one pings home the moment it's opened."
             action={
-              <Badge tone="warning" uppercase dot>
-                Live in 5.07
+              <Badge tone="success" uppercase dot>
+                Active
               </Badge>
             }
           />
@@ -50,14 +50,14 @@ export default function HomeDefensePage() {
           <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-hairline pt-6">
             <Button
               variant="primary"
+              href="/api/family/defense-kit"
               className="bg-sentrylife hover:bg-sentrylife-active"
-              disabled
             >
               <DownloadGlyph />
               Download Defense Kit
             </Button>
             <p className="text-body-sm text-muted">
-              Generation activates in step 5.07 once the canary token service is wired up.
+              Generates 5 fresh canary tokens and packages them as a zip file.
             </p>
           </div>
         </Card>
