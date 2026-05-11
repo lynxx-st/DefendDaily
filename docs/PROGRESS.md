@@ -6,10 +6,10 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 4 — CISO Dashboard
-- **Step:** 4.15 — Phase 4 complete (apiAuth + role middleware, PNG heatmap export, smoke tests)
-- **File:** `apps/api/src/middleware/apiAuth.ts`, `apps/api/src/routes/users.ts`, `apps/dashboard/src/lib/{auth-guard,api-jwt}.ts`, `apps/dashboard/src/app/api/heatmap/[orgId]/png/route.tsx`, `apps/api/src/services/__tests__/compliancePdf.test.ts`, `apps/api/src/middleware/__tests__/apiAuth.test.ts`
-- **Date:** 2026-05-09
+- **Phase:** 5 — SentryLife & Family Mode
+- **Step:** 5.10 — family invite token generation + accept flow + DB linking (family_group_id)
+- **File:** `apps/api/src/db/migrations/007_family_invites.sql`, `apps/api/src/routes/family.ts`
+- **Date:** 2026-05-11
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -86,7 +86,7 @@
 - [x] 4.15 Write Phase 4 smoke tests (compliancePdf.test.ts + apiAuth.test.ts; vitest.config.ts now excludes dist/)
 
 ### Phase 5 — SentryLife & Family Mode
-- [ ] 5.01 Add family invite token generation + accept flow (family_group_id linking)
+- [x] 5.01 Add family invite token generation + accept flow (family_group_id linking)
 - [ ] 5.02 Build SentryLife Tailwind theme (separate color palette, /sentrylife route group)
 - [ ] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
 - [ ] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
@@ -95,7 +95,7 @@
 - [ ] 5.07 Build canary token zip generation (archiver, deliver download link)
 - [ ] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
 - [ ] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
-- [ ] 5.10 Store canary_tokens in DB, link to user
+- [x] 5.10 Store canary_tokens in DB, link to user
 - [ ] 5.11 Update breach_records for family accounts (share HIBP job)
 - [ ] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 

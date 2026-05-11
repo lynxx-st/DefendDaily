@@ -3,6 +3,7 @@ import { webhooksRouter } from './routes/webhooks'
 import { orgsRouter } from './routes/orgs'
 import { complianceRouter } from './routes/compliance'
 import { usersRouter } from './routes/users'
+import { familyRouter } from './routes/family'
 import './bots/slack/commands/defend'
 import './bots/slack/commands/leaderboard'
 import './bots/slack/commands/risk'
@@ -26,6 +27,7 @@ app.use('/', webhooksRouter)
 app.use('/api/orgs', orgsRouter)
 app.use('/api/compliance', complianceRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/family', familyRouter)
 
 app.get('/health', async (_req, res) => {
   const [dbOk, redisOk] = await Promise.all([
