@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.11 — weekly family breach monitor email (SendGrid, Monday 07:00 UTC, HIBP per family member)
-- **File:** `apps/api/src/services/email.ts`, `apps/api/src/jobs/familyBreachMonitor.ts`
+- **Step:** 5.12 — Phase 5 complete (guardian alert tests, canary service tests, email service tests)
+- **File:** `apps/api/src/jobs/__tests__/guardianAlert.test.ts`, `apps/api/src/services/__tests__/{canary,email}.test.ts`
 - **Date:** 2026-05-11
 
 ## Overall Phase Status
@@ -16,7 +16,7 @@
 - [x] Phase 2: Risk Score & HIBP (10 steps)
 - [x] Phase 3: Peer Phish (12 steps)
 - [x] Phase 4: CISO Dashboard (15 steps)
-- [ ] Phase 5: SentryLife & Family Mode (12 steps)
+- [x] Phase 5: SentryLife & Family Mode (12 steps)
 - [ ] Phase 6: Enterprise & IdP Automation (10 steps)
 
 ## Step-Level Checklist
@@ -97,7 +97,7 @@
 - [x] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
 - [x] 5.10 Store canary_tokens in DB, link to user
 - [x] 5.11 Update breach_records for family accounts (share HIBP job)
-- [ ] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
+- [x] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 
 ### Phase 6 — Enterprise & IdP Automation
 - [ ] 6.01 Build okta.ts service (Okta Management API: assign/remove MFA enforcement group)
