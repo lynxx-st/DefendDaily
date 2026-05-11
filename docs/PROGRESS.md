@@ -7,9 +7,9 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.01 — Family invite tokens (POST /api/family/invite + /accept, 64-hex tokens, 7-day TTL, transactional family_group_id linking)
-- **File:** `apps/api/src/db/migrations/007_family_invites.sql`, `apps/api/src/routes/family.ts`, `apps/api/src/routes/__tests__/family.test.ts`
-- **Date:** 2026-05-10
+- **Step:** 5.08 — canary token service + webhook callback (Canarytokens.org API, fire-and-forget POST handler)
+- **File:** `apps/api/src/services/canary.ts`, `apps/api/src/routes/webhooks.ts`
+- **Date:** 2026-05-11
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -87,15 +87,15 @@
 
 ### Phase 5 — SentryLife & Family Mode
 - [x] 5.01 Add family invite token generation + accept flow (family_group_id linking)
-- [ ] 5.02 Build SentryLife Tailwind theme (separate color palette, /sentrylife route group)
-- [ ] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
-- [ ] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
-- [ ] 5.05 Build Guardian Alert nightly BullMQ job (check family scores, send Slack DM)
-- [ ] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
+- [x] 5.02 Build SentryLife Tailwind theme (separate color palette, /sentrylife route group)
+- [x] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
+- [x] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
+- [x] 5.05 Build Guardian Alert nightly BullMQ job (check family scores, send Slack DM)
+- [x] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
 - [ ] 5.07 Build canary token zip generation (archiver, deliver download link)
-- [ ] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
+- [x] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
 - [ ] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
-- [ ] 5.10 Store canary_tokens in DB, link to user
+- [x] 5.10 Store canary_tokens in DB, link to user
 - [ ] 5.11 Update breach_records for family accounts (share HIBP job)
 - [ ] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 

@@ -1,5 +1,6 @@
 import { Router, type Request, type Response } from 'express'
 import rateLimit from 'express-rate-limit'
+import { z } from 'zod'
 import { db } from '../db/client'
 import { slackApp } from '../bots/slack/app'
 import { logger } from '../config/logger'
@@ -46,6 +47,62 @@ async function recordOpen(token: string): Promise<void> {
     )
   } catch (err) {
     logger.error({ err, token }, 'recordOpen failed')
+  }
+}
+
+// POST /webhooks/canary/:userId — fired by Canarytokens.org when a honey-trap file is opened.
+// Always 200 immediately; processing is fire-and-forget. Never reveal token validity.
+webhooksRouter.post('/webhooks/canary/:userId', trackingLimiter, (req: Request, res: Response) => {
+  res.status(200).json({ ok: true })
+  const userIdParse = z.string().uuid().safeParse(req.params['userId'])
+  if (!userIdParse.success) return
+  const tokenStr = z.string().min(1).safeParse(
+    (req.body as Record<string, unknown>)['token'],
+  )
+  if (!tokenStr.success) return
+  void processCanaryTrigger(userIdParse.data, tokenStr.data)
+})
+
+async function processCanaryTrigger(userId: string, token: string): Promise<void> {
+  try {
+    const result = await db.query<{ description: string; file_type: string }>(
+      `UPDATE canary_tokens SET triggered_at = NOW()
+       WHERE user_id = $1 AND token_id = $2 AND triggered_at IS NULL
+       RETURNING description, file_type`,
+      [userId, token],
+    )
+    const row = result.rows[0]
+    if (!row) return
+
+    logger.warn({ userId, fileType: row.file_type }, 'Canary token triggered')
+
+    const userResult = await db.query<{ provider_id: string | null }>(
+      'SELECT provider_id FROM users WHERE id = $1',
+      [userId],
+    )
+    const providerId = userResult.rows[0]?.provider_id
+    if (!providerId) return
+
+    await slackApp.client.chat.postMessage({
+      token: env.SLACK_BOT_TOKEN,
+      channel: providerId,
+      text: '⚠️ Security Alert: a canary token was triggered',
+      blocks: [
+        {
+          type: 'header',
+          text: { type: 'plain_text', text: '⚠️ Security Alert: Canary Token Triggered' },
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `Your canary token *"${row.description}"* (${row.file_type}) was just accessed.\n\n*This may mean your device or folder has been compromised.*\n\n*Immediate steps:*\n1. Disconnect from the internet\n2. Run a full antivirus scan\n3. Rotate your email and banking passwords\n4. Contact IT support if this is a work device`,
+          },
+        },
+      ],
+    })
+  } catch (err) {
+    logger.error({ err, userId }, 'Canary webhook processing failed')
   }
 }
 

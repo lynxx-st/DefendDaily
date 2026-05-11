@@ -15,6 +15,7 @@ import { scheduleDailyPuzzleJob } from './jobs/dailyPuzzle'
 import { scheduleHibpJob } from './jobs/hibpCheck'
 import { scheduleRiskScoreJob } from './jobs/riskScore'
 import { scheduleWeeklySummaryJob } from './jobs/weeklySummary'
+import { scheduleGuardianAlertJob } from './jobs/guardianAlert'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
@@ -43,6 +44,7 @@ app.get('/health', async (_req, res) => {
   await scheduleHibpJob()
   await scheduleRiskScoreJob()
   await scheduleWeeklySummaryJob()
+  await scheduleGuardianAlertJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
