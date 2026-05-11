@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.05 — Guardian Alert nightly BullMQ job (03:00 UTC, score < 50 OR 3+ misses in 3 days)
-- **File:** `apps/api/src/jobs/guardianAlert.ts`, `apps/api/src/index.ts`
+- **Step:** 5.08 — canary token service + webhook callback (Canarytokens.org API, fire-and-forget POST handler)
+- **File:** `apps/api/src/services/canary.ts`, `apps/api/src/routes/webhooks.ts`
 - **Date:** 2026-05-11
 
 ## Overall Phase Status
@@ -91,9 +91,9 @@
 - [x] 5.03 Build /sentrylife/family/page.tsx (family leaderboard + linked accounts)
 - [x] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
 - [x] 5.05 Build Guardian Alert nightly BullMQ job (check family scores, send Slack DM)
-- [ ] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
+- [x] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
 - [ ] 5.07 Build canary token zip generation (archiver, deliver download link)
-- [ ] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
+- [x] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
 - [ ] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
 - [x] 5.10 Store canary_tokens in DB, link to user
 - [ ] 5.11 Update breach_records for family accounts (share HIBP job)
