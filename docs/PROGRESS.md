@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.07 — Home Defense Kit zip endpoint (archiver, canary tokens, Next.js proxy route)
-- **File:** `apps/api/src/routes/family.ts`, `apps/dashboard/src/app/api/family/defense-kit/route.ts`
+- **Step:** 5.11 — weekly family breach monitor email (SendGrid, Monday 07:00 UTC, HIBP per family member)
+- **File:** `apps/api/src/services/email.ts`, `apps/api/src/jobs/familyBreachMonitor.ts`
 - **Date:** 2026-05-11
 
 ## Overall Phase Status
@@ -94,9 +94,9 @@
 - [x] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
 - [x] 5.07 Build canary token zip generation (archiver, deliver download link)
 - [x] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
-- [ ] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
+- [x] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
 - [x] 5.10 Store canary_tokens in DB, link to user
-- [ ] 5.11 Update breach_records for family accounts (share HIBP job)
+- [x] 5.11 Update breach_records for family accounts (share HIBP job)
 - [ ] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 
 ### Phase 6 — Enterprise & IdP Automation

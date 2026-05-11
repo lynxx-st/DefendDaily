@@ -28,6 +28,8 @@ const envSchema = z.object({
   SMTP_FROM_EMAIL: z.string().email().default('alerts@defenddaily.com'),
   PHISH_FROM_DOMAIN: z.string().default('mail.defenddaily.com'),
   CANARY_WEBHOOK_BASE: z.string().url().optional(),
+  SENDGRID_API_KEY: z.string().optional(),
+  SENDGRID_FROM_EMAIL: z.string().email().default('alerts@defenddaily.com'),
   // MinIO — open source S3-compatible object storage (https://github.com/minio/minio, AGPL)
   // Self-host via Docker; SDK works with any S3-compatible endpoint
   MINIO_ENDPOINT: z.string().url().optional(),

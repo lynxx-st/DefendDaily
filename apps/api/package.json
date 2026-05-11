@@ -12,6 +12,7 @@
   "dependencies": {
     "@defenddaily/shared-types": "workspace:*",
     "@react-pdf/renderer": "^4.5.1",
+    "@sendgrid/mail": "^8.1.6",
     "@slack/bolt": "^4.7.2",
     "archiver": "^8.0.0",
     "axios": "^1.16.0",

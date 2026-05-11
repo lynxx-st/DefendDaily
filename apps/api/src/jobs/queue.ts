@@ -19,3 +19,4 @@ export const riskScoreQueue = new Queue('risk-score', { connection, defaultJobOp
 export const hibpQueue = new Queue('hibp-check', { connection, defaultJobOptions })
 export const guardianAlertQueue = new Queue('guardian-alert', { connection, defaultJobOptions })
 export const weeklySummaryQueue = new Queue('weekly-summary', { connection, defaultJobOptions })
+export const familyBreachQueue = new Queue('family-breach-monitor', { connection, defaultJobOptions })
