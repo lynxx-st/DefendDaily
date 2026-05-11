@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.08 — canary token service + webhook callback (Canarytokens.org API, fire-and-forget POST handler)
-- **File:** `apps/api/src/services/canary.ts`, `apps/api/src/routes/webhooks.ts`
+- **Step:** 5.12 — Phase 5 complete (guardian alert tests, canary service tests, email service tests)
+- **File:** `apps/api/src/jobs/__tests__/guardianAlert.test.ts`, `apps/api/src/services/__tests__/{canary,email}.test.ts`
 - **Date:** 2026-05-11
 
 ## Overall Phase Status
@@ -16,7 +16,7 @@
 - [x] Phase 2: Risk Score & HIBP (10 steps)
 - [x] Phase 3: Peer Phish (12 steps)
 - [x] Phase 4: CISO Dashboard (15 steps)
-- [ ] Phase 5: SentryLife & Family Mode (12 steps)
+- [x] Phase 5: SentryLife & Family Mode (12 steps)
 - [ ] Phase 6: Enterprise & IdP Automation (10 steps)
 
 ## Step-Level Checklist
@@ -92,12 +92,12 @@
 - [x] 5.04 Build /sentrylife/home-defense/page.tsx (canary kit download)
 - [x] 5.05 Build Guardian Alert nightly BullMQ job (check family scores, send Slack DM)
 - [x] 5.06 Build canary.ts service (Canarytokens.org API — Word, PDF, Excel, PNG, .url)
-- [ ] 5.07 Build canary token zip generation (archiver, deliver download link)
+- [x] 5.07 Build canary token zip generation (archiver, deliver download link)
 - [x] 5.08 Build canary webhook callback (webhooks.ts — log triggered_at, alert owner)
-- [ ] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
+- [x] 5.09 Build breach monitor weekly email (SendGrid: HIBP summary for all family emails)
 - [x] 5.10 Store canary_tokens in DB, link to user
-- [ ] 5.11 Update breach_records for family accounts (share HIBP job)
-- [ ] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
+- [x] 5.11 Update breach_records for family accounts (share HIBP job)
+- [x] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 
 ### Phase 6 — Enterprise & IdP Automation
 - [ ] 6.01 Build okta.ts service (Okta Management API: assign/remove MFA enforcement group)
