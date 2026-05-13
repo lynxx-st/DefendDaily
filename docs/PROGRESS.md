@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 6.08 — Skeleton components (Toast, Modal, Tooltip, DataTable, MobileNav, Skeleton)
-- **File:** `apps/dashboard/src/components/ui/{Toast,Modal,Tooltip,DataTable,Skeleton}.tsx`, `apps/dashboard/src/components/app/MobileNav.tsx`
+- **Step:** 6.13 — CountUp StatCard + premium loading/error/ActivityFeed/UserRiskCard
+- **File:** `apps/dashboard/src/app/(app)/*/loading.tsx`, `error.tsx`, `not-found.tsx`, `global-error.tsx`, `ActivityFeed.tsx`, `UserRiskCard.tsx`, `StatCard.tsx`
 - **Date:** 2026-05-13
 
 ## Overall Phase Status
@@ -112,11 +112,11 @@
 - [x] 6.06 DataTable component (sortable, filterable, keyset-paginated)
 - [x] 6.07 Mobile hamburger nav + drawer
 - [x] 6.08 Skeleton loading components
-- [ ] 6.09 loading.tsx siblings for all dashboard page segments
-- [ ] 6.10 error.tsx, 404, and 500 pages
-- [ ] 6.11 Dashboard overview activity feed (last 10 org puzzle answers)
-- [ ] 6.12 Team page redesign (user cards + inline risk gauges)
-- [ ] 6.13 Animated CountUp stat numbers
+- [x] 6.09 loading.tsx siblings for all dashboard page segments
+- [x] 6.10 error.tsx, 404, and 500 pages
+- [x] 6.11 Dashboard overview activity feed (last 10 org puzzle answers)
+- [x] 6.12 Team page redesign (user cards + inline risk gauges)
+- [x] 6.13 Animated CountUp stat numbers
 - [ ] 6.14 Framer Motion page transitions + card hover lifts
 - [ ] 6.15 Mobile responsive audit + fix all breakpoints
 - [ ] 6.16 Accessible keyboard navigation audit (focus rings, skip-to-content)
