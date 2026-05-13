@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.12 — Phase 5 complete (guardian alert tests, canary service tests, email service tests)
-- **File:** `apps/api/src/jobs/__tests__/guardianAlert.test.ts`, `apps/api/src/services/__tests__/{canary,email}.test.ts`
+- **Step:** 6.08 — Skeleton components (Toast, Modal, Tooltip, DataTable, MobileNav, Skeleton)
+- **File:** `apps/dashboard/src/components/ui/{Toast,Modal,Tooltip,DataTable,Skeleton}.tsx`, `apps/dashboard/src/components/app/MobileNav.tsx`
 - **Date:** 2026-05-13
 
 ## Overall Phase Status
@@ -104,14 +104,14 @@
 - [x] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 
 ### Phase 6 — UI/UX & Design System Overhaul
-- [ ] 6.01 Full marketing homepage (hero + terminal mockup + spotlight glow)
-- [ ] 6.02 Pricing band + CTA spotlight + dark footer
-- [ ] 6.03 Toast notification system (sonner)
-- [ ] 6.04 Modal component (Radix Dialog)
-- [ ] 6.05 Tooltip component (Radix Tooltip)
-- [ ] 6.06 DataTable component (sortable, filterable, keyset-paginated)
-- [ ] 6.07 Mobile hamburger nav + drawer
-- [ ] 6.08 Skeleton loading components
+- [x] 6.01 Full marketing homepage (hero + terminal mockup + spotlight glow)
+- [x] 6.02 Pricing band + CTA spotlight + dark footer
+- [x] 6.03 Toast notification system (sonner)
+- [x] 6.04 Modal component (Radix Dialog)
+- [x] 6.05 Tooltip component (Radix Tooltip)
+- [x] 6.06 DataTable component (sortable, filterable, keyset-paginated)
+- [x] 6.07 Mobile hamburger nav + drawer
+- [x] 6.08 Skeleton loading components
 - [ ] 6.09 loading.tsx siblings for all dashboard page segments
 - [ ] 6.10 error.tsx, 404, and 500 pages
 - [ ] 6.11 Dashboard overview activity feed (last 10 org puzzle answers)

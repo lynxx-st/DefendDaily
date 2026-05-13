@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import { ToastProvider } from '@/components/ui/Toast';
 import './globals.css';
 
 const inter = Inter({
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-canvas text-body-strong font-sans antialiased min-h-screen">
         {children}
+        <ToastProvider />
       </body>
     </html>
   );
