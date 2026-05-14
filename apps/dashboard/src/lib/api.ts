@@ -43,6 +43,32 @@ async function apiFetch<T>(path: string, session: Session, init?: RequestInit): 
   return (await res.json()) as T;
 }
 
+export type CohortRow = {
+  cohort: string
+  user_count: string
+  avg_score: string
+  avg_streak: string
+  accuracy: string
+}
+
+export type BehavioralChange = {
+  before: { period: string; avg_score: string; accuracy: string } | undefined
+  after: { period: string; avg_score: string; accuracy: string } | undefined
+  delta: number | null
+}
+
+export type Campaign = {
+  id: string
+  name: string
+  description: string | null
+  puzzle_type: string | null
+  difficulty: string | null
+  dept_filter: string[]
+  start_date: string
+  end_date: string
+  created_at: string
+}
+
 export const api = {
   getOrgRiskSummary: (session: Session, orgId: string) =>
     apiFetch<OrgRiskSummary>(`/api/orgs/${orgId}/risk-summary`, session),
@@ -55,6 +81,18 @@ export const api = {
 
   getLeaderboard: (session: Session, orgId: string) =>
     apiFetch<LeaderboardEntry[]>(`/api/orgs/${orgId}/leaderboard`, session),
+
+  getCohorts: (session: Session) =>
+    apiFetch<{ cohorts: CohortRow[] }>('/api/analytics/cohorts', session),
+
+  getBehavioralChange: (session: Session, userId: string) =>
+    apiFetch<BehavioralChange>(`/api/analytics/behavioral-change/${userId}`, session),
+
+  getCampaigns: (session: Session) =>
+    apiFetch<{ campaigns: Campaign[] }>('/api/campaigns', session),
+
+  createCampaign: (session: Session, body: Omit<Campaign, 'id' | 'created_at'>) =>
+    apiFetch<{ id: string }>('/api/campaigns', session, { method: 'POST', body: JSON.stringify(body) }),
 };
 
 export { DashboardApiError };

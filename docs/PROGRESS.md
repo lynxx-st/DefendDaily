@@ -6,9 +6,9 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 8 — Question Quality & Content Intelligence
-- **Step:** 8.20 — Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
-- **File:** `cisaKevSync.ts`, `eloCalibration.ts`, `abTesting.ts`, `puzzleAnalytics.ts`, `weaknessMap.ts`, `puzzleRetirement.ts`, `suggestPuzzle.ts`, `translation.ts`, `puzzles/page.tsx`, `PuzzleStudio.tsx`, `BlockKitPreview.tsx`, `puzzles/effectiveness/page.tsx`, `bulkGeneratePuzzles.ts`, `spacedRepetition.test.ts`, `eloCalibration.test.ts`
+- **Phase:** 9 — Analytics, Gamification & Platform
+- **Step:** 9.05 — Campaign management (themed training weeks)
+- **File:** `cohortAnalytics.ts`, `campaigns.ts`, `012_campaigns.sql`, `analytics/cohorts/page.tsx`, `analytics/roi/page.tsx`, `RiskSparkline.tsx`, `RoiCalculator.tsx`, `CampaignManager.tsx`, `campaigns/page.tsx`
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -172,11 +172,11 @@
 - [x] 8.20 Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
 
 ### Phase 9 — Analytics, Gamification & Platform
-- [ ] 9.01 Cohort analysis dashboard (new hire vs 30/90-day vs veteran)
-- [ ] 9.02 Behavioral change score (90-day before/after diff)
-- [ ] 9.03 Department risk sparklines (7/30/90-day trend per dept)
-- [ ] 9.04 ROI calculator page (breach cost avoided, insurance discount)
-- [ ] 9.05 Campaign management (admin schedules themed training weeks)
+- [x] 9.01 Cohort analysis dashboard (new hire vs 30/90-day vs veteran)
+- [x] 9.02 Behavioral change score (90-day before/after diff)
+- [x] 9.03 Department risk sparklines (7/30/90-day trend per dept)
+- [x] 9.04 ROI calculator page (breach cost avoided, insurance discount)
+- [x] 9.05 Campaign management (admin schedules themed training weeks)
 - [ ] 9.06 Custom puzzle campaigns (assign sets to specific teams)
 - [ ] 9.07 Stripe billing integration (checkout + subscription tiers)
 - [ ] 9.08 Seat-based metered billing + Stripe webhook handlers

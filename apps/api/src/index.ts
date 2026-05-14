@@ -33,6 +33,8 @@ import { schedulePuzzleRetirementJob, retirementWorker } from './jobs/puzzleReti
 import { puzzleAnalyticsRouter } from './routes/puzzleAnalytics'
 import { weaknessMapRouter } from './routes/weaknessMap'
 import { puzzlesRouter } from './routes/puzzles'
+import { cohortRouter } from './routes/cohortAnalytics'
+import { campaignsRouter } from './routes/campaigns'
 import { teamsMessageHandler } from './bots/teams/adapter'
 import { env } from './config/env'
 import { logger } from './config/logger'
@@ -48,8 +50,10 @@ app.use('/api/compliance', complianceRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/family', familyRouter)
 app.use('/api/analytics/puzzles', puzzleAnalyticsRouter)
+app.use('/api/analytics', cohortRouter)
 app.use('/api/weakness', weaknessMapRouter)
 app.use('/api/puzzles', puzzlesRouter)
+app.use('/api/campaigns', campaignsRouter)
 
 app.post('/api/teams/messages', teamsMessageHandler)
 
