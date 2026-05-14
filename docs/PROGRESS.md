@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 7.04 — Streak freeze tokens (earn on 7-day milestone, /freeze command)
-- **File:** `streakService.ts`, `userService.ts`, `freeze.ts`, `answerHandler.ts` (updated)
+- **Step:** 7.07 — /stats command (personal deep stats)
+- **File:** `bossChallenge.ts`, `deptLeaderboard.ts`, `stats.ts`, `orgs.ts` (dept leaderboard endpoint)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -130,9 +130,9 @@
 - [x] 7.02 Achievement trigger engine (post-answer hook, 15+ achievement definitions)
 - [x] 7.03 /achievements Slack command (badge grid DM)
 - [x] 7.04 Streak freeze tokens (earn on 7-day streak, /freeze command)
-- [ ] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
-- [ ] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
-- [ ] 7.07 /stats command (personal deep stats: accuracy by type, best streak, rank history)
+- [x] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
+- [x] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
+- [x] 7.07 /stats command (personal deep stats: accuracy by type, best streak, rank history)
 - [ ] 7.08 /challenge @user command (head-to-head puzzle battle)
 - [ ] 7.09 Smart re-DM reminder at 3 PM local for unanswered puzzles
 - [ ] 7.10 Bot welcome onboarding flow (day 1 / day 3 / day 7 nurture DMs)
