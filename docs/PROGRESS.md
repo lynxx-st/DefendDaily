@@ -6,9 +6,9 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 6.20 — Phase 6 complete (OnboardingWizard, SettingsTabs, RiskSparkline, 14 tests passing)
-- **File:** `OnboardingWizard.tsx`, `SettingsTabs.tsx`, `RiskSparkline.tsx`, `vitest.config.ts`, `Skeleton.test.tsx`, `ActivityFeed.test.tsx`
+- **Phase:** 7 — Bot & Engagement Upgrades
+- **Step:** 7.03 — /achievements Slack command (badge grid DM)
+- **File:** `008_achievements.sql`, `achievementEngine.ts`, `achievements.ts`, `answerHandler.ts` (updated)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -126,9 +126,9 @@
 - [x] 6.20 Phase 6 visual regression tests
 
 ### Phase 7 — Bot & Engagement Upgrades
-- [ ] 7.01 DB migration 008_achievements.sql (achievements + user_achievements tables)
-- [ ] 7.02 Achievement trigger engine (post-answer hook, 15+ achievement definitions)
-- [ ] 7.03 /achievements Slack command (badge grid DM)
+- [x] 7.01 DB migration 008_achievements.sql (achievements + user_achievements tables)
+- [x] 7.02 Achievement trigger engine (post-answer hook, 15+ achievement definitions)
+- [x] 7.03 /achievements Slack command (badge grid DM)
 - [ ] 7.04 Streak freeze tokens (earn on 7-day streak, /freeze command)
 - [ ] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
 - [ ] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
