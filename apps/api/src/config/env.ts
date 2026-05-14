@@ -22,6 +22,8 @@ const envSchema = z.object({
   TEAMS_APP_PASSWORD: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
   DEEPL_API_KEY: z.string().optional(),
+  // Public origin of the dashboard, used to build invite/share URLs.
+  NEXTAUTH_URL: z.string().url().default('http://localhost:3000'),
   TEXTBELT_API_URL: z.string().url().default('https://textbelt.com'),
   TEXTBELT_API_KEY: z.string().default('textbelt'),
   // SMTP — used for both phish simulations and transactional email (breach monitor, family alerts)
@@ -51,7 +53,6 @@ const envSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
   STRIPE_GROWTH_PRICE_ID: z.string().optional(),
   STRIPE_ENTERPRISE_PRICE_ID: z.string().optional(),
-  NEXTAUTH_URL: z.string().url().default('http://localhost:3000'),
 })
 
 const result = envSchema.safeParse(process.env)
