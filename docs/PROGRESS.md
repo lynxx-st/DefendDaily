@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 6.16 — Framer Motion transitions, mobile responsive audit, keyboard a11y
-- **File:** `PageTransition.tsx`, `AnimatedCard.tsx`, TopBar/AppLayout mobile nav wiring, hero h1 responsive, Modal mx-4, focus-visible CSS, skip link
+- **Step:** 6.20 — Phase 6 complete (OnboardingWizard, SettingsTabs, RiskSparkline, 14 tests passing)
+- **File:** `OnboardingWizard.tsx`, `SettingsTabs.tsx`, `RiskSparkline.tsx`, `vitest.config.ts`, `Skeleton.test.tsx`, `ActivityFeed.test.tsx`
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -17,7 +17,7 @@
 - [x] Phase 3: Peer Phish (12 steps)
 - [x] Phase 4: CISO Dashboard (15 steps)
 - [x] Phase 5: SentryLife & Family Mode (12 steps)
-- [ ] Phase 6: UI/UX & Design System Overhaul (20 steps)
+- [x] Phase 6: UI/UX & Design System Overhaul (20 steps)
 - [ ] Phase 7: Bot & Engagement Upgrades (22 steps)
 - [ ] Phase 8: Question Quality & Content Intelligence (20 steps)
 - [ ] Phase 9: Analytics, Gamification & Platform (24 steps)
@@ -120,10 +120,10 @@
 - [x] 6.14 Framer Motion page transitions + card hover lifts
 - [x] 6.15 Mobile responsive audit + fix all breakpoints
 - [x] 6.16 Accessible keyboard navigation audit (focus rings, skip-to-content)
-- [ ] 6.17 Multi-step onboarding wizard with progress bar
-- [ ] 6.18 Settings page redesign (tabs: General / Integrations / Billing / Notifications)
-- [ ] 6.19 Risk score trend sparkline chart (7-day inline chart per user on team page)
-- [ ] 6.20 Phase 6 visual regression tests
+- [x] 6.17 Multi-step onboarding wizard with progress bar
+- [x] 6.18 Settings page redesign (tabs: General / Integrations / Billing / Notifications)
+- [x] 6.19 Risk score trend sparkline chart (7-day inline chart per user on team page)
+- [x] 6.20 Phase 6 visual regression tests
 
 ### Phase 7 — Bot & Engagement Upgrades
 - [ ] 7.01 DB migration 008_achievements.sql (achievements + user_achievements tables)
