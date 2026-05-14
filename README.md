@@ -176,6 +176,7 @@ Next.js 14 dashboard with App Router, Tailwind CSS, and NextAuth.js:
 defenddaily/
 ├── CLAUDE.md                     # Session continuation protocol & master brief
 ├── DESIGN.md                     # Design system (colors, typography, components)
+├── README.md
 ├── package.json                  # Root workspace (pnpm monorepo)
 ├── pnpm-workspace.yaml
 ├── tsconfig.base.json
@@ -183,141 +184,158 @@ defenddaily/
 ├── .gitignore
 │
 ├── apps/
-│   ├── api/                      # Express API server
+│   ├── api/                      # Express API server  (package name: "api")
 │   │   ├── package.json
 │   │   └── src/
-│   │       ├── index.ts          # Entry point + graceful shutdown
+│   │       ├── index.ts          # Entry point + SIGTERM graceful shutdown
 │   │       ├── config/
-│   │       │   ├── env.ts        # Zod-validated environment
+│   │       │   ├── env.ts        # Zod-validated environment (exits on invalid config)
 │   │       │   └── logger.ts     # Pino structured logger
 │   │       ├── db/
-│   │       │   ├── client.ts     # pg Pool setup
-│   │       │   ├── redis.ts      # ioredis setup
-│   │       │   ├── migrate.ts    # Migration runner
-│   │       │   ├── seed.ts       # Puzzle seeder (30+ puzzles)
+│   │       │   ├── client.ts     # pg Pool (max 10 dev / 20 prod)
+│   │       │   ├── redis.ts      # ioredis (enableReadyCheck, retryStrategy)
+│   │       │   ├── migrate.ts    # Migration runner (schema_migrations tracking)
+│   │       │   ├── seed.ts       # Built-in puzzle bank seeder
+│   │       │   ├── seeds/
+│   │       │   │   ├── bulkGeneratePuzzles.ts   # AI-generated puzzles (Claude API)
+│   │       │   │   └── enrichExplanations.ts    # AI explanation enrichment
 │   │       │   └── migrations/
 │   │       │       ├── 001_init.sql
 │   │       │       ├── 002_slack_installation.sql
 │   │       │       ├── 003_breach_records_unique.sql
 │   │       │       ├── 004_risk_history_unique.sql
 │   │       │       ├── 005_phish_templates_unique.sql
-│   │       │       └── 006_smishing_consent.sql
+│   │       │       ├── 006_smishing_consent.sql
+│   │       │       ├── 007_family_invites.sql
+│   │       │       ├── 008_achievements.sql
+│   │       │       ├── 009_locale.sql
+│   │       │       ├── 010_spaced_repetition.sql
+│   │       │       ├── 011_elo.sql
+│   │       │       ├── 012_campaigns.sql
+│   │       │       └── 013_billing.sql
 │   │       ├── bots/
 │   │       │   ├── slack/
-│   │       │   │   ├── app.ts          # Bolt app initialization
-│   │       │   │   ├── commands/       # /defend, /leaderboard, /risk, /phish-a-friend, /report-phish
+│   │       │   │   ├── app.ts          # Bolt app initialization + OAuth
+│   │       │   │   ├── commands/       # /defend /leaderboard /risk /phish-a-friend
+│   │       │   │   │                   # /report-phish /achievements /stats /challenge
+│   │       │   │   │                   # /freeze /suggest-puzzle /admin-report /send-now
 │   │       │   │   ├── actions/        # answerHandler, phishSendHandler
-│   │       │   │   └── messages/       # Block Kit builders (puzzleMessage)
-│   │       │   └── teams/              # (future) Bot Framework SDK v4
+│   │       │   │   └── messages/       # Block Kit builders
+│   │       │   └── teams/              # Microsoft Teams Bot Framework SDK v4
+│   │       │       ├── adapter.ts
+│   │       │       ├── bot.ts
+│   │       │       └── cards/          # Adaptive Card builders
 │   │       ├── jobs/
-│   │       │   ├── queue.ts            # BullMQ setup
-│   │       │   ├── dailyPuzzle.ts      # 9 AM puzzle delivery worker
+│   │       │   ├── queue.ts            # BullMQ queues + default options
+│   │       │   ├── dailyPuzzle.ts      # 9 AM puzzle delivery (concurrency: 5)
 │   │       │   ├── riskScore.ts        # Nightly score recalculation
 │   │       │   ├── hibpCheck.ts        # Weekly breach scan
-│   │       │   └── weeklySummary.ts    # Monday morning summary
+│   │       │   ├── weeklySummary.ts    # Monday morning personal DM
+│   │       │   ├── guardianAlert.ts    # Nightly family score alerts
+│   │       │   ├── bossChallenge.ts    # Monthly org-wide hard puzzle
+│   │       │   ├── cisaKevSync.ts      # Weekly CISA KEV feed pull
+│   │       │   ├── puzzleRetirement.ts # Auto-retire >95% accuracy puzzles
+│   │       │   └── seatSync.ts         # Nightly Stripe seat quantity sync
 │   │       ├── routes/
 │   │       │   ├── webhooks.ts         # Phish tracking pixels + canary callbacks
 │   │       │   ├── orgs.ts             # Org CRUD
-│   │       │   ├── users.ts            # User CRUD
-│   │       │   └── compliance.ts       # PDF generation endpoint
+│   │       │   ├── users.ts            # User CRUD + /by-email
+│   │       │   ├── compliance.ts       # PDF generation endpoint
+│   │       │   ├── puzzles.ts          # Puzzle CRUD + suggestion approval
+│   │       │   ├── puzzleAnalytics.ts  # Skip rate, time-to-answer, engagement
+│   │       │   ├── weaknessMap.ts      # MITRE ATT&CK weakness map per user
+│   │       │   ├── campaigns.ts        # Training campaign CRUD + puzzle assignment
+│   │       │   ├── cohortAnalytics.ts  # Cohort, behavioral change, health score
+│   │       │   ├── billing.ts          # Stripe checkout + status + webhook handler
+│   │       │   └── referrals.ts        # Referral link generation + stats
 │   │       ├── services/
-│   │       │   ├── puzzleEngine.ts     # Puzzle selection + scoring
+│   │       │   ├── puzzleEngine.ts     # Puzzle selection (campaign-aware + spaced rep)
 │   │       │   ├── riskScorer.ts       # Human Risk Score formula
-│   │       │   ├── phishSimulator.ts   # Nodemailer-based phish sending
-│   │       │   ├── hibp.ts             # HaveIBeenPwned client
+│   │       │   ├── phishSimulator.ts   # Nodemailer phish sending + tracking
+│   │       │   ├── hibp.ts             # HaveIBeenPwned (k-anonymity, Redis cache)
 │   │       │   ├── compliancePdf.tsx   # @react-pdf/renderer PDF template
-│   │       │   └── smishing.ts         # Twilio SMS simulation
-│   │       ├── middleware/
-│   │       │   ├── apiAuth.ts          # JWT + API key auth
-│   │       │   └── __tests__/          # Middleware tests
-│   │       └── test-setup.ts           # Vitest + msw configuration
+│   │       │   ├── smishing.ts         # Twilio SMS simulation (consent-gated)
+│   │       │   ├── canary.ts           # Canarytokens.org API + zip delivery
+│   │       │   ├── stripe.ts           # Stripe checkout + webhook handling
+│   │       │   ├── spacedRepetition.ts # Leitner box scheduler (5 boxes)
+│   │       │   ├── eloCalibration.ts   # Elo puzzle difficulty (K=32, 800–2400)
+│   │       │   └── __tests__/          # spacedRepetition.test.ts, eloCalibration.test.ts
+│   │       └── middleware/
+│   │           ├── apiAuth.ts          # HS256 Bearer JWT + requireRole/requireOrgMatch
+│   │           ├── planGate.ts         # requirePlan('growth'|'enterprise') → 402
+│   │           └── __tests__/          # apiAuth.test.ts
 │   │
 │   └── dashboard/                 # Next.js 14 CISO & SentryLife dashboard
 │       ├── package.json
 │       └── src/
 │           ├── app/
-│           │   ├── layout.tsx           # Root layout (Inter font)
-│           │   ├── globals.css          # Tailwind imports + design tokens
-│           │   ├── (marketing)/         # Landing page
-│           │   │   ├── layout.tsx
-│           │   │   └── page.tsx
-│           │   ├── (auth)/
-│           │   │   ├── layout.tsx
-│           │   │   ├── login/page.tsx
-│           │   │   └── setup/           # Post-Slack-install org setup wizard
-│           │   │       ├── page.tsx
-│           │   │       └── setup-form.tsx
-│           │   ├── (app)/               # Authenticated dashboard routes
-│           │   │   ├── layout.tsx       # Sidebar + TopBar shell
-│           │   │   ├── dashboard/
-│           │   │   │   ├── page.tsx
-│           │   │   │   └── loading.tsx
+│           │   ├── layout.tsx
+│           │   ├── globals.css
+│           │   ├── (marketing)/page.tsx       # Landing page
+│           │   ├── (auth)/login/page.tsx
+│           │   ├── (auth)/setup/              # Post-Slack-install wizard
+│           │   ├── (app)/                     # Authenticated routes
+│           │   │   ├── layout.tsx             # Sidebar + TopBar
+│           │   │   ├── dashboard/page.tsx
 │           │   │   ├── team/page.tsx
 │           │   │   ├── simulations/page.tsx
 │           │   │   ├── compliance/page.tsx
-│           │   │   └── settings/page.tsx
-│           │   └── api/                 # Next.js API routes
-│           │       ├── auth/[...nextauth]/route.ts
-│           │       ├── compliance/[orgId]/pdf/route.ts
-│           │       └── heatmap/[orgId]/png/route.tsx
-│           ├── auth.ts                  # NextAuth.js configuration
+│           │   │   ├── settings/
+│           │   │   │   ├── page.tsx           # Tabs: General/Integrations/Billing/Notifications
+│           │   │   │   └── billing/page.tsx   # Plan comparison + upgrade flow
+│           │   │   ├── success/page.tsx        # Account health + subscription status
+│           │   │   ├── roi/page.tsx            # ROI calculator
+│           │   │   ├── campaigns/page.tsx      # Campaign management
+│           │   │   └── puzzles/
+│           │   │       ├── page.tsx            # Admin puzzle studio
+│           │   │       └── effectiveness/page.tsx
+│           │   └── (sentrylife)/
+│           │       ├── family/page.tsx
+│           │       └── home-defense/page.tsx
 │           ├── components/
-│           │   ├── app/
-│           │   │   ├── Sidebar.tsx
-│           │   │   └── TopBar.tsx
+│           │   ├── analytics/
+│           │   │   ├── RoiCalculator.tsx
+│           │   │   └── RiskSparkline.tsx
+│           │   ├── billing/
+│           │   │   └── UpgradeBanner.tsx
+│           │   ├── campaigns/
+│           │   │   └── CampaignManager.tsx
+│           │   ├── puzzles/
+│           │   │   ├── PuzzleStudio.tsx
+│           │   │   └── BlockKitPreview.tsx
 │           │   ├── dashboard/
 │           │   │   ├── RiskHeatmap.tsx
 │           │   │   ├── PhishTrendChart.tsx
 │           │   │   ├── LeaderboardTable.tsx
 │           │   │   ├── RiskScoreGauge.tsx
 │           │   │   └── ComplianceExportButton.tsx
-│           │   ├── marketing/
-│           │   │   ├── MarketingNav.tsx
-│           │   │   └── Footer.tsx
 │           │   └── ui/                  # Design system primitives
-│           │       ├── Badge.tsx
-│           │       ├── Button.tsx
-│           │       ├── Card.tsx
-│           │       ├── EmptyState.tsx
-│           │       ├── PageHeader.tsx
-│           │       ├── Spotlight.tsx
-│           │       ├── StatCard.tsx
-│           │       ├── Terminal.tsx
-│           │       └── Wordmark.tsx
-│           ├── config/env.ts            # Dashboard env validation
-│           ├── lib/
-│           │   ├── api.ts               # Fetch client to Express API
-│           │   ├── api-jwt.ts           # JWT token exchange
-│           │   ├── auth-guard.ts        # Route protection
-│           │   └── risk-colors.ts       # Score-to-color mapping
-│           └── types/
-│               └── next-auth.d.ts       # NextAuth type augmentation
+│           │       ├── Badge.tsx, Button.tsx, Card.tsx
+│           │       ├── DataTable.tsx, EmptyState.tsx
+│           │       ├── PageHeader.tsx, StatCard.tsx
+│           │       ├── Skeleton.tsx, Spotlight.tsx
+│           │       └── Terminal.tsx, Wordmark.tsx
+│           └── lib/
+│               ├── api.ts               # Typed fetch client to Express API
+│               ├── api-jwt.ts           # JWT minting for server→API calls
+│               ├── auth-guard.ts        # requireCisoOrAdmin() server helper
+│               └── risk-colors.ts       # Score → color token mapping
 │
 ├── packages/
 │   ├── shared-types/               # TypeScript interfaces shared across apps
-│   │   ├── package.json
-│   │   ├── tsconfig.json
-│   │   └── src/
-│   │       └── index.ts
-│   │
-│   └── puzzle-bank/                # Static puzzle content (JSON)
-│       ├── spot-the-phish/         # 8 puzzles (Google, Microsoft 365, PayPal, etc.)
-│       ├── true-false/             # 10 puzzles (MFA, passwords, HTTPS, etc.)
-│       ├── scenarios/              # 10 puzzles (hotel wifi, CEO fraud, vishing, etc.)
-│       └── breach-alert/           # 2 puzzles (credential breach, dark web exposure)
+│   └── puzzle-bank/                # Static puzzle JSON (500+ puzzles)
+│       ├── spot-the-phish/
+│       ├── true-false/
+│       ├── scenarios/
+│       └── breach-alert/
 │
 ├── infra/
-│   ├── docker-compose.yml          # PostgreSQL 16 + Redis 7 for local dev
+│   ├── docker-compose.yml          # PostgreSQL 16 + Redis 7 (named volumes + healthchecks)
 │   └── railway.toml                # Railway deployment config
 │
-└── docs/                           # Implementation guides (6 phases, 57 files)
-    ├── PROGRESS.md                 # Live progress tracker
-    ├── phase-1-bot-mvp/            # 13 docs — Slack bot foundation
-    ├── phase-2-risk-score/         # 7 docs — HIBP + risk score
-    ├── phase-3-peer-phish/         # 9 docs — phishing simulations
-    ├── phase-4-ciso-dashboard/     # 12 docs — Next.js dashboard
-    ├── phase-5-sentrylife/         # 7 docs — family mode
-    └── phase-6-enterprise/         # 5 docs — IdP automation + SSO
+└── docs/
+    ├── PROGRESS.md                 # Live step-level progress tracker
+    └── phase-*/                    # Per-step implementation guides
 ```
 
 ---
@@ -325,7 +343,7 @@ defenddaily/
 ## Database Schema
 
 <details>
-<summary>Click to expand — 9 tables + Redis conventions</summary>
+<summary>Click to expand — 13 migrations, 15+ tables, Redis conventions</summary>
 
 ### Tables
 
@@ -454,6 +472,15 @@ CREATE TABLE audit_log (
   metadata    JSONB,
   occurred_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Additional tables added in later migrations:
+-- achievements, user_achievements (008)
+-- leitner_boxes (010 — spaced repetition state per user/puzzle)
+-- puzzle_ab_variants (A/B testing framework)
+-- training_campaigns, campaign_puzzles (012)
+-- referrals (013)
+-- Billing columns on organizations: stripe_customer_id, stripe_subscription_id,
+--   plan_status, plan_expires_at, seat_count, referral_code (013)
 ```
 
 ### Indexes
@@ -536,16 +563,31 @@ cp .env.example .env
 # Edit .env with your Slack credentials, database URL, etc.
 
 # 4. Run database migrations
-pnpm --filter @defenddaily/api run migrate
+pnpm --filter api migrate
 
-# 5. Seed the puzzle bank
-pnpm --filter @defenddaily/api run seed
+# 5. Seed the puzzle bank (built-in puzzles)
+pnpm --filter api seed
 
 # 6. Start development servers
 pnpm dev
 ```
 
 The API server starts at `http://localhost:3001` and the dashboard at `http://localhost:3000`.
+
+### Database Migrations & Seeds
+
+> **Note:** The package name inside `apps/api/package.json` is `"name": "api"` — use `--filter api`, not `--filter @defenddaily/api`.
+
+| Command | What it does |
+|---------|-------------|
+| `pnpm --filter api migrate` | Applies all pending SQL migrations in order |
+| `pnpm --filter api seed` | Seeds the built-in puzzle bank (30+ puzzles) |
+| `pnpm tsx apps/api/src/db/seeds/bulkGeneratePuzzles.ts` | AI-generates 20 additional puzzles (requires `ANTHROPIC_API_KEY`) |
+| `pnpm tsx apps/api/src/db/seeds/enrichExplanations.ts` | Enriches existing puzzle explanations via Claude API |
+
+Alternatively, from within `apps/api/` you can run `pnpm migrate` and `pnpm seed` directly.
+
+All migrations live in `apps/api/src/db/migrations/` and are tracked in the `schema_migrations` table — re-running `migrate` is always safe (already-applied files are skipped).
 
 ---
 
@@ -601,69 +643,126 @@ The API server starts at `http://localhost:3001` and the dashboard at `http://lo
 <details>
 <summary>Click to expand — 6 phases across 20 weeks</summary>
 
-### Phase 1 — Bot MVP (Weeks 1–4) ✅ *Complete*
-
-A working Slack bot that delivers daily puzzles, tracks answers, and shows a leaderboard.
+### Phase 1 — Bot MVP ✅ *Complete*
 
 - [x] pnpm monorepo with Express + TypeScript
 - [x] PostgreSQL 16 + Redis 7 via Docker Compose
-- [x] Schema migrations (6 migration files)
+- [x] Schema migrations tracked in `schema_migrations` table
 - [x] Slack Bolt app with OAuth install flow
 - [x] `/defend` slash command for on-demand puzzles
 - [x] Block Kit builders for all puzzle types
 - [x] Answer handler with score + streak tracking
-- [x] BullMQ repeatable job for 9 AM delivery
+- [x] BullMQ repeatable job for 9 AM delivery per org timezone
 - [x] 30+ seeded puzzles (spot-the-phish, true/false, scenarios, breach alerts)
 - [x] `/leaderboard` command with emoji rank medals
 
-### Phase 2 — Risk Score & HIBP (Weeks 5–6) ✅ *Complete*
+### Phase 2 — Risk Score & HIBP ✅ *Complete*
 
-- [x] Dynamic Human Risk Score formula
-- [x] HaveIBeenPwned integration (k-anonymity API)
-- [x] Weekly breach scan job
-- [x] Nightly score recalculation job
+- [x] Dynamic Human Risk Score formula (Awareness×0.4 + Consistency×0.3 − RealWorldRisk×0.3)
+- [x] HaveIBeenPwned integration (k-anonymity API, Redis 24h cache)
+- [x] Weekly breach scan BullMQ job
+- [x] Nightly score recalculation job → `risk_score_history`
 - [x] `/risk` command with color-coded shield
-- [x] Weekly Monday summary message
+- [x] Weekly Monday summary message per user
 
-### Phase 3 — Peer Phish (Weeks 7–9) ✅ *Complete*
+### Phase 3 — Peer Phish ✅ *Complete*
 
-- [x] Native Nodemailer phishing simulator
-- [x] Admin-curated phish template library
-- [x] `/phish-a-friend` Slack modal
-- [x] Tracking pixels + redirect webhooks
+- [x] Native Nodemailer phishing simulator (no Gophish dependency)
+- [x] Admin-curated phish template library (10 templates)
+- [x] `/phish-a-friend` Slack modal with template browser
+- [x] Tracking pixels + redirect webhooks (`/track/open/:token`, `/track/click/:token`)
 - [x] `/report-phish` command with Defense Points
-- [x] Twilio smishing path with explicit consent
-- [x] ToS acknowledgment + audit log assertions
+- [x] Twilio smishing path with explicit consent stored in DB
+- [x] ToS acknowledgment + audit log assertions before every send
 
-### Phase 4 — CISO Dashboard (Weeks 10–13)
+### Phase 4 — CISO Dashboard ✅ *Complete*
 
 - [x] Next.js 14 App Router + Tailwind CSS
 - [x] NextAuth.js with Google/Microsoft SSO + magic links
-- [x] Shared types package (`@defenddaily/shared-types`)
-- [x] API client layer with JWT auth
-- [x] Risk Heatmap (CSS grid, color-coded)
-- [x] Phish Trend Chart (Recharts line chart)
+- [x] Shared types package
+- [x] API client layer with HS256 Bearer JWT auth
+- [x] Risk Heatmap (CSS grid, color-coded red/amber/green)
+- [x] Phish Trend Chart (Recharts, 90-day click rate)
 - [x] Leaderboard Table + Risk Score Gauge
 - [x] Compliance PDF export (`@react-pdf/renderer`)
+- [x] CISO/admin role middleware on all dashboard API routes
+- [x] Heatmap PNG export (`next/og` ImageResponse)
 - [x] Post-install Slack setup wizard
-- [ ] Tests & polish
 
-### Phase 5 — SentryLife (Weeks 14–16)
+### Phase 5 — SentryLife & Family Mode ✅ *Complete*
 
-- [ ] Family invite token generation
-- [ ] SentryLife dashboard UI (separate route group)
-- [ ] Guardian Alert nightly job
-- [ ] Canary Token generation via Canarytokens.org
-- [ ] Home Defense Kit zip download
-- [ ] Weekly family breach monitor email
+- [x] Family invite token generation + accept flow
+- [x] SentryLife Tailwind theme (separate `/sentrylife` route group)
+- [x] Family leaderboard + linked accounts page
+- [x] Guardian Alert nightly BullMQ job (score drops → Slack DM)
+- [x] Canary token generation via Canarytokens.org API
+- [x] Home Defense Kit zip download (Word, PDF, Excel, PNG, .url)
+- [x] Weekly breach monitor email (SendGrid) for all family emails
 
-### Phase 6 — Enterprise (Weeks 17–20)
+### Phase 6 — UI/UX & Design System ✅ *Complete*
 
-- [ ] Okta integration (MFA policy group assignment)
+- [x] Full marketing homepage with hero, terminal mockup, spotlight glow
+- [x] Toast (sonner), Modal (Radix Dialog), Tooltip (Radix Tooltip)
+- [x] DataTable with keyset pagination, Skeleton loading, `loading.tsx` siblings
+- [x] Framer Motion page transitions + card hover lifts
+- [x] Mobile responsive + accessible keyboard navigation
+- [x] Multi-step onboarding wizard, settings page redesign
+- [x] Risk score trend sparklines (7-day per user on team page)
+
+### Phase 7 — Bot & Engagement Upgrades ✅ *Complete*
+
+- [x] Achievements system (15+ definitions, `/achievements` command, badge grid DM)
+- [x] Streak freeze tokens (earn on 7-day streak, `/freeze` command)
+- [x] Monthly boss challenge (org-wide hard puzzle, 2× points)
+- [x] Team vs team department leaderboard
+- [x] `/stats`, `/challenge @user`, smart 3 PM re-DM reminder
+- [x] Bot onboarding nurture DMs (day 1/3/7)
+- [x] Microsoft Teams Adaptive Card delivery + commands
+- [x] Weekly personal DM digest, milestone celebration DMs
+- [x] Multi-language routing framework (EN/ES/FR/DE)
+
+### Phase 8 — Question Quality & Content Intelligence ✅ *Complete*
+
+- [x] Claude API (claude-sonnet-4-6) puzzle generation with quality scoring
+- [x] Spaced repetition (Leitner box scheduler, 5 boxes)
+- [x] CISA KEV feed integration (weekly CVE puzzles)
+- [x] Deepfake, physical security, supply chain attack puzzle categories
+- [x] Elo-style difficulty calibration (K=32, clamped 800–2400)
+- [x] A/B testing framework for puzzle variants
+- [x] Puzzle engagement analytics (skip rate, time-to-answer)
+- [x] Admin puzzle studio (create/edit/preview in dashboard)
+- [x] `/suggest-puzzle` command + approval queue
+- [x] MITRE ATT&CK tag taxonomy + user weakness map
+- [x] Puzzle retirement system (auto-retire >95% accuracy after 100 responses)
+- [x] DeepL translation pipeline (ES/FR/DE)
+- [x] 500+ puzzle bank expansion (AI-assisted, human-reviewed)
+
+### Phase 9 — Analytics, Gamification & Platform *(In Progress)*
+
+- [x] Cohort analysis dashboard (new hire vs 30/90-day vs veteran)
+- [x] Behavioral change score (90-day before/after diff)
+- [x] Department risk sparklines (7/30/90-day trend)
+- [x] ROI calculator page (breach cost avoided, insurance discount)
+- [x] Campaign management (admin schedules themed training weeks)
+- [x] Custom puzzle campaigns (assign sets to specific teams)
+- [x] Stripe billing integration (checkout + subscription tiers)
+- [x] Seat-based metered billing + Stripe webhook handlers
+- [x] In-app upgrade flow (feature gates + upsell banners)
+- [x] Customer success portal (health score, adoption, renewal)
+- [x] Referral program (unique links, commission tracking)
+- [ ] Outbound webhook framework (retry, delivery log)
+- [ ] Zapier integration (phish_click, streak_milestone, score_drop)
+- [ ] Public API v1 (JWT API keys, rate limiting 1000/hr)
+- [ ] OpenAPI 3.1 spec + developer documentation site
+
+### Phase 10 — Enterprise & IdP Automation
+
+- [ ] Okta integration (MFA policy group assignment on score < 40)
 - [ ] Azure AD integration (Conditional Access policies)
-- [ ] SAML/OIDC SSO via NextAuth.js
-- [ ] MSP partner portal (white-label, multi-org)
-- [ ] End-to-end tests
+- [ ] SAML/OIDC SSO via NextAuth.js enterprise providers
+- [ ] SCIM 2.0 provisioning endpoint
+- [ ] MSP partner portal (white-label, multi-org management)
+- [ ] Stripe reseller billing webhook (partner margin calculation)
 
 </details>
 
