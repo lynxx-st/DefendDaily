@@ -56,3 +56,74 @@ campaignsRouter.delete('/:id', async (req, res) => {
   await db.query(`DELETE FROM training_campaigns WHERE id = $1 AND org_id = $2`, [idParsed.data, orgId])
   res.status(204).end()
 })
+
+// --- 9.06: puzzle set assignment ---
+
+const campaignIdSchema = z.string().uuid()
+const puzzleAssignSchema = z.object({ puzzle_id: z.string().uuid(), position: z.number().int().min(0).optional() })
+
+campaignsRouter.get('/:id/puzzles', async (req, res) => {
+  const orgId = res.locals['principal']?.orgId as string | undefined
+  if (!orgId) { res.status(403).json({ error: 'Forbidden', code: 'FORBIDDEN', requestId: res.locals['requestId'] }); return }
+
+  const idParsed = campaignIdSchema.safeParse(req.params['id'])
+  if (!idParsed.success) { res.status(400).json({ error: 'Invalid id', code: 'VALIDATION_ERROR', requestId: res.locals['requestId'] }); return }
+
+  const { rows } = await db.query<{ puzzle_id: string; position: number; type: string; difficulty: string; question: string }>(
+    `SELECT cp.puzzle_id, cp.position, p.type, p.difficulty,
+            p.payload->>'question' AS question
+     FROM campaign_puzzles cp
+     JOIN puzzles p ON p.id = cp.puzzle_id
+     JOIN training_campaigns tc ON tc.id = cp.campaign_id
+     WHERE cp.campaign_id = $1 AND tc.org_id = $2
+     ORDER BY cp.position ASC`,
+    [idParsed.data, orgId],
+  )
+  res.json({ puzzles: rows })
+})
+
+campaignsRouter.post('/:id/puzzles', async (req, res) => {
+  const orgId = res.locals['principal']?.orgId as string | undefined
+  if (!orgId) { res.status(403).json({ error: 'Forbidden', code: 'FORBIDDEN', requestId: res.locals['requestId'] }); return }
+
+  const idParsed = campaignIdSchema.safeParse(req.params['id'])
+  const bodyParsed = puzzleAssignSchema.safeParse(req.body)
+  if (!idParsed.success || !bodyParsed.success) {
+    res.status(400).json({ error: 'Invalid request', code: 'VALIDATION_ERROR', requestId: res.locals['requestId'] })
+    return
+  }
+
+  // Verify campaign belongs to org
+  const { rows: check } = await db.query<{ id: string }>(
+    `SELECT id FROM training_campaigns WHERE id = $1 AND org_id = $2`,
+    [idParsed.data, orgId],
+  )
+  if (!check[0]) { res.status(404).json({ error: 'Campaign not found', code: 'NOT_FOUND', requestId: res.locals['requestId'] }); return }
+
+  await db.query(
+    `INSERT INTO campaign_puzzles (campaign_id, puzzle_id, position) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
+    [idParsed.data, bodyParsed.data.puzzle_id, bodyParsed.data.position ?? 0],
+  )
+  res.status(201).end()
+})
+
+campaignsRouter.delete('/:id/puzzles/:puzzleId', async (req, res) => {
+  const orgId = res.locals['principal']?.orgId as string | undefined
+  if (!orgId) { res.status(403).json({ error: 'Forbidden', code: 'FORBIDDEN', requestId: res.locals['requestId'] }); return }
+
+  const idParsed = campaignIdSchema.safeParse(req.params['id'])
+  const puzzleIdParsed = z.string().uuid().safeParse(req.params['puzzleId'])
+  if (!idParsed.success || !puzzleIdParsed.success) {
+    res.status(400).json({ error: 'Invalid id', code: 'VALIDATION_ERROR', requestId: res.locals['requestId'] })
+    return
+  }
+
+  await db.query(
+    `DELETE FROM campaign_puzzles cp
+     USING training_campaigns tc
+     WHERE cp.campaign_id = tc.id AND tc.org_id = $1
+       AND cp.campaign_id = $2 AND cp.puzzle_id = $3`,
+    [orgId, idParsed.data, puzzleIdParsed.data],
+  )
+  res.status(204).end()
+})

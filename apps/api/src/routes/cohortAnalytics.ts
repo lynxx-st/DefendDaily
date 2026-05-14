@@ -76,3 +76,38 @@ cohortRouter.get('/behavioral-change/:userId', async (req, res) => {
 
   res.json({ before, after, delta })
 })
+
+cohortRouter.get('/health-score', async (_req, res) => {
+  const orgId = res.locals['principal']?.orgId as string | undefined
+  if (!orgId) { res.status(403).json({ error: 'Forbidden', code: 'FORBIDDEN', requestId: res.locals['requestId'] }); return }
+
+  const { rows } = await db.query<{
+    total_users: string
+    active_7d: string
+    avg_score: string
+    renewal_date: string | null
+  }>(
+    `SELECT
+       COUNT(DISTINCT u.id)::text AS total_users,
+       COUNT(DISTINCT CASE WHEN pd.delivered_at >= CURRENT_DATE - 7 THEN u.id END)::text AS active_7d,
+       ROUND(AVG(u.risk_score))::text AS avg_score,
+       TO_CHAR(o.plan_expires_at, 'YYYY-MM-DD') AS renewal_date
+     FROM users u
+     JOIN organizations o ON o.id = u.org_id
+     LEFT JOIN puzzle_deliveries pd ON pd.user_id = u.id
+     WHERE u.org_id = $1
+     GROUP BY o.plan_expires_at`,
+    [orgId],
+  )
+  const row = rows[0]
+  const totalUsers = parseInt(row?.total_users ?? '0', 10)
+  const active7d = parseInt(row?.active_7d ?? '0', 10)
+  const adoptionPct = totalUsers > 0 ? Math.round((active7d / totalUsers) * 100) : 0
+
+  res.json({
+    adoption_pct: adoptionPct,
+    active_7d: active7d,
+    avg_score: parseInt(row?.avg_score ?? '0', 10),
+    renewal_date: row?.renewal_date ?? null,
+  })
+})

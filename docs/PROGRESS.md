@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 9 — Analytics, Gamification & Platform
-- **Step:** 9.05 — Campaign management (themed training weeks)
-- **File:** `cohortAnalytics.ts`, `campaigns.ts`, `012_campaigns.sql`, `analytics/cohorts/page.tsx`, `analytics/roi/page.tsx`, `RiskSparkline.tsx`, `RoiCalculator.tsx`, `CampaignManager.tsx`, `campaigns/page.tsx`
+- **Step:** 9.11 — Referral program (unique links, commission tracking)
+- **File:** `013_billing.sql`, `stripe.ts`, `planGate.ts`, `seatSync.ts`, `billing.ts`, `referrals.ts`, `success/page.tsx`, `settings/billing/page.tsx`, `UpgradeBanner.tsx`, `campaigns.ts` (puzzle assignment), `puzzleEngine.ts` (campaign-aware)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -177,12 +177,12 @@
 - [x] 9.03 Department risk sparklines (7/30/90-day trend per dept)
 - [x] 9.04 ROI calculator page (breach cost avoided, insurance discount)
 - [x] 9.05 Campaign management (admin schedules themed training weeks)
-- [ ] 9.06 Custom puzzle campaigns (assign sets to specific teams)
-- [ ] 9.07 Stripe billing integration (checkout + subscription tiers)
-- [ ] 9.08 Seat-based metered billing + Stripe webhook handlers
-- [ ] 9.09 In-app upgrade flow (feature gates + upsell banners)
-- [ ] 9.10 Customer success portal (health score, adoption, renewal)
-- [ ] 9.11 Referral program (unique links, commission tracking)
+- [x] 9.06 Custom puzzle campaigns (assign sets to specific teams)
+- [x] 9.07 Stripe billing integration (checkout + subscription tiers)
+- [x] 9.08 Seat-based metered billing + Stripe webhook handlers
+- [x] 9.09 In-app upgrade flow (feature gates + upsell banners)
+- [x] 9.10 Customer success portal (health score, adoption, renewal)
+- [x] 9.11 Referral program (unique links, commission tracking)
 - [ ] 9.12 Outbound webhook framework (retry, delivery log, event types)
 - [ ] 9.13 Zapier integration (phish_click, streak_milestone, score_drop)
 - [ ] 9.14 Public API v1 (JWT API keys, rate limiting 1000/hr)

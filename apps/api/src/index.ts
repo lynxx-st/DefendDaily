@@ -35,6 +35,9 @@ import { weaknessMapRouter } from './routes/weaknessMap'
 import { puzzlesRouter } from './routes/puzzles'
 import { cohortRouter } from './routes/cohortAnalytics'
 import { campaignsRouter } from './routes/campaigns'
+import { billingRouter, stripeWebhookHandler } from './routes/billing'
+import { referralsRouter } from './routes/referrals'
+import { scheduleSeatSyncJob, seatSyncWorker } from './jobs/seatSync'
 import { teamsMessageHandler } from './bots/teams/adapter'
 import { env } from './config/env'
 import { logger } from './config/logger'
@@ -54,6 +57,10 @@ app.use('/api/analytics', cohortRouter)
 app.use('/api/weakness', weaknessMapRouter)
 app.use('/api/puzzles', puzzlesRouter)
 app.use('/api/campaigns', campaignsRouter)
+app.use('/api/billing', billingRouter)
+app.use('/api/referrals', referralsRouter)
+// Stripe webhook needs raw body — mount before express.json()
+app.post('/api/billing/webhook', require('express').raw({ type: 'application/json' }), stripeWebhookHandler)
 
 app.post('/api/teams/messages', teamsMessageHandler)
 
@@ -78,6 +85,7 @@ app.get('/health', async (_req, res) => {
   await scheduleWeeklyDigestJob()
   await scheduleCisaKevJob()
   await schedulePuzzleRetirementJob()
+  await scheduleSeatSyncJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
@@ -89,6 +97,7 @@ process.on('SIGTERM', async () => {
   await weeklyDigestWorker.close()
   await cisaKevWorker.close()
   await retirementWorker.close()
+  await seatSyncWorker.close()
   await redis.quit()
   await db.end()
   process.exit(0)

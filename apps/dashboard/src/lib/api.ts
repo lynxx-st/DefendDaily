@@ -93,6 +93,24 @@ export const api = {
 
   createCampaign: (session: Session, body: Omit<Campaign, 'id' | 'created_at'>) =>
     apiFetch<{ id: string }>('/api/campaigns', session, { method: 'POST', body: JSON.stringify(body) }),
+
+  getHealthScore: (session: Session) =>
+    apiFetch<{ adoption_pct: number; active_7d: number; avg_score: number; renewal_date: string | null }>('/api/analytics/health-score', session),
+
+  getBillingStatus: (session: Session) =>
+    apiFetch<{ plan: string; plan_status: string; plan_expires_at: string | null }>('/api/billing/status', session),
+
+  createCheckout: (session: Session, plan: 'growth' | 'enterprise', seatCount: number) =>
+    apiFetch<{ url: string }>('/api/billing/checkout', session, {
+      method: 'POST',
+      body: JSON.stringify({ plan, seat_count: seatCount }),
+    }),
+
+  getReferrals: (session: Session) =>
+    apiFetch<{ referrals: Array<{ ref_code: string; referred_count: string; paid_count: string }> }>('/api/referrals/stats', session),
+
+  generateReferralCode: (session: Session) =>
+    apiFetch<{ code: string; url: string }>('/api/referrals/generate', session, { method: 'POST' }),
 };
 
 export { DashboardApiError };
