@@ -14,6 +14,14 @@ const migrations = [
   '003_breach_records_unique.sql',
   '004_risk_history_unique.sql',
   '005_phish_templates_unique.sql',
+  '006_smishing_consent.sql',
+  '007_family_invites.sql',
+  '008_achievements.sql',
+  '009_locale.sql',
+  '010_spaced_repetition.sql',
+  '011_elo.sql',
+  '012_campaigns.sql',
+  '013_billing.sql',
 ]
 
 async function migrate() {
