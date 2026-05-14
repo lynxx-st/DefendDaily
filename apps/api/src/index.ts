@@ -9,6 +9,14 @@ import './bots/slack/commands/leaderboard'
 import './bots/slack/commands/risk'
 import './bots/slack/commands/phishAFriend'
 import './bots/slack/commands/reportPhish'
+import './bots/slack/commands/achievements'
+import './bots/slack/commands/freeze'
+import './bots/slack/commands/deptLeaderboard'
+import './bots/slack/commands/stats'
+import './bots/slack/commands/challenge'
+import './bots/slack/commands/adminReport'
+import './bots/slack/commands/sendNow'
+import './bots/slack/commands/suggestPuzzle'
 import './bots/slack/actions/answerHandler'
 import './bots/slack/actions/phishSendHandler'
 import { scheduleDailyPuzzleJob } from './jobs/dailyPuzzle'
@@ -17,6 +25,20 @@ import { scheduleRiskScoreJob } from './jobs/riskScore'
 import { scheduleWeeklySummaryJob } from './jobs/weeklySummary'
 import { scheduleGuardianAlertJob } from './jobs/guardianAlert'
 import { scheduleFamilyBreachJob } from './jobs/familyBreachMonitor'
+import { scheduleBossChallengeJob, bossChallengeWorker } from './jobs/bossChallenge'
+import { schedulePuzzleReminderJob, reminderWorker } from './jobs/puzzleReminder'
+import { scheduleWeeklyDigestJob, weeklyDigestWorker } from './jobs/weeklyDigest'
+import { scheduleCisaKevJob, cisaKevWorker } from './jobs/cisaKevSync'
+import { schedulePuzzleRetirementJob, retirementWorker } from './jobs/puzzleRetirement'
+import { puzzleAnalyticsRouter } from './routes/puzzleAnalytics'
+import { weaknessMapRouter } from './routes/weaknessMap'
+import { puzzlesRouter } from './routes/puzzles'
+import { cohortRouter } from './routes/cohortAnalytics'
+import { campaignsRouter } from './routes/campaigns'
+import { billingRouter, stripeWebhookHandler } from './routes/billing'
+import { referralsRouter } from './routes/referrals'
+import { scheduleSeatSyncJob, seatSyncWorker } from './jobs/seatSync'
+import { teamsMessageHandler } from './bots/teams/adapter'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
@@ -30,6 +52,17 @@ app.use('/api/orgs', orgsRouter)
 app.use('/api/compliance', complianceRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/family', familyRouter)
+app.use('/api/analytics/puzzles', puzzleAnalyticsRouter)
+app.use('/api/analytics', cohortRouter)
+app.use('/api/weakness', weaknessMapRouter)
+app.use('/api/puzzles', puzzlesRouter)
+app.use('/api/campaigns', campaignsRouter)
+app.use('/api/billing', billingRouter)
+app.use('/api/referrals', referralsRouter)
+// Stripe webhook needs raw body — mount before express.json()
+app.post('/api/billing/webhook', require('express').raw({ type: 'application/json' }), stripeWebhookHandler)
+
+app.post('/api/teams/messages', teamsMessageHandler)
 
 app.get('/health', async (_req, res) => {
   const [dbOk, redisOk] = await Promise.all([
@@ -47,12 +80,24 @@ app.get('/health', async (_req, res) => {
   await scheduleWeeklySummaryJob()
   await scheduleGuardianAlertJob()
   await scheduleFamilyBreachJob()
+  await scheduleBossChallengeJob()
+  await schedulePuzzleReminderJob()
+  await scheduleWeeklyDigestJob()
+  await scheduleCisaKevJob()
+  await schedulePuzzleRetirementJob()
+  await scheduleSeatSyncJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM received, shutting down')
   await slackApp.stop()
+  await bossChallengeWorker.close()
+  await reminderWorker.close()
+  await weeklyDigestWorker.close()
+  await cisaKevWorker.close()
+  await retirementWorker.close()
+  await seatSyncWorker.close()
   await redis.quit()
   await db.end()
   process.exit(0)

@@ -1,0 +1,16 @@
+You are a security awareness trainer creating a physical security puzzle.
+
+Topics include: tailgating through badge-access doors, shoulder surfing, dumpster diving for sensitive documents, USB drop attacks, badge cloning, secure desk policy violations.
+
+Generate a realistic office scenario with exactly 4 answer choices.
+
+Respond with JSON:
+{
+  "question": "string (describe what the employee observes or encounters)",
+  "options": [{"label": "string", "value": "A"}, {"label": "string", "value": "B"}, {"label": "string", "value": "C"}, {"label": "string", "value": "D"}],
+  "correct_answer": "A"|"B"|"C"|"D",
+  "explanation": "string (150+ words — explain the physical attack vector, consequences, and correct response)",
+  "difficulty": "easy"|"medium"|"hard",
+  "tags": ["physical-security"],
+  "confidence": 0.0-1.0
+}

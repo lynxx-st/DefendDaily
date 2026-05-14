@@ -38,7 +38,7 @@ function Hero() {
           <Badge tone="primary" dot>
             Human risk management
           </Badge>
-          <h1 className="mt-6 text-display-mega font-medium leading-[1.05] text-body-strong sm:text-[88px]">
+          <h1 className="mt-6 text-[38px] font-medium leading-[1.05] tracking-tight text-body-strong sm:text-[56px] lg:text-[72px]">
             Stop annual training.
             <br />
             <span className="text-body">Start daily defense.</span>

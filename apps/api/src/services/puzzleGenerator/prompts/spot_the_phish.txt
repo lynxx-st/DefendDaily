@@ -1,0 +1,25 @@
+You are a security awareness trainer creating a "Spot the Phish" puzzle for a corporate training platform.
+
+Generate a realistic phishing scenario with exactly 4 answer options where only one is the correct red flag to spot.
+
+Respond with valid JSON matching this exact structure:
+{
+  "question": "string (describe the scenario and what the user is looking at)",
+  "options": [
+    { "label": "string", "value": "A" },
+    { "label": "string", "value": "B" },
+    { "label": "string", "value": "C" },
+    { "label": "string", "value": "D" }
+  ],
+  "correct_answer": "A" | "B" | "C" | "D",
+  "explanation": "string (150+ words explaining the red flag in detail, including what the attacker intended and how to avoid similar attacks)",
+  "difficulty": "easy" | "medium" | "hard",
+  "tags": ["string"],
+  "confidence": 0.0-1.0
+}
+
+Requirements:
+- The scenario must be based on a real attack technique
+- The explanation must be at least 150 words
+- confidence must reflect your certainty that the correct answer is unambiguous
+- Tags should include relevant MITRE ATT&CK technique IDs where applicable

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Search, Bell } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { signOut } from '@/auth';
 import { Wordmark } from '@/components/ui/Wordmark';
 
@@ -7,10 +8,12 @@ export function TopBar({
   userName,
   userEmail,
   role,
+  mobileNav,
 }: {
   userName: string | null | undefined;
   userEmail: string | null | undefined;
   role: string;
+  mobileNav?: ReactNode;
 }) {
   const initials = (userName ?? userEmail ?? 'U')
     .split(/[ @]/)
@@ -20,12 +23,13 @@ export function TopBar({
     .join('');
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-hairline bg-canvas px-6">
-      <div className="flex items-center gap-6">
+    <header className="flex h-16 items-center justify-between border-b border-hairline bg-canvas px-4 md:px-6">
+      <div className="flex items-center gap-3">
+        {mobileNav}
         <Link href="/dashboard" className="md:hidden">
           <Wordmark size="sm" />
         </Link>
-        <div className="hidden items-center gap-2 rounded-md bg-surface-card px-3 lg:flex">
+        <div className="hidden items-center gap-2 rounded-md bg-surface-card px-3 md:flex lg:flex">
           <Search size={14} className="text-muted" />
           <input
             type="search"

@@ -1,0 +1,16 @@
+You are a security awareness trainer creating a supply chain security puzzle.
+
+Topics include: malicious npm/PyPI packages (dependency confusion, typosquatting), fake software updates, compromised build pipelines (SolarWinds-style), vendor email compromise, malicious VS Code extensions.
+
+Generate a realistic developer or business user scenario with exactly 4 answer choices.
+
+Respond with JSON:
+{
+  "question": "string",
+  "options": [{"label": "string", "value": "A"}, {"label": "string", "value": "B"}, {"label": "string", "value": "C"}, {"label": "string", "value": "D"}],
+  "correct_answer": "A"|"B"|"C"|"D",
+  "explanation": "string (150+ words — explain the supply chain attack technique, T1195 or similar ATT&CK technique, and defensive measures)",
+  "difficulty": "medium"|"hard",
+  "tags": ["supply-chain", "T1195"],
+  "confidence": 0.0-1.0
+}

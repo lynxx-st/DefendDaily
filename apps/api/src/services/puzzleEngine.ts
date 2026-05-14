@@ -1,10 +1,33 @@
 import { db } from '../db/client'
 import type { PuzzleRow } from '../bots/slack/messages/puzzleMessage'
 
-export async function selectPuzzle(userId: string, _orgId: string): Promise<PuzzleRow | null> {
+export async function selectPuzzle(userId: string, orgId: string): Promise<PuzzleRow | null> {
+  // Check for an active campaign with assigned puzzles
+  const { rows: campaignRows } = await db.query<{ puzzle_id: string }>(
+    `SELECT cp.puzzle_id
+     FROM campaign_puzzles cp
+     JOIN training_campaigns tc ON tc.id = cp.campaign_id
+     WHERE tc.org_id = $1
+       AND tc.start_date <= CURRENT_DATE AND tc.end_date >= CURRENT_DATE
+       AND cp.puzzle_id NOT IN (
+         SELECT puzzle_id FROM puzzle_deliveries WHERE user_id = $2 AND puzzle_id IS NOT NULL
+       )
+     ORDER BY cp.position ASC, RANDOM()
+     LIMIT 1`,
+    [orgId, userId],
+  )
+
+  if (campaignRows[0]) {
+    const { rows } = await db.query<PuzzleRow>(
+      `SELECT id, type, difficulty, payload, correct_answer, explanation FROM puzzles WHERE id = $1`,
+      [campaignRows[0].puzzle_id],
+    )
+    if (rows[0]) return rows[0]
+  }
+
   const userResult = await db.query<{ risk_score: number }>(
     'SELECT risk_score FROM users WHERE id = $1',
-    [userId]
+    [userId],
   )
   const riskScore = userResult.rows[0]?.risk_score ?? 75
 
@@ -22,10 +45,9 @@ export async function selectPuzzle(userId: string, _orgId: string): Promise<Puzz
        )
      ORDER BY RANDOM()
      LIMIT 1`,
-    [userId]
+    [userId],
   )
 
-  // Fallback: if no unseen puzzles match the filter, pick any unseen puzzle
   if (!rows[0] && difficultyClause) {
     const fallback = await db.query<PuzzleRow>(
       `SELECT id, type, difficulty, payload, correct_answer, explanation
@@ -37,7 +59,7 @@ export async function selectPuzzle(userId: string, _orgId: string): Promise<Puzz
          )
        ORDER BY RANDOM()
        LIMIT 1`,
-      [userId]
+      [userId],
     )
     return fallback.rows[0] ?? null
   }

@@ -1,0 +1,22 @@
+You are a security awareness trainer creating a "True or False" security scenario puzzle for a corporate training platform.
+
+Generate a realistic workplace security scenario with exactly 2 options: "Safe — Do it" and "Danger — Don't do it".
+
+Respond with valid JSON matching this exact structure:
+{
+  "question": "string (describe a realistic security scenario the user faces)",
+  "options": [
+    { "label": "Safe — Do it", "value": "safe" },
+    { "label": "Danger — Don't do it", "value": "danger" }
+  ],
+  "correct_answer": "safe" | "danger",
+  "explanation": "string (100+ words explaining why this action is safe or dangerous, and what the user should do instead if dangerous)",
+  "difficulty": "easy" | "medium" | "hard",
+  "tags": ["string"],
+  "confidence": 0.0-1.0
+}
+
+Requirements:
+- Scenarios must be plausible workplace situations, not obvious caricatures
+- The explanation must provide actionable guidance
+- Tags should include relevant MITRE ATT&CK technique IDs where applicable

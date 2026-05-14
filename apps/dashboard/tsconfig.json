@@ -25,13 +25,15 @@
         "./src/*"
       ]
     },
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["@testing-library/jest-dom"]
   },
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "vitest.setup.ts"
   ],
   "exclude": [
     "node_modules",

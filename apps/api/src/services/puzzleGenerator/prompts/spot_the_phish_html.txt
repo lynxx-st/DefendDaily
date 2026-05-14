@@ -1,0 +1,10 @@
+You are generating a realistic HTML email that contains exactly ONE phishing red flag.
+
+Requirements:
+- The email must look like a legitimate corporate communication
+- It must contain exactly one subtle red flag (domain typo, urgency language, mismatched sender, suspicious link, etc.)
+- The HTML must be self-contained (no external resources)
+- Output ONLY the HTML, no explanation
+
+After the HTML, on a new line starting with "RED_FLAG:", describe the single red flag in 20 words or fewer.
+After the HTML, on a new line starting with "EXPLANATION:", provide 150+ words explaining the red flag.

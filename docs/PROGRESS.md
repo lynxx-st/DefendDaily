@@ -6,10 +6,10 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 5.12 — Phase 5 complete (guardian alert tests, canary service tests, email service tests)
-- **File:** `apps/api/src/jobs/__tests__/guardianAlert.test.ts`, `apps/api/src/services/__tests__/{canary,email}.test.ts`
-- **Date:** 2026-05-11
+- **Phase:** 9 — Analytics, Gamification & Platform
+- **Step:** 9.11 — Referral program (unique links, commission tracking)
+- **File:** `013_billing.sql`, `stripe.ts`, `planGate.ts`, `seatSync.ts`, `billing.ts`, `referrals.ts`, `success/page.tsx`, `settings/billing/page.tsx`, `UpgradeBanner.tsx`, `campaigns.ts` (puzzle assignment), `puzzleEngine.ts` (campaign-aware)
+- **Date:** 2026-05-14
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -17,7 +17,11 @@
 - [x] Phase 3: Peer Phish (12 steps)
 - [x] Phase 4: CISO Dashboard (15 steps)
 - [x] Phase 5: SentryLife & Family Mode (12 steps)
-- [ ] Phase 6: Enterprise & IdP Automation (10 steps)
+- [x] Phase 6: UI/UX & Design System Overhaul (20 steps)
+- [x] Phase 7: Bot & Engagement Upgrades (22 steps)
+- [x] Phase 8: Question Quality & Content Intelligence (20 steps)
+- [ ] Phase 9: Analytics, Gamification & Platform (24 steps)
+- [ ] Phase 10: Enterprise & IdP Automation (10 steps)
 
 ## Step-Level Checklist
 
@@ -99,14 +103,108 @@
 - [x] 5.11 Update breach_records for family accounts (share HIBP job)
 - [x] 5.12 Write Phase 5 integration tests (Guardian Alert logic, canary token creation)
 
-### Phase 6 — Enterprise & IdP Automation
-- [ ] 6.01 Build okta.ts service (Okta Management API: assign/remove MFA enforcement group)
-- [ ] 6.02 Implement Okta risk-triggered BullMQ job (score < 40 → assign group; score > 60 → remove)
-- [ ] 6.03 Build azure-ad.ts service (Microsoft Graph API: Conditional Access policy mutation)
-- [ ] 6.04 Implement Azure risk-triggered job (mirror Okta logic for Azure tenants)
-- [ ] 6.05 Add SSO SAML/OIDC to NextAuth (enterprise provider config, org-level IdP mapping)
-- [ ] 6.06 Build MSP partner portal layout (multi-org management, white-label header)
-- [ ] 6.07 Build multi-org overview dashboard (aggregate stats across managed orgs)
-- [ ] 6.08 Build white-label compliance PDF (org logo injection via S3 URL)
-- [ ] 6.09 Implement reseller billing webhook (Stripe: partner margin calculation)
-- [ ] 6.10 Write Phase 6 integration tests (msw mocks for Okta + Graph APIs)
+### Phase 6 — UI/UX & Design System Overhaul
+- [x] 6.01 Full marketing homepage (hero + terminal mockup + spotlight glow)
+- [x] 6.02 Pricing band + CTA spotlight + dark footer
+- [x] 6.03 Toast notification system (sonner)
+- [x] 6.04 Modal component (Radix Dialog)
+- [x] 6.05 Tooltip component (Radix Tooltip)
+- [x] 6.06 DataTable component (sortable, filterable, keyset-paginated)
+- [x] 6.07 Mobile hamburger nav + drawer
+- [x] 6.08 Skeleton loading components
+- [x] 6.09 loading.tsx siblings for all dashboard page segments
+- [x] 6.10 error.tsx, 404, and 500 pages
+- [x] 6.11 Dashboard overview activity feed (last 10 org puzzle answers)
+- [x] 6.12 Team page redesign (user cards + inline risk gauges)
+- [x] 6.13 Animated CountUp stat numbers
+- [x] 6.14 Framer Motion page transitions + card hover lifts
+- [x] 6.15 Mobile responsive audit + fix all breakpoints
+- [x] 6.16 Accessible keyboard navigation audit (focus rings, skip-to-content)
+- [x] 6.17 Multi-step onboarding wizard with progress bar
+- [x] 6.18 Settings page redesign (tabs: General / Integrations / Billing / Notifications)
+- [x] 6.19 Risk score trend sparkline chart (7-day inline chart per user on team page)
+- [x] 6.20 Phase 6 visual regression tests
+
+### Phase 7 — Bot & Engagement Upgrades
+- [x] 7.01 DB migration 008_achievements.sql (achievements + user_achievements tables)
+- [x] 7.02 Achievement trigger engine (post-answer hook, 15+ achievement definitions)
+- [x] 7.03 /achievements Slack command (badge grid DM)
+- [x] 7.04 Streak freeze tokens (earn on 7-day streak, /freeze command)
+- [x] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
+- [x] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
+- [x] 7.07 /stats command (personal deep stats: accuracy by type, best streak, rank history)
+- [x] 7.08 /challenge @user command (head-to-head puzzle battle)
+- [x] 7.09 Smart re-DM reminder at 3 PM local for unanswered puzzles
+- [x] 7.10 Bot welcome onboarding flow (day 1 / day 3 / day 7 nurture DMs)
+- [x] 7.11 /admin-report command (CISO instant org summary)
+- [x] 7.12 /send-now admin command (trigger immediate puzzle delivery)
+- [x] 7.13 Boss challenge Block Kit UI (cinematic reveal, live countdown)
+- [x] 7.14 Microsoft Teams Adaptive Card puzzle delivery
+- [x] 7.15 Teams /defend, /risk, /leaderboard, /achievements commands
+- [x] 7.16 Weekly personal DM digest (score, streak, rank, tip of the week)
+- [x] 7.17 Interactive leaderboard with rank-change arrows (up/down N)
+- [x] 7.18 Puzzle type unlocks (new categories unlock at 30/60/90 correct)
+- [x] 7.19 Milestone celebration DMs (100 puzzles, first perfect week, 30-day streak)
+- [x] 7.20 Slack status context triggers (OOO → travel security puzzles)
+- [x] 7.21 Multi-language routing framework (EN/ES/FR/DE)
+- [x] 7.22 Phase 7 integration tests
+
+### Phase 8 — Question Quality & Content Intelligence
+- [x] 8.01 Claude API integration for AI puzzle generation (claude-sonnet-4-6)
+- [x] 8.02 Puzzle quality scoring pipeline (auto-reject low quality)
+- [x] 8.03 Spaced repetition algorithm (Leitner box scheduler)
+- [x] 8.04 CISA KEV feed integration (weekly pull, industry-matched CVE puzzles)
+- [x] 8.05 Deepfake & AI social engineering puzzle category
+- [x] 8.06 Physical security puzzle category (tailgating, badge cloning)
+- [x] 8.07 Supply chain attack puzzle category (malicious packages, fake updates)
+- [x] 8.08 Elo-style puzzle difficulty calibration
+- [x] 8.09 A/B testing framework for puzzle variants
+- [x] 8.10 Puzzle engagement analytics (skip rate, time-to-answer heatmap)
+- [x] 8.11 AI-generated rich explanations (150-word, red-flag callouts)
+- [x] 8.12 Admin puzzle studio (create/edit/preview in dashboard)
+- [x] 8.13 Community puzzle submissions (/suggest-puzzle command + approval queue)
+- [x] 8.14 MITRE ATT&CK tag taxonomy (tag puzzles, show user weakness map)
+- [x] 8.15 Puzzle retirement system (auto-retire > 95% accuracy after 100 responses)
+- [x] 8.16 DeepL API translation pipeline (ES/FR/DE)
+- [x] 8.17 AI-assisted phishing screenshot generation for Spot the Phish puzzles
+- [x] 8.18 500+ puzzle bank expansion (AI-assisted, human-reviewed)
+- [x] 8.19 Puzzle effectiveness dashboard (admin view: accuracy, skip, engagement per puzzle)
+- [x] 8.20 Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
+
+### Phase 9 — Analytics, Gamification & Platform
+- [x] 9.01 Cohort analysis dashboard (new hire vs 30/90-day vs veteran)
+- [x] 9.02 Behavioral change score (90-day before/after diff)
+- [x] 9.03 Department risk sparklines (7/30/90-day trend per dept)
+- [x] 9.04 ROI calculator page (breach cost avoided, insurance discount)
+- [x] 9.05 Campaign management (admin schedules themed training weeks)
+- [x] 9.06 Custom puzzle campaigns (assign sets to specific teams)
+- [x] 9.07 Stripe billing integration (checkout + subscription tiers)
+- [x] 9.08 Seat-based metered billing + Stripe webhook handlers
+- [x] 9.09 In-app upgrade flow (feature gates + upsell banners)
+- [x] 9.10 Customer success portal (health score, adoption, renewal)
+- [x] 9.11 Referral program (unique links, commission tracking)
+- [ ] 9.12 Outbound webhook framework (retry, delivery log, event types)
+- [ ] 9.13 Zapier integration (phish_click, streak_milestone, score_drop)
+- [ ] 9.14 Public API v1 (JWT API keys, rate limiting 1000/hr)
+- [ ] 9.15 OpenAPI 3.1 spec auto-generation
+- [ ] 9.16 Developer documentation site (Mintlify)
+- [ ] 9.17 Seasonal events (Security Awareness Month — 2x points)
+- [ ] 9.18 Monthly Security Champion award (auto-nominate, Slack post)
+- [ ] 9.19 Anonymous industry benchmark (percentile rank vs cohort)
+- [ ] 9.20 White-label customization (org logo, colors, custom domain)
+- [ ] 9.21 SCIM 2.0 provisioning endpoint (auto-create/deactivate users)
+- [ ] 9.22 Advanced compliance reports (HIPAA, PCI-DSS, ISO 27001 mapping)
+- [ ] 9.23 Audit trail export (SOC 2 Type II evidence package)
+- [ ] 9.24 Phase 9 tests (billing, webhooks, API rate limiting)
+
+### Phase 10 — Enterprise & IdP Automation
+- [ ] 10.01 okta.ts service (assign/remove MFA enforcement group)
+- [ ] 10.02 Okta risk-triggered BullMQ job (score < 40 → on; > 60 → off)
+- [ ] 10.03 azure-ad.ts service (Microsoft Graph Conditional Access)
+- [ ] 10.04 Azure risk-triggered job (mirror Okta logic)
+- [ ] 10.05 SSO SAML/OIDC via NextAuth enterprise providers
+- [ ] 10.06 Org-level IdP URL mapping (each org has its own SAML metadata URL)
+- [ ] 10.07 MSP partner portal layout (multi-org management)
+- [ ] 10.08 Multi-org overview dashboard + white-label compliance PDF
+- [ ] 10.09 Stripe reseller billing webhook (partner margin calculation)
+- [ ] 10.10 Phase 10 integration tests (msw mocks for Okta + Graph APIs)

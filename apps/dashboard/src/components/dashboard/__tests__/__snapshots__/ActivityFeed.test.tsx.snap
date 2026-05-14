@@ -1,0 +1,76 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ActivityFeed > matches snapshot 1`] = `
+<div>
+  <div
+    class="overflow-hidden rounded-xl border border-hairline bg-surface-card"
+  >
+    <div
+      class="flex items-center justify-between border-b border-hairline px-5 py-4"
+    >
+      <h3
+        class="text-title-sm text-body-strong"
+      >
+        Recent Activity
+      </h3>
+      <span
+        class="rounded-pill bg-surface-card-elevated px-2 py-0.5 font-mono text-caption text-muted"
+      >
+        live
+      </span>
+    </div>
+    <ul>
+      <li
+        class="flex items-center gap-3.5 border-b border-hairline/50 px-4 py-3.5 last:border-0 hover:bg-surface-card-elevated/40 transition-colors"
+      >
+        <span
+          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border font-mono text-body-sm font-semibold bg-semantic-success/10 text-semantic-success border-semantic-success/20"
+        >
+          ✓
+        </span>
+        <span
+          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-pill text-caption font-semibold bg-accent-violet/20 text-accent-violet"
+        >
+          AJ
+        </span>
+        <div
+          class="min-w-0 flex-1"
+        >
+          <p
+            class="truncate text-body-sm font-medium text-body-strong"
+          >
+            Alice Johnson
+          </p>
+          <div
+            class="flex items-center gap-2 mt-0.5"
+          >
+            <span
+              class="inline-block h-1.5 w-1.5 shrink-0 rounded-pill bg-risk-amber"
+            />
+            <p
+              class="text-caption text-muted"
+            >
+              Spot the Phish
+            </p>
+          </div>
+        </div>
+        <div
+          class="shrink-0 text-right"
+        >
+          <p
+            class="text-body-sm font-medium text-semantic-success"
+          >
+            +
+            150
+          </p>
+          <p
+            class="text-caption text-muted"
+          >
+            less than a minute ago
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

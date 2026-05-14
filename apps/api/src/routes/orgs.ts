@@ -221,3 +221,52 @@ orgsRouter.get('/:orgId/leaderboard', async (req, res) => {
     sendError(res, 500, 'internal_error', 'Failed to load leaderboard')
   }
 })
+
+interface DeptRow {
+  dept_key: string
+  member_count: string
+  total_points: string
+  avg_points: string
+}
+
+orgsRouter.get('/:orgId/leaderboard/departments', requireAuth, requireOrgMatch, async (req: Request, res: Response) => {
+  const orgId = parseOrgId(req, res)
+  if (!orgId) return
+
+  try {
+    const { rows } = await db.query<DeptRow>(`
+      WITH weekly_scores AS (
+        SELECT
+          u.id AS user_id,
+          split_part(u.email, '@', 2) AS dept_key,
+          COALESCE(SUM(pd.points_earned), 0) AS user_points
+        FROM users u
+        LEFT JOIN puzzle_deliveries pd ON pd.user_id = u.id
+          AND pd.responded_at >= NOW() - INTERVAL '7 days'
+        WHERE u.org_id = $1
+        GROUP BY u.id, u.email
+      )
+      SELECT
+        dept_key,
+        COUNT(*) AS member_count,
+        SUM(user_points) AS total_points,
+        ROUND(AVG(user_points), 0) AS avg_points
+      FROM weekly_scores
+      GROUP BY dept_key
+      ORDER BY total_points DESC
+      LIMIT 10
+    `, [orgId])
+
+    res.json({
+      departments: rows.map(r => ({
+        dept_key: r.dept_key,
+        member_count: parseInt(r.member_count, 10),
+        total_points: parseInt(r.total_points, 10),
+        avg_points: parseInt(r.avg_points, 10),
+      })),
+    })
+  } catch (err) {
+    logger.error({ err, orgId }, 'dept leaderboard failed')
+    sendError(res, 500, 'internal_error', 'Failed to load department leaderboard')
+  }
+})
