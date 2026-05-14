@@ -8,6 +8,7 @@ import { selectPuzzle } from '../services/puzzleEngine'
 import { buildPuzzleBlocks } from '../bots/slack/messages/puzzleMessage'
 import { slackApp } from '../bots/slack/app'
 import { triggerOnboardingIfDue } from '../services/onboarding'
+import { getDueReviewPuzzleId } from '../services/spacedRepetition'
 
 type OrgRow = {
   id: string
@@ -50,7 +51,13 @@ async function deliverForOrg(org: OrgRow): Promise<void> {
   for (const user of users) {
     if (await redis.get(`puzzle:today:${org.id}:${user.id}`)) continue
 
-    const puzzle = await selectPuzzle(user.id, org.id)
+    const reviewPuzzleId = await getDueReviewPuzzleId(user.id)
+    const puzzle = reviewPuzzleId
+      ? await db.query<typeof selectPuzzle extends (...args: never[]) => Promise<infer T> ? NonNullable<T> : never>(
+          `SELECT id, type, difficulty, payload, correct_answer, explanation FROM puzzles WHERE id = $1`,
+          [reviewPuzzleId],
+        ).then(r => r.rows[0] ?? null)
+      : await selectPuzzle(user.id, org.id)
     if (!puzzle) continue
 
     const { rows } = await db.query<{ id: string }>(

@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 7.22 — Phase 7 integration tests (8 achievement engine tests passing)
-- **File:** `bossChallenge.ts` (msg), `teams/bot.ts`, `teams/adapter.ts`, `puzzleCard.ts`, `weeklyDigest.ts`, `leaderboard.ts` (rank arrows), `puzzleUnlocks.ts`, `milestones.ts`, `statusContext.ts`, `i18n.ts`, `009_locale.sql`, `achievementEngine.test.ts`
+- **Step:** 8.03 — Spaced repetition (Leitner box)
+- **File:** `puzzleGenerator/generate.ts`, `qualityCheck.ts`, `prompts/`, `010_spaced_repetition.sql`, `spacedRepetition.ts`, `answerHandler.ts` + `dailyPuzzle.ts` (updated)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -150,9 +150,9 @@
 - [x] 7.22 Phase 7 integration tests
 
 ### Phase 8 — Question Quality & Content Intelligence
-- [ ] 8.01 Claude API integration for AI puzzle generation (claude-sonnet-4-6)
-- [ ] 8.02 Puzzle quality scoring pipeline (auto-reject low quality)
-- [ ] 8.03 Spaced repetition algorithm (Leitner box scheduler)
+- [x] 8.01 Claude API integration for AI puzzle generation (claude-sonnet-4-6)
+- [x] 8.02 Puzzle quality scoring pipeline (auto-reject low quality)
+- [x] 8.03 Spaced repetition algorithm (Leitner box scheduler)
 - [ ] 8.04 CISA KEV feed integration (weekly pull, industry-matched CVE puzzles)
 - [ ] 8.05 Deepfake & AI social engineering puzzle category
 - [ ] 8.06 Physical security puzzle category (tailgating, badge cloning)

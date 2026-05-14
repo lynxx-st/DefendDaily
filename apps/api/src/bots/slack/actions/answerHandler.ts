@@ -5,12 +5,14 @@ import { redis } from '../../../db/redis'
 import { calcPoints } from '../../../services/puzzleEngine'
 import { checkAndGrantAchievements } from '../../../services/achievementEngine'
 import { maybeGrantFreezeToken } from '../../../services/streakService'
+import { updateLeitnerBox } from '../../../services/spacedRepetition'
 import { logger } from '../../../config/logger'
 
 type DeliveryRow = {
   id: string
   status: string
   user_id: string
+  puzzle_id: string
   delivered_at: string
   correct_answer: string
   difficulty: 'easy' | 'medium' | 'hard'
@@ -27,7 +29,7 @@ slackApp.action('puzzle_answer', async ({ action, ack, respond, client }) => {
   const { deliveryId, answer } = JSON.parse(btn.value ?? '{}') as { deliveryId: string; answer: string }
 
   const { rows } = await db.query<DeliveryRow>(`
-    SELECT pd.id, pd.status, pd.user_id, pd.delivered_at,
+    SELECT pd.id, pd.status, pd.user_id, pd.puzzle_id, pd.delivered_at,
            p.correct_answer, p.difficulty, p.explanation, p.type AS puzzle_type,
            o.id AS org_id, o.timezone AS org_timezone
     FROM puzzle_deliveries pd
@@ -78,6 +80,7 @@ slackApp.action('puzzle_answer', async ({ action, ack, respond, client }) => {
   )
 
   const grantedFreeze = await maybeGrantFreezeToken(delivery.user_id, newStreak)
+  await updateLeitnerBox(delivery.user_id, delivery.puzzle_id, isCorrect)
 
   const resultText = isCorrect
     ? `✅ *Correct!* You earned *${points} points*.\n\n💡 ${delivery.explanation}`
