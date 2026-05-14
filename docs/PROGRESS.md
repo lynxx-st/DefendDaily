@@ -7,9 +7,9 @@
 
 ## Last Completed
 - **Phase:** 5 — SentryLife & Family Mode
-- **Step:** 6.13 — CountUp StatCard + premium loading/error/ActivityFeed/UserRiskCard
-- **File:** `apps/dashboard/src/app/(app)/*/loading.tsx`, `error.tsx`, `not-found.tsx`, `global-error.tsx`, `ActivityFeed.tsx`, `UserRiskCard.tsx`, `StatCard.tsx`
-- **Date:** 2026-05-13
+- **Step:** 6.16 — Framer Motion transitions, mobile responsive audit, keyboard a11y
+- **File:** `PageTransition.tsx`, `AnimatedCard.tsx`, TopBar/AppLayout mobile nav wiring, hero h1 responsive, Modal mx-4, focus-visible CSS, skip link
+- **Date:** 2026-05-14
 
 ## Overall Phase Status
 - [x] Phase 1: Bot MVP (19 steps)
@@ -117,9 +117,9 @@
 - [x] 6.11 Dashboard overview activity feed (last 10 org puzzle answers)
 - [x] 6.12 Team page redesign (user cards + inline risk gauges)
 - [x] 6.13 Animated CountUp stat numbers
-- [ ] 6.14 Framer Motion page transitions + card hover lifts
-- [ ] 6.15 Mobile responsive audit + fix all breakpoints
-- [ ] 6.16 Accessible keyboard navigation audit (focus rings, skip-to-content)
+- [x] 6.14 Framer Motion page transitions + card hover lifts
+- [x] 6.15 Mobile responsive audit + fix all breakpoints
+- [x] 6.16 Accessible keyboard navigation audit (focus rings, skip-to-content)
 - [ ] 6.17 Multi-step onboarding wizard with progress bar
 - [ ] 6.18 Settings page redesign (tabs: General / Integrations / Billing / Notifications)
 - [ ] 6.19 Risk score trend sparkline chart (7-day inline chart per user on team page)
