@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 7.03 — /achievements Slack command (badge grid DM)
-- **File:** `008_achievements.sql`, `achievementEngine.ts`, `achievements.ts`, `answerHandler.ts` (updated)
+- **Step:** 7.04 — Streak freeze tokens (earn on 7-day milestone, /freeze command)
+- **File:** `streakService.ts`, `userService.ts`, `freeze.ts`, `answerHandler.ts` (updated)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -129,7 +129,7 @@
 - [x] 7.01 DB migration 008_achievements.sql (achievements + user_achievements tables)
 - [x] 7.02 Achievement trigger engine (post-answer hook, 15+ achievement definitions)
 - [x] 7.03 /achievements Slack command (badge grid DM)
-- [ ] 7.04 Streak freeze tokens (earn on 7-day streak, /freeze command)
+- [x] 7.04 Streak freeze tokens (earn on 7-day streak, /freeze command)
 - [ ] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
 - [ ] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
 - [ ] 7.07 /stats command (personal deep stats: accuracy by type, best streak, rank history)

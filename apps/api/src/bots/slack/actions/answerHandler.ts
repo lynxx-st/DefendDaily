@@ -4,6 +4,7 @@ import { db } from '../../../db/client'
 import { redis } from '../../../db/redis'
 import { calcPoints } from '../../../services/puzzleEngine'
 import { checkAndGrantAchievements } from '../../../services/achievementEngine'
+import { maybeGrantFreezeToken } from '../../../services/streakService'
 import { logger } from '../../../config/logger'
 
 type DeliveryRow = {
@@ -76,6 +77,8 @@ slackApp.action('puzzle_answer', async ({ action, ack, respond, client }) => {
     [newStreak, delivery.user_id]
   )
 
+  const grantedFreeze = await maybeGrantFreezeToken(delivery.user_id, newStreak)
+
   const resultText = isCorrect
     ? `✅ *Correct!* You earned *${points} points*.\n\n💡 ${delivery.explanation}`
     : `❌ *Not quite.* The correct answer: *${delivery.correct_answer}*\n\n💡 ${delivery.explanation}`
@@ -86,7 +89,10 @@ slackApp.action('puzzle_answer', async ({ action, ack, respond, client }) => {
       { type: 'section', text: { type: 'mrkdwn', text: resultText } },
       ...(isCorrect ? [{
         type: 'context' as const,
-        elements: [{ type: 'mrkdwn' as const, text: `🔥 Streak: ${newStreak} days | ⭐ +${points} pts` }],
+        elements: [{
+          type: 'mrkdwn' as const,
+          text: `🔥 Streak: ${newStreak} days | ⭐ +${points} pts${grantedFreeze ? ' | 🧊 Streak freeze token earned!' : ''}`,
+        }],
       }] : []),
     ],
     replace_original: true,
