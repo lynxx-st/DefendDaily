@@ -1,10 +1,10 @@
 import { Queue, Worker } from 'bullmq'
-import { redis } from '../db/redis'
+import { connection } from './queue'
 import { db } from '../db/client'
 import { logger } from '../config/logger'
 
 const bossChallengeQueue = new Queue('boss-challenge', {
-  connection: redis,
+  connection,
   defaultJobOptions: {
     removeOnComplete: { count: 100 },
     removeOnFail: { count: 500 },
@@ -56,5 +56,5 @@ export const bossChallengeWorker = new Worker(
 
     logger.info({ puzzleId: puzzle.id, orgCount: orgsResult.rows.length }, 'boss challenge dispatched')
   },
-  { connection: redis, concurrency: 5 },
+  { connection, concurrency: 5 },
 )
