@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 7.12 — /send-now admin command
-- **File:** `challenge.ts`, `puzzleReminder.ts`, `onboarding.ts`, `adminReport.ts`, `sendNow.ts`, `dailyPuzzle.ts` (onboarding hook)
+- **Step:** 7.22 — Phase 7 integration tests (8 achievement engine tests passing)
+- **File:** `bossChallenge.ts` (msg), `teams/bot.ts`, `teams/adapter.ts`, `puzzleCard.ts`, `weeklyDigest.ts`, `leaderboard.ts` (rank arrows), `puzzleUnlocks.ts`, `milestones.ts`, `statusContext.ts`, `i18n.ts`, `009_locale.sql`, `achievementEngine.test.ts`
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -18,7 +18,7 @@
 - [x] Phase 4: CISO Dashboard (15 steps)
 - [x] Phase 5: SentryLife & Family Mode (12 steps)
 - [x] Phase 6: UI/UX & Design System Overhaul (20 steps)
-- [ ] Phase 7: Bot & Engagement Upgrades (22 steps)
+- [x] Phase 7: Bot & Engagement Upgrades (22 steps)
 - [ ] Phase 8: Question Quality & Content Intelligence (20 steps)
 - [ ] Phase 9: Analytics, Gamification & Platform (24 steps)
 - [ ] Phase 10: Enterprise & IdP Automation (10 steps)
@@ -138,16 +138,16 @@
 - [x] 7.10 Bot welcome onboarding flow (day 1 / day 3 / day 7 nurture DMs)
 - [x] 7.11 /admin-report command (CISO instant org summary)
 - [x] 7.12 /send-now admin command (trigger immediate puzzle delivery)
-- [ ] 7.13 Boss challenge Block Kit UI (cinematic reveal, live countdown)
-- [ ] 7.14 Microsoft Teams Adaptive Card puzzle delivery
-- [ ] 7.15 Teams /defend, /risk, /leaderboard, /achievements commands
-- [ ] 7.16 Weekly personal DM digest (score, streak, rank, tip of the week)
-- [ ] 7.17 Interactive leaderboard with rank-change arrows (up/down N)
-- [ ] 7.18 Puzzle type unlocks (new categories unlock at 30/60/90 correct)
-- [ ] 7.19 Milestone celebration DMs (100 puzzles, first perfect week, 30-day streak)
-- [ ] 7.20 Slack status context triggers (OOO → travel security puzzles)
-- [ ] 7.21 Multi-language routing framework (EN/ES/FR/DE)
-- [ ] 7.22 Phase 7 integration tests
+- [x] 7.13 Boss challenge Block Kit UI (cinematic reveal, live countdown)
+- [x] 7.14 Microsoft Teams Adaptive Card puzzle delivery
+- [x] 7.15 Teams /defend, /risk, /leaderboard, /achievements commands
+- [x] 7.16 Weekly personal DM digest (score, streak, rank, tip of the week)
+- [x] 7.17 Interactive leaderboard with rank-change arrows (up/down N)
+- [x] 7.18 Puzzle type unlocks (new categories unlock at 30/60/90 correct)
+- [x] 7.19 Milestone celebration DMs (100 puzzles, first perfect week, 30-day streak)
+- [x] 7.20 Slack status context triggers (OOO → travel security puzzles)
+- [x] 7.21 Multi-language routing framework (EN/ES/FR/DE)
+- [x] 7.22 Phase 7 integration tests
 
 ### Phase 8 — Question Quality & Content Intelligence
 - [ ] 8.01 Claude API integration for AI puzzle generation (claude-sonnet-4-6)

@@ -26,6 +26,8 @@ import { scheduleGuardianAlertJob } from './jobs/guardianAlert'
 import { scheduleFamilyBreachJob } from './jobs/familyBreachMonitor'
 import { scheduleBossChallengeJob, bossChallengeWorker } from './jobs/bossChallenge'
 import { schedulePuzzleReminderJob, reminderWorker } from './jobs/puzzleReminder'
+import { scheduleWeeklyDigestJob, weeklyDigestWorker } from './jobs/weeklyDigest'
+import { teamsMessageHandler } from './bots/teams/adapter'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
@@ -39,6 +41,8 @@ app.use('/api/orgs', orgsRouter)
 app.use('/api/compliance', complianceRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/family', familyRouter)
+
+app.post('/api/teams/messages', teamsMessageHandler)
 
 app.get('/health', async (_req, res) => {
   const [dbOk, redisOk] = await Promise.all([
@@ -58,6 +62,7 @@ app.get('/health', async (_req, res) => {
   await scheduleFamilyBreachJob()
   await scheduleBossChallengeJob()
   await schedulePuzzleReminderJob()
+  await scheduleWeeklyDigestJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
@@ -66,6 +71,7 @@ process.on('SIGTERM', async () => {
   await slackApp.stop()
   await bossChallengeWorker.close()
   await reminderWorker.close()
+  await weeklyDigestWorker.close()
   await redis.quit()
   await db.end()
   process.exit(0)

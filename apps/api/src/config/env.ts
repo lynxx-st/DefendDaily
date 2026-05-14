@@ -18,6 +18,8 @@ const envSchema = z.object({
   // Optional in dev so existing tests/scripts boot without it; required for
   // protected endpoints — apiAuth rejects requests when absent.
   NEXTAUTH_SECRET: z.string().optional(),
+  TEAMS_APP_ID: z.string().optional(),
+  TEAMS_APP_PASSWORD: z.string().optional(),
   TEXTBELT_API_URL: z.string().url().default('https://textbelt.com'),
   TEXTBELT_API_KEY: z.string().default('textbelt'),
   // SMTP — used for both phish simulations and transactional email (breach monitor, family alerts)

@@ -16,6 +16,7 @@
     "@slack/bolt": "^4.7.2",
     "archiver": "^8.0.0",
     "axios": "^1.16.0",
+    "botbuilder": "^4.23.3",
     "bullmq": "^5.76.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
