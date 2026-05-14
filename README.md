@@ -568,8 +568,12 @@ pnpm --filter api migrate
 # 5. Seed the puzzle bank (built-in puzzles)
 pnpm --filter api seed
 
-# 6. Start development servers
+# 6. Start development servers (both at once)
 pnpm dev
+
+# Or start individually:
+pnpm dev:api        # API only  → http://localhost:3001
+pnpm dev:dashboard  # Dashboard → http://localhost:3000
 ```
 
 The API server starts at `http://localhost:3001` and the dashboard at `http://localhost:3000`.
