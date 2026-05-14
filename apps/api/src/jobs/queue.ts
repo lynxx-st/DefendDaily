@@ -5,6 +5,10 @@ const url = new URL(env.REDIS_URL)
 export const connection: ConnectionOptions = {
   host: url.hostname,
   port: parseInt(url.port || '6379', 10),
+  username: url.username || undefined,
+  password: url.password ? decodeURIComponent(url.password) : undefined,
+  // rediss:// scheme means TLS required (Redis Cloud, Upstash, etc.)
+  tls: url.protocol === 'rediss:' ? {} : undefined,
 }
 
 const defaultJobOptions = {
