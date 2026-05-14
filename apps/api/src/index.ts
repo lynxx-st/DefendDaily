@@ -13,6 +13,9 @@ import './bots/slack/commands/achievements'
 import './bots/slack/commands/freeze'
 import './bots/slack/commands/deptLeaderboard'
 import './bots/slack/commands/stats'
+import './bots/slack/commands/challenge'
+import './bots/slack/commands/adminReport'
+import './bots/slack/commands/sendNow'
 import './bots/slack/actions/answerHandler'
 import './bots/slack/actions/phishSendHandler'
 import { scheduleDailyPuzzleJob } from './jobs/dailyPuzzle'
@@ -22,6 +25,7 @@ import { scheduleWeeklySummaryJob } from './jobs/weeklySummary'
 import { scheduleGuardianAlertJob } from './jobs/guardianAlert'
 import { scheduleFamilyBreachJob } from './jobs/familyBreachMonitor'
 import { scheduleBossChallengeJob, bossChallengeWorker } from './jobs/bossChallenge'
+import { schedulePuzzleReminderJob, reminderWorker } from './jobs/puzzleReminder'
 import { env } from './config/env'
 import { logger } from './config/logger'
 import { db } from './db/client'
@@ -53,6 +57,7 @@ app.get('/health', async (_req, res) => {
   await scheduleGuardianAlertJob()
   await scheduleFamilyBreachJob()
   await scheduleBossChallengeJob()
+  await schedulePuzzleReminderJob()
   logger.info({ port: env.PORT }, 'DefendDaily API started')
 })()
 
@@ -60,6 +65,7 @@ process.on('SIGTERM', async () => {
   logger.info('SIGTERM received, shutting down')
   await slackApp.stop()
   await bossChallengeWorker.close()
+  await reminderWorker.close()
   await redis.quit()
   await db.end()
   process.exit(0)

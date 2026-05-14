@@ -7,8 +7,8 @@
 
 ## Last Completed
 - **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 7.07 — /stats command (personal deep stats)
-- **File:** `bossChallenge.ts`, `deptLeaderboard.ts`, `stats.ts`, `orgs.ts` (dept leaderboard endpoint)
+- **Step:** 7.12 — /send-now admin command
+- **File:** `challenge.ts`, `puzzleReminder.ts`, `onboarding.ts`, `adminReport.ts`, `sendNow.ts`, `dailyPuzzle.ts` (onboarding hook)
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -133,11 +133,11 @@
 - [x] 7.05 Monthly boss challenge job (org-wide hard puzzle, 2x points, Block Kit reveal)
 - [x] 7.06 Team vs team dept leaderboard (weekly dept score comparison)
 - [x] 7.07 /stats command (personal deep stats: accuracy by type, best streak, rank history)
-- [ ] 7.08 /challenge @user command (head-to-head puzzle battle)
-- [ ] 7.09 Smart re-DM reminder at 3 PM local for unanswered puzzles
-- [ ] 7.10 Bot welcome onboarding flow (day 1 / day 3 / day 7 nurture DMs)
-- [ ] 7.11 /admin-report command (CISO instant org summary)
-- [ ] 7.12 /send-now admin command (trigger immediate puzzle delivery)
+- [x] 7.08 /challenge @user command (head-to-head puzzle battle)
+- [x] 7.09 Smart re-DM reminder at 3 PM local for unanswered puzzles
+- [x] 7.10 Bot welcome onboarding flow (day 1 / day 3 / day 7 nurture DMs)
+- [x] 7.11 /admin-report command (CISO instant org summary)
+- [x] 7.12 /send-now admin command (trigger immediate puzzle delivery)
 - [ ] 7.13 Boss challenge Block Kit UI (cinematic reveal, live countdown)
 - [ ] 7.14 Microsoft Teams Adaptive Card puzzle delivery
 - [ ] 7.15 Teams /defend, /risk, /leaderboard, /achievements commands

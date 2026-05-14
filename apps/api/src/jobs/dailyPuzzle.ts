@@ -7,6 +7,7 @@ import { logger } from '../config/logger'
 import { selectPuzzle } from '../services/puzzleEngine'
 import { buildPuzzleBlocks } from '../bots/slack/messages/puzzleMessage'
 import { slackApp } from '../bots/slack/app'
+import { triggerOnboardingIfDue } from '../services/onboarding'
 
 type OrgRow = {
   id: string
@@ -68,6 +69,7 @@ async function deliverForOrg(org: OrgRow): Promise<void> {
     })
 
     logger.info({ userId: user.id, orgId: org.id }, 'Daily puzzle delivered')
+    await triggerOnboardingIfDue(user.id, user.provider_id)
   }
 }
 
