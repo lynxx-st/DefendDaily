@@ -6,6 +6,7 @@ import { calcPoints } from '../../../services/puzzleEngine'
 import { checkAndGrantAchievements } from '../../../services/achievementEngine'
 import { maybeGrantFreezeToken } from '../../../services/streakService'
 import { updateLeitnerBox } from '../../../services/spacedRepetition'
+import { updateEloRatings } from '../../../services/eloCalibration'
 import { logger } from '../../../config/logger'
 
 type DeliveryRow = {
@@ -81,6 +82,7 @@ slackApp.action('puzzle_answer', async ({ action, ack, respond, client }) => {
 
   const grantedFreeze = await maybeGrantFreezeToken(delivery.user_id, newStreak)
   await updateLeitnerBox(delivery.user_id, delivery.puzzle_id, isCorrect)
+  await updateEloRatings(delivery.user_id, delivery.puzzle_id, isCorrect)
 
   const resultText = isCorrect
     ? `✅ *Correct!* You earned *${points} points*.\n\n💡 ${delivery.explanation}`

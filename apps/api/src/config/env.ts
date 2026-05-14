@@ -21,6 +21,7 @@ const envSchema = z.object({
   TEAMS_APP_ID: z.string().optional(),
   TEAMS_APP_PASSWORD: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
+  DEEPL_API_KEY: z.string().optional(),
   TEXTBELT_API_URL: z.string().url().default('https://textbelt.com'),
   TEXTBELT_API_KEY: z.string().default('textbelt'),
   // SMTP — used for both phish simulations and transactional email (breach monitor, family alerts)

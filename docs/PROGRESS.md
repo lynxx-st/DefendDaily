@@ -6,9 +6,9 @@
 > Commit PROGRESS.md after every step so sessions are always resumable.
 
 ## Last Completed
-- **Phase:** 7 — Bot & Engagement Upgrades
-- **Step:** 8.03 — Spaced repetition (Leitner box)
-- **File:** `puzzleGenerator/generate.ts`, `qualityCheck.ts`, `prompts/`, `010_spaced_repetition.sql`, `spacedRepetition.ts`, `answerHandler.ts` + `dailyPuzzle.ts` (updated)
+- **Phase:** 8 — Question Quality & Content Intelligence
+- **Step:** 8.20 — Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
+- **File:** `cisaKevSync.ts`, `eloCalibration.ts`, `abTesting.ts`, `puzzleAnalytics.ts`, `weaknessMap.ts`, `puzzleRetirement.ts`, `suggestPuzzle.ts`, `translation.ts`, `puzzles/page.tsx`, `PuzzleStudio.tsx`, `BlockKitPreview.tsx`, `puzzles/effectiveness/page.tsx`, `bulkGeneratePuzzles.ts`, `spacedRepetition.test.ts`, `eloCalibration.test.ts`
 - **Date:** 2026-05-14
 
 ## Overall Phase Status
@@ -19,7 +19,7 @@
 - [x] Phase 5: SentryLife & Family Mode (12 steps)
 - [x] Phase 6: UI/UX & Design System Overhaul (20 steps)
 - [x] Phase 7: Bot & Engagement Upgrades (22 steps)
-- [ ] Phase 8: Question Quality & Content Intelligence (20 steps)
+- [x] Phase 8: Question Quality & Content Intelligence (20 steps)
 - [ ] Phase 9: Analytics, Gamification & Platform (24 steps)
 - [ ] Phase 10: Enterprise & IdP Automation (10 steps)
 
@@ -153,23 +153,23 @@
 - [x] 8.01 Claude API integration for AI puzzle generation (claude-sonnet-4-6)
 - [x] 8.02 Puzzle quality scoring pipeline (auto-reject low quality)
 - [x] 8.03 Spaced repetition algorithm (Leitner box scheduler)
-- [ ] 8.04 CISA KEV feed integration (weekly pull, industry-matched CVE puzzles)
-- [ ] 8.05 Deepfake & AI social engineering puzzle category
-- [ ] 8.06 Physical security puzzle category (tailgating, badge cloning)
-- [ ] 8.07 Supply chain attack puzzle category (malicious packages, fake updates)
-- [ ] 8.08 Elo-style puzzle difficulty calibration
-- [ ] 8.09 A/B testing framework for puzzle variants
-- [ ] 8.10 Puzzle engagement analytics (skip rate, time-to-answer heatmap)
-- [ ] 8.11 AI-generated rich explanations (150-word, red-flag callouts)
-- [ ] 8.12 Admin puzzle studio (create/edit/preview in dashboard)
-- [ ] 8.13 Community puzzle submissions (/suggest-puzzle command + approval queue)
-- [ ] 8.14 MITRE ATT&CK tag taxonomy (tag puzzles, show user weakness map)
-- [ ] 8.15 Puzzle retirement system (auto-retire > 95% accuracy after 100 responses)
-- [ ] 8.16 DeepL API translation pipeline (ES/FR/DE)
-- [ ] 8.17 AI-assisted phishing screenshot generation for Spot the Phish puzzles
-- [ ] 8.18 500+ puzzle bank expansion (AI-assisted, human-reviewed)
-- [ ] 8.19 Puzzle effectiveness dashboard (admin view: accuracy, skip, engagement per puzzle)
-- [ ] 8.20 Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
+- [x] 8.04 CISA KEV feed integration (weekly pull, industry-matched CVE puzzles)
+- [x] 8.05 Deepfake & AI social engineering puzzle category
+- [x] 8.06 Physical security puzzle category (tailgating, badge cloning)
+- [x] 8.07 Supply chain attack puzzle category (malicious packages, fake updates)
+- [x] 8.08 Elo-style puzzle difficulty calibration
+- [x] 8.09 A/B testing framework for puzzle variants
+- [x] 8.10 Puzzle engagement analytics (skip rate, time-to-answer heatmap)
+- [x] 8.11 AI-generated rich explanations (150-word, red-flag callouts)
+- [x] 8.12 Admin puzzle studio (create/edit/preview in dashboard)
+- [x] 8.13 Community puzzle submissions (/suggest-puzzle command + approval queue)
+- [x] 8.14 MITRE ATT&CK tag taxonomy (tag puzzles, show user weakness map)
+- [x] 8.15 Puzzle retirement system (auto-retire > 95% accuracy after 100 responses)
+- [x] 8.16 DeepL API translation pipeline (ES/FR/DE)
+- [x] 8.17 AI-assisted phishing screenshot generation for Spot the Phish puzzles
+- [x] 8.18 500+ puzzle bank expansion (AI-assisted, human-reviewed)
+- [x] 8.19 Puzzle effectiveness dashboard (admin view: accuracy, skip, engagement per puzzle)
+- [x] 8.20 Phase 8 tests (spaced repetition, Elo calibration, A/B determinism)
 
 ### Phase 9 — Analytics, Gamification & Platform
 - [ ] 9.01 Cohort analysis dashboard (new hire vs 30/90-day vs veteran)
